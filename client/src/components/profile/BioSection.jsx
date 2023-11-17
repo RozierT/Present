@@ -39,7 +39,7 @@ const sayHi = () => {
         return (
           <div className="container ">
            
-            <div className="flex columns-2 space-x-2 bg-gray-100 rounded px-4">
+            <div className="flex columns-2 space-x-2  rounded px-4">
               {/* left column */}
               <div className=" w-2/6 space-y-3"> {/* Set the left column to take 2/3 of the width */}
                 {/* profile picture */}
@@ -58,7 +58,7 @@ const sayHi = () => {
                 {/* title */}
                 <h2 className="text-xl font-bold">{profile.userName}</h2>
                 {/* description */}
-                <div className="text-gray-700 text-sm  ">
+                <div className="text-sm  ">
                     
                     
                     <StrictTxtContainer maxHeight={'40px'} maxWidth={'300px'} textSrc={profile.bio} />

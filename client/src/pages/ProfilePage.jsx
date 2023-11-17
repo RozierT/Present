@@ -7,8 +7,9 @@ import BioSection from "../components/profile/BioSection";
 
 const ProfilePage = () => {
     return (
-        <div>
+        <div className="bg-bkg text-content">
         <BioSection />
+        <button>hi</button>
         </div>
     );
     }
