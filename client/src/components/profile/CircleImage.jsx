@@ -15,8 +15,8 @@ const CircleImage = ({ imageSrc, size, linked, linkUrl }) => {
           <a href={linkUrl}>
             <img
               src={imageSrc}
-              className={`${imageSize}`}
-              style={{ borderRadius: "50%", backgroundColor:'white', border:'1px solid pink ' }}
+              className={`${imageSize} border-2 border-content`}
+              style={{ borderRadius: "50%"}}
               alt="Profile"
             />
           </a>
@@ -24,7 +24,7 @@ const CircleImage = ({ imageSrc, size, linked, linkUrl }) => {
           <img 
             src={imageSrc}
             className={`${imageSize}`}
-            style={{ borderRadius: "50%", backgroundColor:'white', border:'1px solid pink ' }}
+            style={{ borderRadius: "50%" }}
             alt="Profile"
           />
         )}

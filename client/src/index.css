@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-bkg: #f4e8f3;
+    --color-bkg2: #f4e8f3;
+
+    --color-content: #362d2c;
+    
+    --color-accent1: #f3e5e4;
+    --color-accent2: #d7cfcf;
+
+    --color-btn: #aa7dda;
+    --color-btn-active: #8471a0;
+
+    --color-emptyBtn: #aa7dda00;
+    --color-emptyBtn-active: #8573a1;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-bkg: #1b1a3b;
+      --color-bkg2: #4a3a5e;
+  
+      --color-content: #dedede;
+      
+      --color-accent1: #6b6387;
+      --color-accent2: #86a4bf;
+  
+      --color-btn: #aa7dda;
+      --color-btn-active: #8471a0;
+  
+      --color-emptyBtn: #aa7dda00;
+      --color-emptyBtn-active: #8573a1;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --color-bkg: #1b1a3b;
+    --color-bkg2: #4a3a5e;
+
+    --color-content: #dedede;
+    
+    --color-accent1: #6b6387;
+    --color-accent2: #86a4bf;
+
+    --color-btn: #aa7dda;
+    --color-btn-active: #8471a0;
+
+    --color-emptyBtn: #aa7dda00;
+    --color-emptyBtn-active: #8573a1;
+  }
+
+  :root[data-theme="light"] {
+    --color-bkg: #f4e8f3;
+    --color-bkg2: #f4e8f3;
+
+    --color-content: #362d2c;
+    
+    --color-accent1: #f3e5e4;
+    --color-accent2: #d7cfcf;
+
+    --color-btn: #aa7dda;
+    --color-btn-active: #8471a0;
+
+    --color-emptyBtn: #aa7dda00;
+    --color-emptyBtn-active: #8573a1;
+  }
+}
+
+
