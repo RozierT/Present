@@ -6,6 +6,13 @@ const postSchema = new Schema({
         type: Date,
         default: Date.now,
     },
+    pictureURL: {
+        type: String,
+    },
+    caption: {
+        type: String,
+        maxlength: 280
+    },
     createdBy: {
         type: String,
         required: true,
