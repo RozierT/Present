@@ -19,10 +19,20 @@ const userSchema = new Schema({
     required: true,
     minlength: 8,
   },
-  thoughts: [
+  friends: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'Thought',
+      ref: 'User',
+    },
+  ],
+  currentAlbum: {
+    type: Schema.Types.ObjectId,
+    ref: 'Album',
+  },
+  scrapbook: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Album',
     },
   ],
 });
@@ -42,6 +52,6 @@ userSchema.methods.isCorrectPassword = async function (password) {
   return bcrypt.compare(password, this.password);
 };
 
-const User = model('User', userSchema);
+const User = model('user', userSchema);
 
 module.exports = User;
