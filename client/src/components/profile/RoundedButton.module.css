@@ -1,0 +1,21 @@
+.empty{
+    background-color: transparent;
+    border: 1px solid black;
+}
+
+
+
+.empty:active{
+    background-color: #9a9a9a;
+}
+
+.filled{
+    background-color: rgb(165, 109, 165);
+    border: 1px solid black;
+}
+
+
+.filled:active{
+    background-color: #3c3c3c;
+}
+

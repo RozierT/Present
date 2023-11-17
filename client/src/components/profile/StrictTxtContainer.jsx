@@ -30,7 +30,8 @@ const StrictTxtContainer = ({ maxHeight, maxWidth, textSrc, }) => {
       
 console.log(isOverflowing)
     return (
-       <> <div
+       <> 
+       <div
         className="overflow-hidden"
         style={{ maxHeight: maxHeight, maxWidth: maxWidth }}
         ref={outerRef}

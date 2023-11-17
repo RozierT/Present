@@ -2,10 +2,11 @@
 import placeholdIcon from "../../assets/images/placeholdIcon.png";
 import CircleImage from "./CircleImage";
 import StrictTxtContainer from "./StrictTxtContainer";
+import RoundedButton from "./RoundedButton";
 
 const testProfile = {
     userName: "JohnIsCool",
-    bio: ' Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus id distinctio odit hic! Repellendus saepe pariatur laudantium ipsum nemo officiis eos quae sit, suscipit, nostrum, id rem accusantium modi iure iusto hic?',
+    bio: ' Lorem ipsum dolor sit amet consectetur adipisicing elitwww. Minus id distinctio odit hic! Repellendus saepe pariatur laudantium ipsum nemo officiis eos quae sit, suscipit, nostrum, id rem accusantium modi iure iusto hic?',
     links: [
         {
             name: "Instagram",
@@ -30,6 +31,11 @@ const testProfile = {
 
 
     function BioSection({ profile = testProfile }) {
+
+const sayHi = () => {
+    console.log('hi')
+}
+
         return (
           <div className="container ">
            
@@ -52,20 +58,18 @@ const testProfile = {
                 {/* title */}
                 <h2 className="text-xl font-bold">{profile.userName}</h2>
                 {/* description */}
-                <p className="text-gray-700 text-sm  ">
+                <div className="text-gray-700 text-sm  ">
                     
                     
                     <StrictTxtContainer maxHeight={'40px'} maxWidth={'300px'} textSrc={profile.bio} />
                     
-                </p>
+                </div>
                 </div>
                 {/* follow button */}  
 
 {/* TODO make a button component with sizes small medium and large and make the one on this page be medium and make it so the button takes in an action and content */}
-                <div className="flex justify-start pb-1">
-                  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded-full w-[10rem]">
-                    Follow
-                  </button>
+                <div className="flex justify-start p-1 ">
+              <RoundedButton size={"full"} shape={"circle"} content={"Follow"} action={sayHi} type={"filled"}/>
               </div>
 
 
