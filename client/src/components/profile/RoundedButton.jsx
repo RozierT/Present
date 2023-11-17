@@ -13,7 +13,7 @@ const RoundedButton = ({ size, type, content, action, shape }) => {
     let buttonType = "";
   
     type === "empty"
-      ? (buttonType = ``)
+      ? (buttonType = `bg-emptyBtn-1 active:bg-emptyBtn-2 border-content border-2`)
       : (buttonType = ``);
   
     return (
