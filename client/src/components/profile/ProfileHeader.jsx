@@ -100,7 +100,7 @@ const ProfileHeader = () => {
 
 
     return (
-        <div className="border-black border-t-4 border-b-4">
+        <div>
         <BioSection profile={testProfile}/>
         <IconBand data={testProfile.latestPosts} amount={7} />
         </div>

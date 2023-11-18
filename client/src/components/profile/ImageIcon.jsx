@@ -1,5 +1,5 @@
 //TODO make a profile picture component that takes in props for image, size, linked boolean and link url
-const ImageIcon = ({ imageSrc, size, linked, linkUrl, shape, bordered }) => {
+const ImageIcon = ({ imageSrc, size, linked, linkUrl, shape, bordered, actionable, action}) => {
     let imageSize = 
     size === "xSmall"
       ?  "w-6 h-6"
@@ -32,13 +32,24 @@ const ImageIcon = ({ imageSrc, size, linked, linkUrl, shape, bordered }) => {
               alt="Profile"
             />
           </a>
-        ) : (
+        ) : 
+        actionable ?  (
+          <img 
+            onClick={action}
+            src={imageSrc}
+            className={`${imageSize} ${imageShape} ${border}`}
+            alt="Profile"
+          />
+        )
+        :
+        (
           <img 
             src={imageSrc}
             className={`${imageSize} ${imageShape} ${border}`}
             alt="Profile"
           />
-        )}
+        )
+      }
       </div>
     );
   };
