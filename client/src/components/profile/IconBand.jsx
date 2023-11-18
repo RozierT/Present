@@ -27,8 +27,10 @@ const refsArray = [refzero, refOne, refTwo, refThree, refFour, refFive, refSix];
     <>
       <div className="border-bkg-1 border-b-4 border-t-4">
         <div className="flex">
-          {data.map((item, index) => (
+          {data.slice(0, 7).map((item, index) => (
+            item.shouldRenderImg ?
             <div key={index} className="flex-1 p-0">
+                
               <ImageIcon
                 size="fill"
                 bordered={true}
@@ -38,13 +40,14 @@ const refsArray = [refzero, refOne, refTwo, refThree, refFour, refFive, refSix];
                 linked={false}
                 actionable={true}
                 action={() => handleClick(index)}
-              />
-            </div>
+              /> 
+            </div>:  <div key={index} className="flex-1 p-0"> </div>
           ))}
         </div>
       </div>
       <div>
-        {data.map((item, index) => (
+        {data.slice(0, 7).map((item, index) => (
+            item.shouldRenderImg ?
           <div key={index} ref={refsArray[index]} className="flex-1 p-0 pb-4">
             <ImageIcon
               size="fill"
@@ -63,7 +66,7 @@ const refsArray = [refzero, refOne, refTwo, refThree, refFour, refFive, refSix];
                 <p>{item.description}</p>
               </div>
             </div>
-          </div>
+          </div> : null
         ))}
       </div>
     </>
