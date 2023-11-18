@@ -2,13 +2,13 @@
 
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import BioSection from "../components/profile/BioSection";
+import ProfileHeader from "../components/profile/ProfileHeader";
 
 
 const ProfilePage = () => {
     return (
         <div className="bg-bkg-1 text-content">
-        <BioSection />
+        <ProfileHeader />
         </div>
     );
     }
