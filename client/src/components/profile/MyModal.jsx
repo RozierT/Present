@@ -19,7 +19,7 @@ const MyModal = ({modalOpener, modalContent, closeModalButton}) => {
 
       {isOpen && (
         <div className="fixed inset-0 pl-3 pr-3 flex items-center justify-center bg-gray-600 bg-opacity-50" onClick={closeModal} >
-          <div className="bg-white p-4 rounded-md shadow-lg">
+          <div className="bg-bkg-1  ml-4 mr-4 p-8 rounded-md text-content  shadow-lg">
          {modalContent}
          {closeModalButton ? <button onClick={closeModal}>Close</button> : null}
           </div>
