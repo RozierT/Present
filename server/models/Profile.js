@@ -11,7 +11,7 @@ const profileSchema = new Schema({
         type: String,
         maxLength: 280,
     },
-    profilePicture: {
+    profileImage: {
         type: String,
         default: 'https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg'
     },
@@ -22,3 +22,7 @@ const profileSchema = new Schema({
         maxlength: 3
     }
 })
+
+const Profile = model('profile', profileSchema)
+
+module.exports = Profile

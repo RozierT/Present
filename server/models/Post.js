@@ -5,11 +5,12 @@ const postSchema = new Schema({
     dateCreated: {
         type: Date,
         default: Date.now,
+        get: (timestamp) => dateFormat(timestamp)
     },
     pictureURL: {
         type: String,
     },
-    caption: {
+    text: {
         type: String,
         maxlength: 280
     },
@@ -21,32 +22,22 @@ const postSchema = new Schema({
     likes: {
         type: Number
     },
-    tags: [
+    flairs: [
         {
             type: String,
             trim: true,
         }
     ],
-    comments: [
-        {
-            commentText: {
-                type: String,
-                required: true,
-                minlength: 1,
-                maxlength: 280,
-            },
-            commentAuthor: {
-                type: String,
-                required: true,
-                trim: true,
-            },
-            createdAt: {
-                type: Date,
-                default: Date.now,
-                get: (timestamp) => dateFormat(timestamp),
-            },
-        }
-    ]
+    // add 'commentable' bool somewhere
+    comments: {
+        type: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'Comment',
+            }
+        ]
+    }
+
 });
 
 const Post = model('post', postSchema)
