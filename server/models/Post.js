@@ -53,6 +53,9 @@ const postSchema = new Schema({
     },
 );
 
+// virtual 
+
+// return # of comments
 postSchema.virtual('commentCount').get(function () {
     return this.comments.length
 })
