@@ -1,7 +1,7 @@
 const { Schema, model } = require('mongoose')
 
 const profileSchema = new Schema({
-    username: {
+    userName: {
         type: String,
         required: true,
         unique: true,
@@ -16,9 +16,26 @@ const profileSchema = new Schema({
         default: 'https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg'
     },
     links: {
-        type: [{
-            type: String
-        }],
+        type: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'link'
+            }
+        ],
         maxlength: 3
-    }
+    },
+    userId: {
+        type: Schema.Types.ObjectId,
+        ref: 'user'
+    },
+    latestPosts: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'post'
+        }
+    ]
 })
+
+const Profile = model('profile', profileSchema)
+
+module.exports = Profile
