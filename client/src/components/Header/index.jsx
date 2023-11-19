@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { ImageIcon } from '../profile/ImageIcon';
+import ToggleSwitch from './toggle';
 
 function Header() {
  const [isToggled, setToggle] = useState(false);
@@ -23,6 +24,7 @@ function Header() {
        labelRight="Public"
      />
      {/* TODO Add notification component to insert here */}
+
    </div>
  );
 }
