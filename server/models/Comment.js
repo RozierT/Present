@@ -9,7 +9,9 @@ const commentSchema = new Schema({
         type: String,
         maxlength: 280
     },
-    // add 'commentable' bool somewhere
+    commentable: {
+        type: Boolean
+    },
     reply: {
         type: Schema.Types.ObjectId,
         ref: 'Comment',

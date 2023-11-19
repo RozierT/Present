@@ -2,43 +2,62 @@ const { Schema, model } = require('mongoose');
 const dateFormat = require('../utils/dateFormat');
 
 const postSchema = new Schema({
-    dateCreated: {
-        type: Date,
-        default: Date.now,
-        get: (timestamp) => dateFormat(timestamp)
-    },
-    pictureURL: {
-        type: String,
-    },
-    text: {
-        type: String,
-        maxlength: 280
-    },
-    createdBy: {
-        type: String,
-        required: true,
-        trim: true,
-    },
-    likes: {
-        type: Number
-    },
-    flairs: [
-        {
+        dateCreated: {
+            type: Date,
+            default: Date.now,
+            get: (timestamp) => dateFormat(timestamp)
+        },
+        imageSrc: {
             type: String,
-            trim: true,
-        }
-    ],
-    // add 'commentable' bool somewhere
-    comments: {
-        type: [
+        },
+        title: {
+            type: String,
+            maxlength: 280
+        },
+        description: {
+            type: String,
+            maxlength: 280
+        },
+        likes: {
+            type: Number
+        },
+        flairs: [
             {
-                type: Schema.Types.ObjectId,
-                ref: 'Comment',
+                type: String,
+                trim: true,
             }
-        ]
-    }
+        ],
+        commentable: {
+            type: Boolean,
+            default: true
+        },
+        comments: {
+            type: [
+                {
+                    type: Schema.Types.ObjectId,
+                    ref: 'Comment',
+                }
+            ]
+        },
+        shouldRendering: {
+            type: Boolean,
+            default: true
+        }
+    },
+    {
+        toJSON: {
+            virtuals: true,
+            getters: true
+        },
+        id: false
+    },
+);
 
-});
+postSchema.virtual('commentCount').get(function () {
+    return this.comments.length
+})
+
+
 
 const Post = model('post', postSchema)
 

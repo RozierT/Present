@@ -4,39 +4,49 @@ const bcrypt = require('bcrypt');
 const postSchema = require('./Post')
 
 const userSchema = new Schema({
-  firstName: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-  lastName: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-    match: [/.+@.+\..+/, 'Must match an email address!'],
-  },
-  password: {
-    type: String,
-    required: true,
-    minlength: 8,
-  },
-  friends: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'User',
+    firstName: {
+      type: String,
+      required: true,
+      trim: true,
     },
-  ],
-  currentAlbum: {
-    type: Schema.Types.ObjectId,
-    ref: 'Album',
+    lastName: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      match: [/.+@.+\..+/, 'Must match an email address!'],
+    },
+    password: {
+      type: String,
+      required: true,
+      minlength: 8,
+    },
+    friends: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'user',
+      },
+    ],
+    scrapbook: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'post',
+      }
+    ],
   },
-  scrapbook: [postSchema],
-});
+  {
+    toJSON: {
+        virtuals: true,
+    },
+    id: false
+  }
+);
+
+// auth/login middleware
 
 // set up pre-save middleware to create password
 userSchema.pre('save', async function (next) {
@@ -52,6 +62,18 @@ userSchema.pre('save', async function (next) {
 userSchema.methods.isCorrectPassword = async function (password) {
   return bcrypt.compare(password, this.password);
 };
+
+// virtuals
+
+// return # of friends
+userSchema.virtual('friendCount').get(function () {
+  return this.friends.length
+})
+
+// reture # of lifetime posts
+userSchema.virtual('lifetimePosts').get(function () {
+  return this.scrapbook.length
+})
 
 const User = model('user', userSchema);
 
