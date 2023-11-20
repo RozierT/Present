@@ -16,10 +16,10 @@ const router = createBrowserRouter([
         index: true,
         element: <ProfilePage />
       }, 
-      {
-        path: 'feed',
-        element: <Feed />,
-      },
+      // {
+      //   path: 'feed',
+      //   element: <Feed />,
+      // },
       {
         path: 'settings',
         element: <Settings />,

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Toggle from './Toggle';
 
 class Settings extends Component {
  constructor(props) {
@@ -24,27 +25,52 @@ class Settings extends Component {
 
  render() {
    const { settings } = this.state;
+   
    return (
-     <div>
-       <h1>Settings</h1>
+     <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      height: '100vh'
+     }}>
+       <h1 className='font-bold'>Settings</h1>
+       <br></br>
        <form>
          <label>
            Theme:
-           <select name="theme" value={settings.theme} onChange={this.handleChange}>
-             <option value="light">Light</option>
-             <option value="dark">Dark</option>
-           </select>
+           <Toggle 
+           labelLeft={' Dark '}
+            labelRight={' Light '}
+            value={settings.theme}
+            onChange={this.handleChange}
+            name="theme"
+            checked={settings.theme === 'light'}
+           />
          </label>
+         <br></br>
          <label>
            Notifications:
-           <input type="checkbox" name="notifications" checked={settings.notifications} onChange={this.handleChange} />
+           <Toggle 
+           labelLeft={' On '}
+            labelRight={' Off '}
+            value={settings.notifications}
+            onChange={this.handleChange}
+            name="notifications"
+            checked={settings.notifications === 'Off'}
+           />
          </label>
+         <br></br>
          <label>
            Visibility:
-           <select name="visibility" value={settings.visibility} onChange={this.handleChange}>
-             <option value="private">Private</option>
-             <option value="public">Public</option>
-           </select>
+           <Toggle 
+           labelLeft={' Public '}
+            labelRight={' Private '}
+            value={settings.visibility}
+            onChange={this.handleChange}
+            name="visibility"
+            checked={settings.visibility === 'private'}
+           />
          </label>
        </form>
      </div>
