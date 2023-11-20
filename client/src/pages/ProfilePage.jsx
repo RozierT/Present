@@ -1,4 +1,8 @@
 import ProfileHeader from "../components/profile/ProfileHeader";
+import Header from "../components/Header";
+// import React from "react";
+// import { useState } from "react";
+import Footer from "../components/Footer";
 
 // ~~~~~~~~~~~Test Data~~~~~~~~~~~~~~
 import placeholdIcon from "../assets/images/placeholdIcon.png";
@@ -116,7 +120,12 @@ const ProfilePage = () => {
 //logic to get feed of users profile
     return (
         <div className="bg-bkg-1 text-content">
+            <Header/>
+            <br></br>
+            <br></br>
         <ProfileHeader profile={testProfile} />
+        <br></br>
+        <Footer/>
         </div>
     );
     }
