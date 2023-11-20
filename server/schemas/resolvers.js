@@ -1,4 +1,4 @@
-const { User, Post, Album, Profile } = require("../models");
+const { User, Post, Comment, Profile, Link } = require("../models");
 const resolvers = {
   Query: {
     users: async () => {
@@ -13,17 +13,23 @@ const resolvers = {
     post: async (parent, { postId }) => {
       return Post.findOne({ _id: postId });
     },
-    albums: async () => {
-      return Album.find();
+    comments: async () => {
+      return Comment.find();
     },
-    album: async (parent, { albumId }) => {
-      return Album.findOne({ _id: albumId });
+    comment: async (parent, { commentId }) => {
+      return Comment.findOne({ _id: commentId });
     },
     profiles: async () => {
       return Profile.find();
     },
     profile: async (parent, { profileId }) => {
       return Profile.findOne({ _id: profileId });
+    },
+    links: async () => {
+      return Link.find();
+    },
+    link: async (parent, { linkId }) => {
+      return Link.findOne({ _id: linkId });
     },
   },
   Mutation: {
@@ -43,12 +49,12 @@ const resolvers = {
       return post;
     },
   },
-  addAlbum: async (parent, args) => {
-    const album = await Album.create(args);
-    return album;
+  addComment: async (parent, args) => {
+    const comment = await Comment.create(args);
+    return comment;
   },
-  updateAlbum: async (parent, args) => {
-    return Album.findOneAndUpdate(
+  updateComment: async (parent, args) => {
+    return Comment.findOneAndUpdate(
       { _id: args._id },
       { $set: args },
       { new: true }
@@ -65,17 +71,31 @@ const resolvers = {
       { new: true }
     );
   },
+  addLink: async (parent, args) => {
+    const link = await Link.create(args);
+    return link;
+  },
+  updateLink: async (parent, args) => {
+    return Link.findOneAndUpdate(
+      { _id: args._id },
+      { $set: args },
+      { new: true }
+    );
+  },
   deleteUser: async (parent, { userId }) => {
     return User.findOneAndDelete({ _id: userId });
   },
   deletePost: async (parent, { postId }) => {
     return Post.findOneAndDelete({ _id: postId });
   },
-  deleteAlbum: async (parent, { albumId }) => {
-    return Album.findOneAndDelete({ _id: albumId });
+  deleteComment: async (parent, { commentId }) => {
+    return Comment.findOneAndDelete({ _id: commentId });
   },
   deleteProfile: async (parent, { profileId }) => {
     return Profile.findOneAndDelete({ _id: profileId });
+  },
+  deleteLink: async (parent, { linkId }) => {
+    return Link.findOneAndDelete({ _id: linkId });
   },
 };
 
