@@ -1,5 +1,5 @@
 import React from "react";
-import { buttons } from "./bottomNav";
+import { buttons, buttons2 } from "./bottomNav";
 
 const Footer = () => {
   return (

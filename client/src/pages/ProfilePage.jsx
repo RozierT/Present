@@ -1,6 +1,5 @@
 import ProfileHeader from "../components/profile/ProfileHeader";
 
-
 // ~~~~~~~~~~~Test Data~~~~~~~~~~~~~~
 import placeholdIcon from "../assets/images/placeholdIcon.png";
 const testProfile = {
