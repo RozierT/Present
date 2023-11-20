@@ -1,9 +1,7 @@
 import React, { useRef } from 'react';
 import { useState } from 'react';
 import { IconContext, House, Bell } from "@phosphor-icons/react";
-//TODO import profile image and display in header
 //TODO import notification component and display in header
-// import { ImageIcon } from '../profile/ImageIcon';
 import ToggleSwitch from './toggle';
 
 function Header() {
@@ -22,25 +20,10 @@ function Header() {
                 weight: "bold",
                 mirrored: false,
               }}
-            ><House />
-     {/* <ImageIcon
-                size="fill"
-                bordered={true}
-                shape="circle"
-                imageSrc={item.imageSrc}
-                alt=""
-                linked={false}
-                actionable={true}
-                action={() => handleClick(index)}
-              />  */}
-     <ToggleSwitch
-       isToggled={isToggled}
-       onToggle={handleToggle}
-       labelLeft="Friends"
-       labelRight="Public"
-     />
+            ><a href='/'><House /></a>
+     <span className='font-bold text-black'>Admin</span>
      {/* TODO Add notification component to insert here */}
-     <Bell /></IconContext.Provider>
+     <a href='/notifications'><Bell /></a></IconContext.Provider>
    </header>
  );
 }
