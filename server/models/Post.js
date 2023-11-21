@@ -7,6 +7,10 @@ const postSchema = new Schema({
             default: Date.now,
             get: (timestamp) => dateFormat(timestamp)
         },
+        userId: {
+            type: Schema.Types.ObjectId,
+            ref: 'user'
+        },
         imageSrc: {
             type: String,
         },

@@ -1,6 +1,10 @@
 const { Schema, model } = require('mongoose')
 
 const commentSchema = new Schema({
+    userId: {
+        type: Schema.Types.ObjectId,
+        ref: 'user'
+    },
     dateCreated: {
         type: Date,
         default: Date.now,

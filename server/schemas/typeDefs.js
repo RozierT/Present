@@ -5,33 +5,47 @@ const typeDefs = gql`
     lastName: String!
     email: String!
     friends: [User]
-    currentAlbum: Album
     scrapbook: [Post]
   }
 
   type Profile {
     _id: ID
     username: String!
+    userId: String
     bio: String
     profilePicture: String
-    links: [String]
+    links: [Link]
+    latestPosts: [Post]
   }
 
   type Post {
     _id: ID
-    dateCreated: String!
-    pictureURL: String
-    caption: String
-    createdBy: String!
+    userId: ID
+    dateCreated: String
+    imageSrc: String
+    title: String
+    description: String
     likes: Int
-    tags: [String]
+    flairs: [String]
+    commentable: Boolean
     comments: [Comment]
+    shouldRendering: Boolean
   }
 
   type Comment {
-    commentText: String!
-    commentAuthor: String!
-    createdAt: String!
+    _id: ID
+    userId: ID
+    dateCreated: String
+    text: String!
+    commentable: Boolean
+    reply: Comment
+  }
+
+  type Link {
+    _id: ID
+    name: String!
+    url: String!
+    imageSrc: String!
   }
 
   type Auth {
@@ -41,11 +55,16 @@ const typeDefs = gql`
 
 
   type Query {
-
+    user(_id: ID!): Profile
+    friends(_id: ID!): [User]
+    scrapbook(_id: ID!): [Post]
+    post(_id: ID!): Post
+    postByflair(flair: String!): [Post]
+    postByLikes: [Post]
   }
 
   type Mutation {
-
+    login(email: String!, password: String!): Auth
   }
 `;
 
