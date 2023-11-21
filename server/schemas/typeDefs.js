@@ -1,25 +1,51 @@
-const typeDefs = `
-  type Tech {
-    _id: ID!
-    name: String!
+const typeDefs = gql`
+  type User {
+    _id: ID
+    firstName: String!
+    lastName: String!
+    email: String!
+    friends: [User]
+    currentAlbum: Album
+    scrapbook: [Post]
   }
 
-  type Matchup {
-    _id: ID!
-    tech1: String!
-    tech2: String!
-    tech1_votes: Int
-    tech2_votes: Int
+  type Profile {
+    _id: ID
+    username: String!
+    bio: String
+    profilePicture: String
+    links: [String]
   }
+
+  type Post {
+    _id: ID
+    dateCreated: String!
+    pictureURL: String
+    caption: String
+    createdBy: String!
+    likes: Int
+    tags: [String]
+    comments: [Comment]
+  }
+
+  type Comment {
+    commentText: String!
+    commentAuthor: String!
+    createdAt: String!
+  }
+
+  type Auth {
+    token: ID!
+    user: User
+  }
+
 
   type Query {
-    tech: [Tech]
-    matchups(_id: String): [Matchup]
+
   }
 
   type Mutation {
-    createMatchup(tech1: String!, tech2: String!): Matchup
-    createVote(_id: String!, techNum: Int!): Matchup
+
   }
 `;
 
