@@ -1,7 +1,7 @@
 const RoundedButton = ({ size, type, content, action, shape }) => {
     let buttonSize =
       size === "xSmall"
-        ? "25px " // Square button
+        ? "50px " // Square button
         : size === "small"
         ? "75px" // 1/3 width
         : size === "medium"
@@ -13,8 +13,14 @@ const RoundedButton = ({ size, type, content, action, shape }) => {
     let buttonType = "";
   
     type === "empty"
-      ? (buttonType = `bg-emptyBtn-1 active:bg-emptyBtn-2 border-content border-2`)
-      : (buttonType = ``);
+      ? 
+      (buttonType = `bg-emptyBtn-1 active:bg-emptyBtn-2 border-transparent border-2`)
+      : 
+      type === "bordered" 
+      ? 
+      (buttonType = `bg-emptyBtn-1 active:bg-emptyBtn-2 border-accent-2 border-2`) 
+      :
+      (buttonType = `bg-content active:bg-content-2 border-bkg-2 border-2`);
   
     return (
       <a

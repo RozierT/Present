@@ -1,7 +1,7 @@
 //TODO make a row that spans the screen and has 7 columns that are even in size and hous an image that is used to correspond to an action when clicked
 import React, { useRef } from 'react';
 import ImageIcon from './ImageIcon';
-
+import Post from '../PostedContent/PostBody';
 const IconBand = ({ data }) => {
 
 const refzero = useRef(null);
@@ -48,22 +48,13 @@ const refsArray = [refzero, refOne, refTwo, refThree, refFour, refFive, refSix];
       <div>
         {data.slice(0, 7).map((item, index) => (
             item.shouldRenderImg ?
+            
           <div key={index} ref={refsArray[index]} className="flex-1 p-0 pb-4">
-            <ImageIcon
-              size="fill"
-              bordered={true}
-              shape="square"
-              imageSrc={item.imageSrc}
-              alt=""
-              linked={false}
-              actionable={false}
-            />
-            <div className="border-content border-l-2 border-r-2 border-b-2">
+            <Post/>
+         
+            <div className="mb-3">
               <div>
-                <p className="text-xl">{item.title}</p>
-              </div>
-              <div>
-                <p>{item.description}</p>
+               
               </div>
             </div>
           </div> : null
