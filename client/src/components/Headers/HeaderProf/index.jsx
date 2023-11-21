@@ -12,7 +12,7 @@ function Header() {
  };
 
  return (
-   <header className="fixed top-0 w-full bg-purple-500 flex justify-around items-center p-2">
+   <header className="fixed top-0 w-full bg-accent-2 flex justify-around items-center p-2">
     <IconContext.Provider
               value={{
                 color: "black",

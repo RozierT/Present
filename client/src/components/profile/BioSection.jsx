@@ -21,7 +21,7 @@ function BioSection({ profile }) {
         {/* Left column */}
         <div className="w-2/6 space-y-3"> {/* Set the left column to take 2/3 of the width */}
           {/* Profile picture */}
-          <ImageIcon size={"medium"} imageSrc={profile.profilePicture} shape={"circle"} bordered={true} linked={false} />
+          <ImageIcon size={"medium"} imageSrc={profile.profilePicture} shape={"circle"} bordered={true} linked={false}/>
           {/* Links */}
           <div className="flex margin-0 space-x-1 justify-center">
 

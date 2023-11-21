@@ -31,6 +31,7 @@ const SettingsList = [
   },
 ];
 
+
 class Settings extends Component {
   constructor(props) {
     super(props);
@@ -67,11 +68,14 @@ class Settings extends Component {
         }}
       >
         <h1 className="font-bold">Settings</h1>
-        <br></br>
-        <form>
+        <br>
+        </br>
+        <form className="w-full ">
           {SettingsList.map((setting) => (
-            <div>
-              {setting.label}
+            <div className="w-full justify-between flex border-b border-content pt-2 pb-2">
+             <div className="pl-4 w-1/2">
+              {setting.label}</div>
+              <div className="w-1/2 flex justify-center">
               <Toggle
                 key={setting.id}
                 label={setting.label}
@@ -81,8 +85,10 @@ class Settings extends Component {
                 onChange={this.handleChange}
                 name={setting.name}
                 checked={setting.checked}
-              />{"------------------------"}<br></br>
-            </div>
+              /></div>
+             
+            
+            </div> 
           ))}
         </form>
       </div>
