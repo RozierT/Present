@@ -23,14 +23,18 @@ const postSchema = new Schema({
             maxlength: 280
         },
         likes: {
-            type: Number
+            type: Number,
+            min: 0
         },
-        flairs: [
-            {
-                type: String,
-                trim: true,
-            }
-        ],
+        flairs: {
+            type: [
+                {
+                    type: String,
+                    trim: true,
+                }
+            ],
+            maxlength: 3
+        },
         commentable: {
             type: Boolean,
             default: true
@@ -46,6 +50,9 @@ const postSchema = new Schema({
         shouldRendering: {
             type: Boolean,
             default: true
+        },
+        recencyScore: {
+            type: Number
         }
     },
     {

@@ -1,4 +1,5 @@
 const { User, Post, Comment, Profile, Link } = require("../models");
+
 const resolvers = {
   Query: {
     user: async (parent, { userId }) => {
