@@ -4,11 +4,12 @@
 // ~~~~~~~~~~~~~~~~~~~~~~  TEST CODE BLOCK ~~~~~~~~~~~~~~~~~~~~~~~~
 
 // this represents the users preferences for the tags that they want to see on their feed
+
 let user = {
     tags: [
         {tag: "food", score: 100},
         {tag: "sports", score: 100},
-        {tag: "politics", score: 100},
+        {tag: "lifestyle", score: 100},
         {tag: "news", score: 100},
         {tag: "music", score: 100},
         {tag: "movies", score: 100},
@@ -196,7 +197,7 @@ function selectRandomTag(userArray) {
 
 let potentialActions = ["like", "comment", "share","like", "comment", "share", "dislike", 'scrolled by', 'scrolled by', 'scrolled by', 'scrolled by', 'scrolled by'];
 
-potentialActions =  ["dislike"]
+
 
 function getRandomTestAction(actions) {
     return actions[Math.floor(Math.random() * actions.length)];
@@ -531,7 +532,7 @@ const selectRecencyScore = () => {
         {recencyScore: "7", score: 200},
         {recencyScore: "6", score: 150},
         {recencyScore: "5", score: 125},
-        {recencyScore: "4", score: 100},
+        {recencyScore: "4", score: 80},
         {recencyScore: "3", score: 30},
         {recencyScore: "2", score: 12},
         {recencyScore: "1", score: 5},
