@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useState } from "react";
-// TODO: createimport { getComments, createComment, removeComment, updateEditedComment} ... need to make a helpers folder for these functions
+// TODO: createimport { getComments, createComment, removeComment, updateEditedComment} ... need to make a helpers file for our api calls to the server
 import Comment from "./Comment";
 import CommentForm from "./CommentForm";
 
@@ -10,6 +10,7 @@ const Comments = ({currentUserId}) => {
     const rootComments = backendComments.filter(backendComments.parentId === null);
     const getReplies = commentId => {
         return backendComments.filter(backendComment => 
+            // toString() may need to use this after parentId to be compatibile with mongoDB _id ???
             backendComment.parentId === commentId).sort((a, b) => new Date(a.dateCreated).getTime() - new Date(b.dateCreated).getTime()
         );
     };
