@@ -24,7 +24,7 @@ const RoundedButton = ({ size, type, content, action, shape }) => {
   
     return (
       <a
-        className={`flex justify-center  ${buttonSize} ${buttonShape} ${buttonType}`}
+        className={`flex justify-center ${buttonSize} ${buttonShape} ${buttonType}`}
         style={{ width: `${buttonSize}` }}
         onClick={action}
       >

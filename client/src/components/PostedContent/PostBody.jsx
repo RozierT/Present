@@ -16,18 +16,21 @@ type === 'post'?
 
 
   return (
-    <div className="max-w-screen-95 mx-auto bg-accent-1 shadow-md rounded-md overflow-hidden">
-        <PostHeader data={data}/>
+    <div className="max-w-screen-95 mx-auto bg-accent-1 shadow-md overflow-hidden">
+        <div className='bg-bkg-2'>
+        <PostHeader poster={data.poster} profilePicture={data.profilePicture} date={data.date}/>
+        </div>
       <div className="flex-1 p-0">
 
         {/* this shows the image and is only show if the showcontent boolean it true */}
-        {showContent &&<PostContent data={data}/>}
+        
+        {data.content && <PostContent tags={data.tags} content={data.content}/>}
 
         {/* this shows the interactions (like, dislike, share) and is only show if the showcontent boolean it true */}
-        {showContent && <InteractionBar userId={'test'} postId={data.postId} data={data}/>}
+        {data.content && <InteractionBar userId={'test'} postId={data.postId} data={data}/>}
 
         {/* this shows the text data of the post and will appear on every post type */}
-        <PostText data={data} type={type}/>
+        <PostText textContent={data.textContent} type={data.content ? "post":"comment"} comments={data.comments} postId={data.postId} profilePicture={data.profilePicture}/>
         
        
       </div>

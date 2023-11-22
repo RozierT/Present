@@ -6,8 +6,12 @@ import Post from "./PostBody";
 import React, { useRef } from 'react';
 import IconBand from "../profile/IconBand";
 
-const Feed = ({ feedToUse, data, type }) => {
+const Feed = ({ feedToUse, dataArray, type }) => {
 
+
+
+
+//~~~~~~~~~needed for icon band on profile page~~~~~~~~~
     const refzero = useRef(null);
     const refOne = useRef(null);
     const refTwo = useRef(null);
@@ -17,18 +21,30 @@ const Feed = ({ feedToUse, data, type }) => {
     const refSix = useRef(null);
     
     const refsArray = [refzero, refOne, refTwo, refThree, refFour, refFive, refSix];
+//~~~~~~~~~needed for icon band on profile page~~~~~~~~~
 
     return (
         <>
-{feedToUse === "profile" ? <IconBand data={data} refsArray={refsArray} /> : null}
 
-    <div>
-        {data.slice(0, 7).map((item, index) => (
-          <div key={index} ref={refsArray[index]} className="flex-1 p-0 pb-4">
+{feedToUse === "profile" ? <><IconBand dataArray={dataArray} refsArray={refsArray} /> 
+    <div className="m-4">
+        {dataArray.map((item, index) => (
+          <div key={index} ref={feedToUse === "profile" ? refsArray[index] : null} className="flex-1 p-0 pb-4">
             <Post data={item} type={type}/>
           </div> 
         ))}
     </div>
+</>
+:<>
+{dataArray.map((item, index) => (
+  <div key={index}  className="flex-1 p-0 ">
+    <Post data={item} type={type}/>
+  </div> 
+))}
+</>}
+
+
+
 </>
     )
 }

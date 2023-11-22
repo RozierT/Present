@@ -1,37 +1,61 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import MyButton from '../profile/MyButton';
+import { ChatText } from '@phosphor-icons/react';
+import PostHeader from './PostHeader';
+import ImageIcon from '../profile/ImageIcon';
+import placeHoldImage from "../../assets/images/placeholdIcon.png";
+import CommentPage from './CommentPage';
+import Post from './PostBody';
 
-import MyButton from '../profile/MyButton'
 
-const PostText = ({ data, type }) => {
-    let lowerButtonDescription;
-type === 'post' && data.comments.length > 0 ? 
-lowerButtonDescription = `see all comments ( ${data.comments.length} )` :
-type === 'comment' && data.comments.length > 0 ?
-lowerButtonDescription = `join the thread ( ${data.comments.length} )`:
-type === 'post'? 
-lowerButtonDescription = "add a comment" :
-type === 'comment'?
-lowerButtonDescription = "reply in thread":
 
-lowerButtonDescription = "dismiss";
 
+
+
+const PostText = ({ textContent, comments, type, postId, profilePicture }) => {
+console.log(type)
+const commentAction = () => {
+    console.log('comment page will open and display comments based the te postId, these will be displayed using a query in the feed component');
+    }
 const [showComments, setShowComments] = useState(false);
 
 const toggleComments = () => {
     setShowComments(!showComments);
-    console.log("show Comments", showComments);
-}
-    return (
-        <>
-        <div className="text-base pl-4 pt-2 pr-4 pb-4 bg-bkg-2 "> {data.textContent}</div>
-        
-        <div className="text-base pl-4 pt-2 pr-4 pb-4 bg-bkg-2 border-t-2 border-b-2 border-accent-2"> {data.comments[0]}</div>
-        
+    }
 
+  return (
+      <>   
+      <div className="text-base flex justify-between pl-4 pt-2 pr-4 pb-4 bg-bkg-2 ">
+            {textContent}
+      </div>
+          
+       { type === 'post'? <>
+          <div className='bg-bkg-2  w-full flex justify-center pt-4' >
+                <div className='w-[90%] p-2 border border-accent-2 mb-4 active:bg-bkg-1' style={{borderRadius:"32px"}} onClick={toggleComments}>
+                    <div className='flex justify-start'>
+                    <div className='pl-4'><h1>Comments</h1></div>  
+                    <div><p className="font-thin pl-2">
+                        {comments.length}</p></div>
+                    </div>
+                    <div className='flex justify-start mt-2 pt-1 pb-1' >
+
+                        <div className='pl-4' >
+                            <ImageIcon content={profilePicture} shape={"circle"} size={"xSmall"} bordered={true}/>
+                        </div>
+                        <div className='w-full pl-6 pr-4'>
+                            <MyButton shape={"circle"} type={"bordered"} content={"leave a comment"} size={"full"} action={commentAction}/>
+                        </div>
+                    </div>
+                </div>  
+                </div>
+{showComments && <div>
+       
+            <CommentPage postId={postId} tempPostDataArray={comments} />
+        </div>}
         
-        <MyButton  size={"full"} type={"bordered"} content={lowerButtonDescription} action={toggleComments} shape={"square"} />
-        </>
-    )
+         </>  : null}
+      </>
+  )
 }
 
-export default PostText
+export default PostText;

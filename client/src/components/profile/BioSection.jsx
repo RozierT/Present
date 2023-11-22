@@ -16,7 +16,7 @@ function BioSection({ profile }) {
   }
 
   return (
-    <div className="container ">
+    <div className="container bg-bkg-2">
       <div className="flex columns-2 space-x-2  rounded pt-2 pb-2">
         {/* Left column */}
         <div className="w-2/6 space-y-3"> {/* Set the left column to take 2/3 of the width */}

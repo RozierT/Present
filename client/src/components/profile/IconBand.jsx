@@ -2,7 +2,8 @@
 import React, { useRef } from 'react';
 import ImageIcon from './ImageIcon';
 import Post from '../PostedContent/PostBody';
-const IconBand = ({ data, refsArray }) => {
+
+const IconBand = ({ dataArray, refsArray }) => {
 
 
 
@@ -19,7 +20,7 @@ const IconBand = ({ data, refsArray }) => {
     <>
       <div className="border-bkg-1 border-b-4 border-t-4">
         <div className="flex">
-          {data.slice(0, 7).map((item, index) => (
+          {dataArray.slice(0, 7).map((item, index) => (
             item.shouldRenderImg ?
             <div key={index} className="flex-1 p-0">
                 
@@ -27,7 +28,7 @@ const IconBand = ({ data, refsArray }) => {
                 size="fill"
                 bordered={true}
                 shape="square"
-                imageSrc={item.imageSrc}
+                imageSrc={item.content}
                 alt=""
                 linked={false}
                 actionable={true}
