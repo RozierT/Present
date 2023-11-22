@@ -1,6 +1,10 @@
 const { Schema, model } = require('mongoose')
 
 const profileSchema = new Schema({
+    userId: {
+        type: Schema.Types.ObjectId,
+        ref: 'user'
+    },
     userName: {
         type: String,
         required: true,
@@ -11,10 +15,6 @@ const profileSchema = new Schema({
         type: String,
         maxLength: 280,
     },
-    profilePicture: {
-        type: String,
-        default: 'https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg'
-    },
     links: {
         type: [
             {
@@ -24,9 +24,9 @@ const profileSchema = new Schema({
         ],
         maxlength: 3
     },
-    userId: {
-        type: Schema.Types.ObjectId,
-        ref: 'user'
+    profilePicture: {
+        type: String,
+        default: 'https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg'
     },
     latestPosts: [
         {
