@@ -6,7 +6,7 @@ import Post from "./PostBody";
 import React, { useRef } from 'react';
 import IconBand from "../profile/IconBand";
 
-const Feed = ({ feedToUse, dataArray, type }) => {
+const Feed = ({ feedToUse, dataArray, type, extraStyles }) => {
 
 
 
@@ -37,7 +37,7 @@ const Feed = ({ feedToUse, dataArray, type }) => {
 </>
 :<>
 {dataArray.map((item, index) => (
-  <div key={index}  className="flex-1 p-0 ">
+  <div key={index}  className={`flex-1 p-0 ${extraStyles}`}>
     <Post data={item} type={type}/>
   </div> 
 ))}
