@@ -1,3 +1,6 @@
+// temporary housing of random code logic to be implemented elswhere
+
+
 // get latest 7 posts
 
 Post
