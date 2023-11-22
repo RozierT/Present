@@ -2,17 +2,10 @@
 import React, { useRef } from 'react';
 import ImageIcon from './ImageIcon';
 import Post from '../PostedContent/PostBody';
-const IconBand = ({ data }) => {
 
-const refzero = useRef(null);
-const refOne = useRef(null);
-const refTwo = useRef(null);
-const refThree = useRef(null);
-const refFour = useRef(null);
-const refFive = useRef(null);
-const refSix = useRef(null);
+const IconBand = ({ dataArray, refsArray }) => {
 
-const refsArray = [refzero, refOne, refTwo, refThree, refFour, refFive, refSix];
+
 
   const handleClick = (index) => {
     console.log(index);
@@ -27,7 +20,7 @@ const refsArray = [refzero, refOne, refTwo, refThree, refFour, refFive, refSix];
     <>
       <div className="border-bkg-1 border-b-4 border-t-4">
         <div className="flex">
-          {data.slice(0, 7).map((item, index) => (
+          {dataArray.slice(0, 7).map((item, index) => (
             item.shouldRenderImg ?
             <div key={index} className="flex-1 p-0">
                 
@@ -35,31 +28,18 @@ const refsArray = [refzero, refOne, refTwo, refThree, refFour, refFive, refSix];
                 size="fill"
                 bordered={true}
                 shape="square"
-                imageSrc={item.imageSrc}
+                imageSrc={item.content}
                 alt=""
                 linked={false}
                 actionable={true}
                 action={() => handleClick(index)}
               /> 
+
             </div>:  <div key={index} className="flex-1 p-0"> </div>
           ))}
         </div>
       </div>
-      <div>
-        {data.slice(0, 7).map((item, index) => (
-            item.shouldRenderImg ?
-            
-          <div key={index} ref={refsArray[index]} className="flex-1 p-0 pb-4">
-            <Post/>
-         
-            <div className="mb-3">
-              <div>
-               
-              </div>
-            </div>
-          </div> : null
-        ))}
-      </div>
+      
     </>
   );
 };

@@ -27,7 +27,7 @@
       --color-content: #dedede;
       
       --color-accent1: #6b6387;
-      --color-accent2: #86a4bf;
+      --color-accent2: #829db5;
   
       --color-btn: #aa7dda;
       --color-btn-active: #8471a0;
@@ -38,13 +38,14 @@
   }
 
   :root[data-theme="dark"] {
-    --color-bkg: #1b1a3b;
-    --color-bkg2: #342645;
+    --color-bkg: #362a49;
+    --color-bkg2: #35204d;
 
     --color-content: #dedede;
     
     --color-accent1: #6d6881;
-    --color-accent2: #787878;
+    --color-accent2: #878787;
+    --color-accent3: #56536d;
 
     --color-btn: #7a678f;
     --color-btn-active: #8471a0;
