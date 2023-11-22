@@ -7,7 +7,6 @@ const Comment = require('./Comment')
 
 module.exports = {
     User,
-    Album,
     Post,
     Profile,
     Link,

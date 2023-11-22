@@ -1,7 +1,7 @@
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
 
-const postSchema = require('./Post')
+const FlairSchema = require('./Flair')
 
 const userSchema = new Schema({
     firstName: {
@@ -24,6 +24,8 @@ const userSchema = new Schema({
       type: String,
       required: true,
       minlength: 8,
+      // At least 8 chars w/ at least 1 uppper/lower/num/special character
+      match: [/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/, 'Must match all password criteria!']
     },
     friends: [
       {
@@ -37,6 +39,7 @@ const userSchema = new Schema({
         ref: 'post',
       }
     ],
+    flairs: [FlairSchema]
   },
   {
     toJSON: {
