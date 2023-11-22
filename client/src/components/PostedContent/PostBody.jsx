@@ -16,7 +16,7 @@ type === 'post'?
 
 
   return (
-    <div className="max-w-screen-95 mx-auto bg-accent-1 shadow-md overflow-hidden">
+    <div className="max-w-screen-95 mx-auto bg-bkg-2 shadow-md overflow-hidden ">
         <div className='bg-bkg-2'>
         <PostHeader poster={data.poster} profilePicture={data.profilePicture} date={data.date}/>
         </div>

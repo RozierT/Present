@@ -20,7 +20,7 @@ const RoundedButton = ({ size, type, content, action, shape }) => {
       ? 
       (buttonType = `bg-emptyBtn-1 active:bg-emptyBtn-2 border-accent-2 border-2`) 
       :
-      (buttonType = `bg-content active:bg-content-2 border-bkg-2 border-2`);
+      (buttonType = `bg-accent-1 active:bg-bkg-1 border-accent-2 border-t-2 border-b-2`);
   
     return (
       <a

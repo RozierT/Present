@@ -10,8 +10,8 @@ const CommentPage = ({ postId, tempPostDataArray }) => {
     //getting child comments has not yet been solved and will need some work but remember that is NOT MVP only work on if comment MVP is done and nothing else is in need of work (meaning the comments are displayed on the post page)
     
     return (
-        <div>
-            <Feed feedToUse="comment" type={"comment"} dataArray={tempPostDataArray}/>
+        <div className="">
+            <Feed feedToUse="comment" type={"comment"} dataArray={tempPostDataArray} extraStyles={" border-t-4 border-b-4 border-black"}/>
         </div>
     );
     }

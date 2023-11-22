@@ -2,7 +2,7 @@
 const ImageIcon = ({ imageSrc, size, linked, linkUrl, shape, bordered, actionable, action}) => {
     let imageSize = 
     size === "xSmall"
-      ?  "w-6 h-6"
+      ?  "w-8 h-8"
       : size === "small"
       ?  "w-10 h-10"
       : size === "medium"
