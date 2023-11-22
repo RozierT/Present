@@ -546,17 +546,7 @@ return parameter
 
 }
 
-let dateRangeParameter = selectDateRange();
-let preferenceParameter = selectPreferenceParameter(userArray);
-let recencyScoreParameter = selectRecencyScore();
-let dateRangeArray = createArrayWithPreviousDays(new Date(), dateRangeParameter);
-console.log(`the date range parameter is ${dateRangeParameter}`);
-//print all of the dates in the date range array
-dateRangeArray.forEach((date, index) => {
-     console.log(` ${index + 1}: ${date}\n`);
-    });
-console.log(`the preference parameter is ${preferenceParameter}`);
-console.log(`the recency score parameter is ${recencyScoreParameter}`);
+
 
 // ~~~~~~~~~~~~~~~~~~~~~~  TEST CODE BLOCK ~~~~~~~~~~~~~~~~~~~~~~~~
 //THIS IS WHERE THE TEST CODE WILL GO THAT WILL RUN THE TESTS ON THE USERS INTERACTIONS WITH THE POSTS      
@@ -607,3 +597,36 @@ userArray = runTests(userArray);
 
 printUserTagScores(userArray);
 // ~~~~~~~~~~~~~~~~~~~~~~  END TEST CODE BLOCK ~~~~~~~~~~~~~~~~~~~~~~~~
+
+// now i need to build a generator for request parameters for an api call based on the users preferences, the daterang, and the recency score
+
+// this will be used to generate the request parameters for the api call
+
+const generateRequestParameters = (userArray) => {
+    let requestParameters = {
+        tag: null,
+        dateRange: [],
+        recencyScore: null,
+    }
+     dateRangeParameter = selectDateRange();
+     requestParameters.tag = selectPreferenceParameter(userArray);
+     requestParameters.recencyScore = selectRecencyScore();
+     requestParameters.dateRange = createArrayWithPreviousDays(new Date(), dateRangeParameter);
+    console.log(`the date range parameter is ${dateRangeParameter}`);
+
+    return requestParameters
+}
+
+let requestParameters = generateRequestParameters(userArray);
+console.log(requestParameters);
+
+// now we need to build a function that will take in the request parameters and return an array of post id's that will be used to select a post to serve to the user
+// this will be an api call to the database that will return an array of post id's that will be used to select a post to serve to the user
+
+// thi will choose the post id's to serve to the user
+const getChosenPostId = (postIds) => {
+    let randomIndex = Math.floor(Math.random() * postIds.length);
+    let postId = postIds[randomIndex];
+    return postId
+}
+
