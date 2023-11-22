@@ -417,6 +417,9 @@ let {pointsToAlter, typeOfInteraction} = determineInteractionPoints(action);
 // if (tagToAlter === "movies") {
 // pointsToAlter = 30;
 // }
+
+
+
 // run function to check if the tag score is maxed out or at minimum
 const tagPreferenceMin = checkIfTagScoreMin(tempArray, tagToAlter);
 const tagPreferenceMaxed = checkIfTagScoreMaxed(tempArray, tagToAlter);
