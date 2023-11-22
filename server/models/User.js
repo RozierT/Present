@@ -1,6 +1,8 @@
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
 
+const FlairSchema = require('./Flair')
+
 const userSchema = new Schema({
     firstName: {
       type: String,
@@ -37,9 +39,7 @@ const userSchema = new Schema({
         ref: 'post',
       }
     ],
-    tags: [
-      
-    ]
+    flairs: [FlairSchema]
   },
   {
     toJSON: {

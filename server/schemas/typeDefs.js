@@ -1,4 +1,4 @@
-const typeDefs = gql`
+const typeDefs = `
   type User {
     _id: ID
     firstName: String!
@@ -59,12 +59,17 @@ const typeDefs = gql`
     friends(_id: ID!): [User]
     scrapbook(_id: ID!): [Post]
     post(_id: ID!): Post
+    posts: [Post]
     postByflair(flair: String!): [Post]
     postByLikes: [Post]
+    comment(_id: ID!): Comment
+    comments: [Comment]
+    profile(userId: ID!): Profile
   }
 
   type Mutation {
     login(email: String!, password: String!): Auth
+    addUser(firstName: String!, lastName: String!, email: String! password: String!): Auth
   }
 `;
 

@@ -5,6 +5,8 @@ import App from './App.jsx';
 import ProfilePage from './pages/ProfilePage.jsx';
 import "./index.css";
 import Settings from './pages/SettingPage.jsx';
+import Login from './pages/TestLoginPage.jsx';
+import Signup from './pages/TestSignUp.jsx';
 
 
 const router = createBrowserRouter([
@@ -15,7 +17,15 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <ProfilePage />
-      }, 
+      },
+      {
+        path: '/login',
+        element: <Login />
+      },
+      {
+        path: '/signup',
+        element: <Signup />
+      },
       // {
       //   path: 'feed',
       //   element: <Feed />,
