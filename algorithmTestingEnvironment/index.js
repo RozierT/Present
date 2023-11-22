@@ -195,7 +195,7 @@ function selectRandomTag(userArray) {
 
 
 
-let potentialActions = ["like", "comment", "share","like", "comment", "share", "dislike", 'scrolled by', 'scrolled by', 'scrolled by', 'scrolled by', 'scrolled by'];
+let potentialActions = ["like", "comment", "share","like", "comment", "share", "dislike", 'scrolled by', 'scrolled by', 'scrolled by', 'scrolled by', 'scrolled by']; 
 
 
 
@@ -212,11 +212,11 @@ function determineInteractionPoints(action) {
     let pointsToAlter;
  
     if (action === "like") {
-        pointsToAlter = 1;
-    } else if (action === "comment") {
-        pointsToAlter = 5;
-    } else if (action === "share") {
         pointsToAlter = 10;
+    } else if (action === "comment") {
+        pointsToAlter = 15;
+    } else if (action === "share") {
+        pointsToAlter = 15;
     } else if (action === "scrolled by") {
         typeOfInteraction = "neutral";
         pointsToAlter = 0;
@@ -352,6 +352,19 @@ const getRandomIndex = (array) => {
    let randomIndex = results[Math.floor(Math.random() * results.length)];
     return randomIndex
 }
+
+
+const getRandomIndexForPreference = (array) => {
+    let results = [];
+    for (let i = 0; i < 3; i++) {
+        let randomIndex = Math.floor(Math.random() * array.length);
+        results.push(array[randomIndex]);
+        array = array.filter(item => item !== results[i]); // remove all occurrences of the chosen tag
+    }
+    let randomIndex = results[Math.floor(Math.random() * results.length)];
+    return randomIndex
+  }
+  
 // now we need to alter the users preferences based on the random index, we will do this one point at a time to give the altered points a more dispersed effect on the users preferences
 function adjustTagScore(array, tagToAlter, interactionType) {
     if (interactionType === "negative") {
@@ -398,6 +411,12 @@ function alterUserArray(userArray, action, tagToAlter) {
 let {pointsToAlter, typeOfInteraction} = determineInteractionPoints(action);
 // console.log(`the points to alter are ${pointsToAlter} and the type of interaction is ${typeOfInteraction}`);
 
+
+/// this is a conditional statement that will check to see if the tag to alter is movies and if so it will change the points to alter to 30 THIS MUST BE REMOVED IN THE FINAL VERSION THIS IS ONLY TO TEST THE ALGORITHMS ABILITY TO ALTER THE USERS PREFERENCES BASED ON THE TYPE OF INTERACTION THE USER BECOMES MORE INTERESTED IN THIS IS TO SIMULATE THE USER BECOMING MORE INTERESTED IN A TAG BY SHOWING THAT AN INCREASE IN SCORE INCREASES THE PROBABILITY OF THE TAG BEING SELECTED AND THEN THAT INCREASED PROBABILITY INCREASES THE PROBABILITY OF THE TAG BEING SELECTED AGAIN AND SO ON AND SO FORTH
+//REMEMBER TO REMOVE THIS IN THE FINAL VERSION!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// if (tagToAlter === "movies") {
+// pointsToAlter = 30;
+// }
 // run function to check if the tag score is maxed out or at minimum
 const tagPreferenceMin = checkIfTagScoreMin(tempArray, tagToAlter);
 const tagPreferenceMaxed = checkIfTagScoreMaxed(tempArray, tagToAlter);
@@ -484,7 +503,7 @@ return tempArray
 
 const selectPreferenceParameter = (array) => {
 let probabilityArray = createProbabilityMap(array);
-let randomIndex = getRandomIndex(probabilityArray);
+let randomIndex = getRandomIndexForPreference(probabilityArray);
 
 
 let parameter = array[randomIndex].tag;
@@ -547,57 +566,6 @@ return parameter
 }
 
 
-
-// ~~~~~~~~~~~~~~~~~~~~~~  TEST CODE BLOCK ~~~~~~~~~~~~~~~~~~~~~~~~
-//THIS IS WHERE THE TEST CODE WILL GO THAT WILL RUN THE TESTS ON THE USERS INTERACTIONS WITH THE POSTS      
-function runTests(userArray, action) {
-    const testsToRun = 1000;
-    let iterations;
-    console.log(`\n\n\n`);
-    console.log(`the test will run ${testsToRun} times...`);
-    
-    
-    //TEST CODE~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    //run established user interactions with posts
-    for (let i = 0; i < testsToRun; i++) {
-    let tempArray = [...userArray];
-
-      iterations = i ++;
-    //    console.log(iterations);
-
-    
-    // run function to select a random tag from the users preferences
-    let randomTagNumber = selectRandomTag(tempArray);
-    let tagToAlter = tempArray[randomTagNumber].tag;
-    // console.log(`the random tag is ${tagToAlter}`);
-    //run function to select a random action
-    let testAction = getRandomTestAction(potentialActions);
-    // console.log(`the random action is ${testAction}`);
-    action = testAction;
-    //END TEST CODE~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
- 
-
-  userArray = alterUserArray(userArray, action, tagToAlter);
-}
-
-    //now for the negative interactions we need to select a random tag from the filtered array
-    //first we need the inverse of the filtered array
-  
-    
-    // now we need to tun this in a loop for the amount of points to alter because we want to let the altered points have a more disperesed effect on the users preferences
-   
-    
-
-    return userArray
-  }
-  
-  // Call the function to execute the code
-userArray = runTests(userArray);
-
-printUserTagScores(userArray);
-// ~~~~~~~~~~~~~~~~~~~~~~  END TEST CODE BLOCK ~~~~~~~~~~~~~~~~~~~~~~~~
-
 // now i need to build a generator for request parameters for an api call based on the users preferences, the daterang, and the recency score
 
 // this will be used to generate the request parameters for the api call
@@ -612,13 +580,45 @@ const generateRequestParameters = (userArray) => {
      requestParameters.tag = selectPreferenceParameter(userArray);
      requestParameters.recencyScore = selectRecencyScore();
      requestParameters.dateRange = createArrayWithPreviousDays(new Date(), dateRangeParameter);
-    console.log(`the date range parameter is ${dateRangeParameter}`);
 
     return requestParameters
 }
 
-let requestParameters = generateRequestParameters(userArray);
-console.log(requestParameters);
+const checkTagProbability = (userArray, requestParameters) => {
+    let tag = requestParameters.tag;
+    let tagObject = userArray.find(item => item.tag === tag);
+    let tagScore = tagObject.score;
+  
+    // Calculate the total score of all tags
+    let totalScore = userArray.reduce((total, item) => total + item.score, 0);
+  
+    // Calculate the probability of the tag being chosen
+    let tagProbability = tagScore / totalScore;
+  
+    // Convert the probability to a percentage
+    let tagPercentage = tagProbability * 100;
+  
+    return tagPercentage;
+  }
+  
+
+const checkFrequency = (userArray, requestParameters) => {
+    let tag = requestParameters.tag;
+    let tagObject = userArray.find(item => item.tag === tag);
+    let tagScore = tagObject.score;
+    
+    // Sort the array by score in descending order
+    userArray.sort((a, b) => b.score - a.score);
+    // console.log(userArray);
+    // console.log(tagScore);
+    // console.log(tag);
+    // Find the index of the tag in the sorted array
+    let tagRank = userArray.findIndex(item => item.tag === tag) + 1;
+    // console.log(tagRank);
+    return tagRank;
+ }
+ 
+
 
 // now we need to build a function that will take in the request parameters and return an array of post id's that will be used to select a post to serve to the user
 // this will be an api call to the database that will return an array of post id's that will be used to select a post to serve to the user
@@ -630,3 +630,85 @@ const getChosenPostId = (postIds) => {
     return postId
 }
 
+// then we would take that post id and get the post from the database and serve it to the user this will entail packageing it into the response object and sending it to the feed componenta
+
+
+
+//this will be what ultimatley alters the users preferences
+//* userArray = alterUserArray(userArray, action, tagToAlter);*
+
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~  TEST CODE BLOCK ~~~~~~~~~~~~~~~~~~~~~~~~
+//THIS IS WHERE THE TEST CODE WILL GO THAT WILL RUN THE TESTS ON THE USERS INTERACTIONS WITH THE POSTS      
+function runTests(userArray, action) {
+    const testsToRun = 1000;
+    let iterations;
+    console.log(`\n\n\n`);
+    console.log(`the test will run ${testsToRun} times...`);
+    let instancesOfHighFrequency = 0;
+    let instancesOfLowFrequency = 0;
+    
+    //TEST CODE~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    //run established user interactions with posts
+    for (let i = 0; i < testsToRun; i++) {
+    let tempArray = [...userArray];
+
+    let requestParameters = generateRequestParameters(tempArray);
+
+    if (checkFrequency(tempArray, requestParameters) <= 8) {
+        instancesOfHighFrequency++;
+    };
+      if (checkFrequency(tempArray, requestParameters) > 8) {
+          instancesOfLowFrequency++;
+      }
+
+
+    iterations = i + 1;
+    
+    // run function to select a random tag from the users preferences
+    let randomTagNumber = selectRandomTag(tempArray);
+    let tagToAlter = tempArray[randomTagNumber].tag;
+    // console.log(`the random tag is ${tagToAlter}`);
+    //run function to select a random action
+    let testAction = getRandomTestAction(potentialActions);
+    // console.log(`the random action is ${testAction}`);
+    action = testAction;
+    //END TEST CODE~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ 
+
+  userArray = alterUserArray(userArray, action, tagToAlter);
+
+
+}
+
+    //now for the negative interactions we need to select a random tag from the filtered array
+    //first we need the inverse of the filtered array
+  
+    
+    // now we need to tun this in a loop for the amount of points to alter because we want to let the altered points have a more disperesed effect on the users preferences
+   let percentageOfHighFrequency = (instancesOfHighFrequency / testsToRun) * 100;
+    console.log(`the test drew a high frequency: ${instancesOfHighFrequency}/${testsToRun} tests,\n\nthis is ${percentageOfHighFrequency}% of the time`);
+    
+    
+    return userArray
+  }
+  
+  // Call the function to execute the code
+userArray = runTests(userArray);
+// printUserTagScores(userArray);
+// ~~~~~~~~~~~~~~~~~~~~~~  END TEST CODE BLOCK ~~~~~~~~~~~~~~~~~~~~~~~~
+
+let requestParameters = generateRequestParameters(userArray);
+console.log(requestParameters);
+console.log(
+`the tag ${requestParameters.tag} was chosen
+____________________________
+the probability of this was:
+
+% ${checkTagProbability(userArray, requestParameters)}`);
+
+console.log(userArray)
+ console.log(` ${checkFrequency(userArray, requestParameters)} `);
+ 
