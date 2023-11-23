@@ -6,6 +6,12 @@ const typeDefs = `
     email: String!
     friends: [User]
     scrapbook: [Post]
+    flairScores: [flairScore]
+  }
+
+  type flairScore {
+    tag: String
+    score: Int
   }
 
   type Profile {
@@ -59,12 +65,10 @@ const typeDefs = `
     friends(_id: ID!): [User]
     scrapbook(_id: ID!): [Post]
     post(_id: ID!): Post
-    posts: [Post]
-    postByflair(flair: String!): [Post]
-    postByLikes: [Post]
-    comment(_id: ID!): Comment
-    comments: [Comment]
+
+
     profile(userId: ID!): Profile
+    userPrefs(_id: ID!): [flairScore]
   }
 
   type Mutation {
