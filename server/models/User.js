@@ -39,7 +39,7 @@ const userSchema = new Schema({
         ref: 'post',
       }
     ],
-    flairs: [FlairSchema]
+    flairScores: [FlairSchema]
   },
   {
     toJSON: {
