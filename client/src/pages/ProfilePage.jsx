@@ -14,8 +14,10 @@ const testProfile = {
 
   ],
   profilePicture: placeholdIcon,
+
   userId: "75464",
   posts: [
+
     {
       userOfOrigin: "JohnIsCool",  
       profilePicture: placeholdIcon,
@@ -47,6 +49,7 @@ const testProfile = {
      
 
       ],
+
       id: "35467",
       tags: ["tag1", "tag2"],
       shouldRenderImg: true,
@@ -55,11 +58,13 @@ const testProfile = {
       userOfOrigin: "JohnIsCool",  
       profilePicture: placeholdIcon,
       content: placeholdIcon,
+
       textContent: "im the description",
       date: "1/1/11",
       likes: 4,
       tags: ["tag1"],
       id: "254",
+
       comments: [
         {
           userOfOrigin: "JohnIsCool",  
@@ -90,11 +95,13 @@ const testProfile = {
       userOfOrigin: "JohnIsCool",  
       profilePicture: placeholdIcon,
       content: placeholdIcon,
+
       textContent: "im the description",
       date: "1/1/11",
       likes: 4,
       tags: ["tag1"],
       id: "254",
+
       comments: [
         {
           userOfOrigin: "JohnIsCool",  
@@ -125,11 +132,13 @@ const testProfile = {
       userOfOrigin: "JohnIsCool",  
       profilePicture: placeholdIcon,
       content: placeholdIcon,
+
       textContent: "im the description",
       date: "1/1/11",
       likes: 4,
       tags: ["tag1"],
       id: "254",
+
       comments: [
         {
           userOfOrigin: "JohnIsCool",  
@@ -160,11 +169,13 @@ const testProfile = {
       userOfOrigin: "JohnIsCool",  
       profilePicture: placeholdIcon,
       content: placeholdIcon,
+
       textContent: "im the description",
       date: "1/1/11",
       likes: 4,
       tags: ["tag1"],
       id: "254",
+
       comments: [
         {
           userOfOrigin: "JohnIsCool",  
@@ -195,11 +206,13 @@ const testProfile = {
       userOfOrigin: "JohnIsCool",  
       profilePicture: placeholdIcon,
       content: placeholdIcon,
+
       textContent: "im the description",
       date: "1/1/11",
       likes: 4,
       tags: ["tag1"],
       id: "254",
+
       comments: [
         {
           userOfOrigin: "JohnIsCool",  
@@ -230,11 +243,13 @@ const testProfile = {
       userOfOrigin: "JohnIsCool",  
       profilePicture: placeholdIcon,
       content: placeholdIcon,
+
       textContent: "im the description",
       date: "1/1/11",
       likes: 4,
       tags: ["tag1"],
       id: "254",
+
       comments: [
         {
           userOfOrigin: "JohnIsCool",  

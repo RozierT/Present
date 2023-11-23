@@ -21,8 +21,8 @@ const resolvers = {
     // profiles: async () => {
     //   return Profile.find();
     // },
-    profile: async (parent, { profileId }) => {
-      return Profile.findOne({ _id: profileId });
+    profile: async (parent, { userId }) => {
+      return Profile.findOne({ userId: userId });
     },
     // links: async () => {
     //   return Link.find();
@@ -52,6 +52,7 @@ const resolvers = {
     addUser: async (parent, { firstName, lastName, email, password }) => {
       const user = await User.create({ firstName, lastName, email, password });
       const token = signToken(user);
+
       return { token, user };
     },
     // updateUser: async (parent, args) => {
@@ -76,10 +77,11 @@ const resolvers = {
     //     { new: true }
     //   );
     // },
-    // addProfile: async (parent, args) => {
-    //   const profile = await Profile.create(args);
-    //   return profile;
-    // },
+    addProfile: async (parent, args) => {
+      const profile = await Profile.create(args);
+      
+      return profile;
+    },
     // updateProfile: async (parent, args) => {
     //   return Profile.findOneAndUpdate(
     //     { _id: args._id },

@@ -17,8 +17,8 @@ const commentSchema = new Schema({
         type: Boolean
     },
     parentId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Comment',
+        type: Schema.Types.ObjectId,
+        ref: 'comment',
         default: null, // Sets the default value to null for rootComment functionality
     }
 })
