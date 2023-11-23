@@ -1,9 +1,12 @@
 import React from "react";
 import ImageIcon from "../profile/ImageIcon";  
 
-const PostHeader = ({ poster, date, profilePicture }) => {
+const PostHeader = ({ userOfOrigin, date, profilePicture, type}) => {
     return (
-        <div className="flex items-center justify-between px-4 py-3 border-b-2 border-accent-1">
+        <>
+        <div   className={`flex items-center justify-between px-4 py-3 border-accent-2  ${
+             type === 'notification' ? 'border-t-2' : 'border-b-2'
+           }`}>
         <div className="text-md font-bold flex">
             <ImageIcon
             size={"xSmall"}
@@ -12,10 +15,11 @@ const PostHeader = ({ poster, date, profilePicture }) => {
             bordered={true}
             linked={false}
             />
-            <h1 className="pl-2">{poster}</h1>
+            <h1 className="pl-2">{userOfOrigin}</h1>
         </div>
         <div className="">{date}</div>
         </div>
+        </>
     );
     }
 
