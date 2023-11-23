@@ -11,21 +11,7 @@ const testProfile = {
   userName: "JohnIsCool",
   bio: " Lorem ipsum dolor sit amet consectetur adipisicing elitwww. Minus id distinctio odit hic! Repellendus saepe pariatur laudantium ipsum nemo officiis eos quae sit, suscipit, nostrum, id rem accusantium modi iure iusto hic?",
   links: [
-    {
-      name: "Instagram",
-      url: "https://www.google.com/",
-      content: placeholdIcon,
-    },
-    {
-      name: "Whatsapp",
-      url: "https://www.google.com/",
-      content: placeholdIcon,
-    },
-    {
-      name: "X",
-      url: "https://www.google.com/",
-      content: placeholdIcon,
-    },
+
   ],
   profilePicture: placeholdIcon,
   userId: "1234",

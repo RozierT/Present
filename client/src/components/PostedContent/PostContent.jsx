@@ -1,6 +1,7 @@
 import ImageIcon from "../profile/ImageIcon";
 import placeholdIcon from '../../assets/images/placeholdIcon.png';
 
+
 const PostContent = ({ content, tags }) => {
   return (
     <div style={{ position: 'relative' }}>

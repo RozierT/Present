@@ -58,7 +58,7 @@ const PostText = ({ textContent, comments, type, postId, profilePicture }) => {
      </div>
      {showComments && (
        <div className="mt-">
-         <MyButton type={""} content={<CaretUp size={28} color="#e6e6e6" weight="fill" />} action={toggleComments}/>
+         <MyButton type={""} content={<CaretUp size={28}  weight="fill" />} action={toggleComments}/>
          <CommentPage postId={postId} tempPostDataArray={comments} />
        </div>
      )}
