@@ -1,7 +1,7 @@
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
 
-const FlairSchema = require('./Flair')
+const flairSchema = require('./Flair')
 
 const userSchema = new Schema({
     firstName: {
@@ -24,7 +24,7 @@ const userSchema = new Schema({
       type: String,
       required: true,
       minlength: 8,
-      // At least 8 chars w/ at least 1 uppper/lower/num/special character
+      // At least 8 chars w/ at least 1 upper/lower/num/special character
       match: [/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/, 'Must match all password criteria!']
     },
     friends: [
@@ -39,7 +39,28 @@ const userSchema = new Schema({
         ref: 'post',
       }
     ],
-    flairScores: [FlairSchema]
+    flairScores: {
+      type: [flairSchema],
+      default: function() {
+        return [
+          { tag: "food", score: 100 },
+          { tag: "sports", score: 100 },
+          { tag: "lifestyle", score: 100 },
+          { tag: "news", score: 100 },
+          { tag: "music", score: 100 },
+          { tag: "movies", score: 100 },
+          { tag: "gaming", score: 100 },
+          { tag: "funny", score: 100 },
+          { tag: "animals", score: 100 },
+          { tag: "science", score: 100 },
+          { tag: "technology", score: 100 },
+          { tag: "art", score: 100 },
+          { tag: "books", score: 100 },
+          { tag: "travel", score: 100 },
+          { tag: "photography", score: 100 }
+        ]
+      }
+    }
   },
   {
     toJSON: {

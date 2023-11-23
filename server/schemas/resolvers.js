@@ -3,21 +3,31 @@ const { signToken, AuthenticationError } = require('../utils/auth')
 
 const resolvers = {
   Query: {
-    user: async (parent, { userId }) => {
-      return User.findOne({ _id: userId });
+    userPrefs: async ( parent, args, context) => {
+
+      if (!context.user) {
+        throw new Error('Authentication required');
+      }
+
+      const userPrefs = await User.findById(context.user._id)
+
+      return userPrefs
     },
-    posts: async () => {
-      return Post.find();
-    },
-    post: async (parent, { postId }) => {
-      return Post.findOne({ _id: postId });
-    },
-    comments: async () => {
-      return Comment.find();
-    },
-    comment: async (parent, { commentId }) => {
-      return Comment.findOne({ _id: commentId });
-    },
+    // user: async (parent, { userId }) => {
+    //   return User.findOne({ _id: userId });
+    // },
+    // posts: async () => {
+    //   return Post.find();
+    // },
+    // post: async (parent, { postId }) => {
+    //   return Post.findOne({ _id: postId });
+    // },
+    // comments: async () => {
+    //   return Comment.find();
+    // },
+    // comment: async (parent, { commentId }) => {
+    //   return Comment.findOne({ _id: commentId });
+    // },
     // profiles: async () => {
     //   return Profile.find();
     // },

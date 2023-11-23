@@ -1,6 +1,6 @@
 const { Schema } = require('mongoose')
 
-const FlairSchema = new Schema({
+const flairSchema = new Schema({
     name: {
         type: String,
         required: true
@@ -11,4 +11,4 @@ const FlairSchema = new Schema({
     }
 });
 
-module.exports = FlairSchema
+module.exports = flairSchema
