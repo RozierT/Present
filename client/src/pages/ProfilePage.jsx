@@ -28,7 +28,7 @@ const testProfile = {
     },
   ],
   profilePicture: placeholdIcon,
-  userId: "1234",
+  // userId: "1234",
   latestPosts: [
     {
       poster: "JohnIsCool",  
@@ -96,7 +96,7 @@ const testProfile = {
         }
 
       ],
-      postId: "1234",
+      // postId: "1234",
       tags: ["tag1", "tag2"],
       shouldRenderImg: true,
     },
@@ -107,7 +107,7 @@ const testProfile = {
       textContent: "no no no im the description",
       date: "21/2/11",
       likes: 34,
-      postId: "1234",
+      postId: "1235",
       comments: [
         {
           poster: "JohnIsCool",  
@@ -175,7 +175,7 @@ const testProfile = {
       textContent: "what, are you stupid? im the description",
       date: "2/3/11",
       likes: "11",
-      postId: "1234",
+      postId: "1236",
       comments: [
         {
           poster: "JohnIsCool",  
@@ -243,6 +243,7 @@ const testProfile = {
       textContent: "you guys are all crazy im the real description",
       date: "4/11/4",
       likes: 2342,
+      postId: "1237",
       comments: [
         {
           poster: "JohnIsCool",  
@@ -310,7 +311,7 @@ const testProfile = {
       textContent: "ok this is getting out of hand, are you guys stupid? im the real description",
       date: "2/5/11",
       likes: 23,
-      postId: "1234",
+      postId: "1238",
       comments: [
         {
           poster: "JohnIsCool",  
@@ -378,7 +379,7 @@ const testProfile = {
       textContent: "none of you are the real description, im the real description",
       date: "23/6/2",
       likes: 231,
-      postId: "1234",
+      postId: "1239",
       comments: [
         {
           poster: "JohnIsCool",  
@@ -446,7 +447,7 @@ const testProfile = {
       textContent: "no non non nononononono I'M the real description",
       date: "11/3/211",
       likes: 12,
-      postId: "1234",
+      postId: "1244",
       comments: [
         {
           poster: "JohnIsCool",  
@@ -514,7 +515,7 @@ const testProfile = {
       textContent: "This is a test description",
       date: "11/11/11",
       likes: 56,
-      postId: "1234",
+      postId: "1434",
       comments: [
         {
           poster: "JohnIsCool",  

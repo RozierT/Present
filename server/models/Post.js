@@ -23,8 +23,12 @@ const postSchema = new Schema({
             maxlength: 280
         },
         likes: {
-            type: Number,
-            min: 0
+            type: [
+                {
+                    type: Schema.Types.ObjectId,
+                    ref: 'user'
+                }
+            ]
         },
         flairs: {
             type: [
@@ -69,6 +73,10 @@ const postSchema = new Schema({
 // return # of comments
 postSchema.virtual('commentCount').get(function () {
     return this.comments.length
+})
+
+postSchema.virtual('likeCount').get(function () {
+    return this.likes.length
 })
 
 
