@@ -54,3 +54,7 @@ export const GET_PROFILE = gql`
     }
   }
 `
+
+export const GET_FLAIR_SCORES = gql`
+  query 
+`
