@@ -1,99 +1,70 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import Toggle from "./Toggle";
+import SettingsList from "./DefaultSettings";
 
-const SettingsList = [
-  {
-    id: 1,
-    label: "Theme",
-    labelLeft: "Dark",
-    labelRight: "Light",
-    value: "settings.theme",
-    name: "theme",
-    checked: "settings.theme === light",
-  },
-  {
-    id: 2,
-    label: "Notifications",
-    labelLeft: "On",
-    labelRight: "Off",
-    value: "settings.notifications",
-    name: "notifications",
-    checked: "settings.notifications === Off",
-  },
-  {
-    id: 3,
-    label: "Visibility",
-    labelLeft: "Public",
-    labelRight: "Private",
-    value: "settings.visibility",
-    name: "visibility",
-    checked: "settings.visibility === private",
-  },
-];
-
-
-class Settings extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      settings: {
-        theme: "light",
-        notifications: true,
-        visibility: "public",
-      },
-    };
-  }
-
-  handleChange = (event) => {
-    const { name, value } = event.target;
-    this.setState((prevState) => ({
-      settings: {
-        ...prevState.settings,
-        [name]: value,
-      },
-    }));
-  };
-
-  render() {
-    const { settings } = this.state;
-
+export default function Settings() {
+    const [settings, setSettings] = useState(() => {
+        const savedSettings = localStorage.getItem('settings');
+        if (savedSettings) {
+            return JSON.parse(savedSettings);
+        } else {
+            return {
+                theme: "light",
+                notifications: true,
+                //visibility: "public",
+            };
+        }
+    });
+    console.log(settings);
+    
+    useEffect(() => {
+        localStorage.setItem('settings', JSON.stringify(settings));
+    }, [settings]);
+    
+    const handleChange = (event) => {
+        const { name, value } = event.target;       
+        setSettings((prevState) => ({
+        settings: {
+            ...prevState.settings,
+            [name]: value,
+        },
+        }
+        ));
+    }
+    
     return (
-      <div
+        <div
         style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100vh",
-        }}
-      >
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100vh",
+        }} 
+        data-theme={settings.theme}
+        >
         <h1 className="font-bold">Settings</h1>
         <br>
         </br>
         <form className="w-full ">
-          {SettingsList.map((setting) => (
+            {SettingsList.map((setting) => (
             <div className="w-full justify-between flex border-b border-content pt-2 pb-2">
              <div className="pl-4 w-1/2">
-              {setting.label}</div>
-              <div className="w-1/2 flex justify-center">
-              <Toggle
+                {setting.label}</div>
+                <div className="w-1/2 flex justify-center">
+                <Toggle
                 key={setting.id}
                 label={setting.label}
                 labelLeft={setting.labelLeft}
                 labelRight={setting.labelRight}
                 value={setting.value}
-                onChange={this.handleChange}
+                onChange={handleChange}
                 name={setting.name}
                 checked={setting.checked}
-              /></div>
-             
-            
-            </div> 
-          ))}
+                /></div>
+            </div>
+            ))}
         </form>
-      </div>
+        </div>
     );
-  }
-}
-
-export default Settings;
+    }

@@ -1,4 +1,4 @@
-import Header from "../components/Headers/HeaderFeed";
+import Header from "../components/Headers";
 import Footer from "../components/Footer";
 
 const FeedPage = () => {
