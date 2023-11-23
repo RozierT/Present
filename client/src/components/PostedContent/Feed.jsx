@@ -5,6 +5,7 @@
 import Post from "./PostBody";
 import React, { useRef } from 'react';
 import IconBand from "../profile/IconBand";
+import MyButton from "../profile/MyButton";
 
 const Feed = ({ feedToUse, dataArray, type, extraStyles }) => {
 
@@ -41,6 +42,7 @@ const Feed = ({ feedToUse, dataArray, type, extraStyles }) => {
     <Post data={item} type={type}/>
   </div> 
 ))}
+
 </>}
 
 

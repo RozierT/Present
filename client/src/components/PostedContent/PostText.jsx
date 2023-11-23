@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import MyButton from '../profile/MyButton';
-import { PaperPlaneTilt, CaretUp } from '@phosphor-icons/react';
+import { PaperPlaneTilt, CaretUp, XCircle } from '@phosphor-icons/react';
 import ImageIcon from '../profile/ImageIcon';
 import CommentPage from './CommentPage';
 
@@ -23,6 +23,10 @@ const PostText = ({ textContent, comments, type, postId, profilePicture }) => {
  const commentAction = () => {
    console.log('comment page will open and display comments based on the postId, these will be displayed using a query in the feed component');
  };
+
+ const dismiss = () => {
+  console.log('dismissed notification');
+};
 
  const CommentSection = () => (
    <>
@@ -51,14 +55,14 @@ const PostText = ({ textContent, comments, type, postId, profilePicture }) => {
                value={inputValue}
                onChange={handleInputChange}
              />
-             <PaperPlaneTilt onClick={handleLog} size={36} color="#e6e6e6" weight="light" />
+             <PaperPlaneTilt onClick={handleLog} size={36}  weight="light" />
            </div>
          </div>
        </div>
      </div>
      {showComments && (
        <div className="mt-">
-         <MyButton type={""} content={<CaretUp size={28} color="#e6e6e6" weight="fill" />} action={toggleComments}/>
+         <MyButton type={"circle"} content={<CaretUp size={28}  weight="fill" />} action={toggleComments}/>
          <CommentPage postId={postId} tempPostDataArray={comments} />
        </div>
      )}
@@ -66,13 +70,29 @@ const PostText = ({ textContent, comments, type, postId, profilePicture }) => {
  );
 
  return (
-   <>
-     <div className="text-base flex justify-between pl-4 pt-2 pr-4 pb-4 bg-bkg-2 ">
-       {textContent}
-     </div>
-     {type === 'post' && <CommentSection />}
-   </>
- );
-}
+  <>
+    {type === 'comment' ? (
+      <div className="text-base flex justify-between pl-4 pt-2 pr-4 pb-4 bg-bkg-2 ">
+        {textContent}
+      </div>
+    ) : type === 'notification' ? (
+      <div className="text-base flex justify-between pl-4  pr-4 pb-2 bg-bkg-2 ">
+        <div>
+        {textContent}
+        </div>
+        <div className="flex justify-end">
+          <MyButton shape={"circle"} type={"empty"} content={<XCircle size={28}  />} action={dismiss}/>
+          </div>
+      </div>
+    ) : (
+      <div className="text-base flex justify-between pl-4 pt-2 pr-4 pb-4 bg-bkg-2 ">
+        {textContent}
+      </div>
+    )}
+    {type === 'post' && <CommentSection />}
+  </>
+)
+    };
+
 
 export default PostText;

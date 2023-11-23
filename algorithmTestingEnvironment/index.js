@@ -23,7 +23,6 @@ let user = {
         {tag: "travel", score: 100},
         {tag: "photography", score: 100}
     ],
-    
 }
 
 function printUserTagScores(userTags) {
@@ -407,82 +406,54 @@ function adjustTagScore(array, tagToAlter, interactionType) {
 // this function is every procces put together that determines the users preferences based on the type of interaction and the tag interacted with
 function alterUserArray(userArray, action, tagToAlter) {
     let tempArray = [...userArray];
-//run function to get points to add to the users preferences and the type of interaction
-let {pointsToAlter, typeOfInteraction} = determineInteractionPoints(action);
-// console.log(`the points to alter are ${pointsToAlter} and the type of interaction is ${typeOfInteraction}`);
-
-
-/// this is a conditional statement that will check to see if the tag to alter is movies and if so it will change the points to alter to 30 THIS MUST BE REMOVED IN THE FINAL VERSION THIS IS ONLY TO TEST THE ALGORITHMS ABILITY TO ALTER THE USERS PREFERENCES BASED ON THE TYPE OF INTERACTION THE USER BECOMES MORE INTERESTED IN THIS IS TO SIMULATE THE USER BECOMING MORE INTERESTED IN A TAG BY SHOWING THAT AN INCREASE IN SCORE INCREASES THE PROBABILITY OF THE TAG BEING SELECTED AND THEN THAT INCREASED PROBABILITY INCREASES THE PROBABILITY OF THE TAG BEING SELECTED AGAIN AND SO ON AND SO FORTH
-//REMEMBER TO REMOVE THIS IN THE FINAL VERSION!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// if (tagToAlter === "movies") {
-// pointsToAlter = 30;
-// }
-
-
-
-// run function to check if the tag score is maxed out or at minimum
-const tagPreferenceMin = checkIfTagScoreMin(tempArray, tagToAlter);
-const tagPreferenceMaxed = checkIfTagScoreMaxed(tempArray, tagToAlter);
-
-// console.log(`the tag preference is maxed: ${tagPreferenceMaxed}`);
-// console.log(`the tag preference is min: ${tagPreferenceMin}`);
-
-
-// now we need a conditional statement that will check to see if the tag score is maxed out or at minimum and if it is it will change the type of interaction to neutral
-if (typeOfInteraction === "negative" && tagPreferenceMin) {
-    typeOfInteraction = "neutral";
-} else if (typeOfInteraction === "positive" && tagPreferenceMaxed) {
-    typeOfInteraction = "neutral";
-}
-
-// now we need a function that will alter the users preferences based on the type of interaction
-tempArray = updateScore(tempArray, tagToAlter, pointsToAlter, typeOfInteraction);
-// now that we have the increased score updated we need to sort and filter the users preferences and then return the new array of valid considerations for change of points to return the users preferences to the original score total
-const filteredArray = sortAndFilterTags(tempArray);
-//console.log(filteredArray);
-
-// this is a conditional statement that will see if the interaction is neutral and if so it will return a statement saying that the tag preference is maxed or min or the type of interaction is neutral
-if (typeOfInteraction === "neutral") {
-    let maxMinNeutralStatement = "the tag preference is maxed or min or the type of interaction is neutral";  
-    // console.log(maxMinNeutralStatement);
-       //now we need a split to see if the action is positive or negative
-
-
-} else if (typeOfInteraction === "negative") {
-    const probabilityArray = createProbabilityMap(filteredArray);
-    for (let i = 0; i < pointsToAlter; i++) {
-        // now we need to select a random tag from the probability array
-            const randomIndex = getRandomIndex(probabilityArray);
-            /// console.log(`the random index is ${randomIndex}`);
-            // the random index will be used to select the tag to alter
-            const tagToAlter = filteredArray[randomIndex].tag;
-            // console.log(`the tag to alter is ${tagToAlter}`);
-            // now we need to run the function to alter the users preferences
-            tempArray = adjustTagScore(tempArray, tagToAlter, typeOfInteraction);
+   
+    // Determine interaction points
+    let {pointsToAlter, typeOfInteraction} = determineInteractionPoints(action);
+   
+    // Check if tag score is at min or max
+    const tagPreferenceMin = checkIfTagScoreMin(tempArray, tagToAlter);
+    const tagPreferenceMaxed = checkIfTagScoreMaxed(tempArray, tagToAlter);
+   
+    // If interaction is negative and score is at min, or if interaction is positive and score is at max, set interaction to neutral
+    if ((typeOfInteraction === "negative" && tagPreferenceMin) || (typeOfInteraction === "positive" && tagPreferenceMaxed)) {
+      typeOfInteraction = "neutral";
     }
-
-
-
-} else if (typeOfInteraction === "positive") {
-//now for the negative interactions we need to select a random tag from the inverse filtered array
-
-    const inverseFilteredArray = getInverseSortedArray(filteredArray);
-// now we need to determine the probability of the tag being selected
-    const inverseProbabilityArray = createProbabilityMap(inverseFilteredArray);
-    //console.log(inverseFilteredArray);
-    for (let i = 0; i < pointsToAlter; i++) {
-    // now we need to select a random tag from the probability array
+   
+    // Update user's score based on interaction type
+    tempArray = updateScore(tempArray, tagToAlter, pointsToAlter, typeOfInteraction);
+   
+    // Sort and filter user's preferences
+    const filteredArray = sortAndFilterTags(tempArray);
+   
+    // If interaction is neutral, return a statement
+    if (typeOfInteraction === "neutral") {
+      // Return statement
+    }
+   
+    // If interaction is negative, select a random tag from the probability array and alter user's preferences
+    else if (typeOfInteraction === "negative") {
+      const probabilityArray = createProbabilityMap(filteredArray);
+      for (let i = 0; i < pointsToAlter; i++) {
+        const randomIndex = getRandomIndex(probabilityArray);
+        const tagToAlter = filteredArray[randomIndex].tag;
+        tempArray = adjustTagScore(tempArray, tagToAlter, typeOfInteraction);
+      }
+    }
+   
+    // If interaction is positive, select a random tag from the inverse filtered array and alter user's preferences
+    else if (typeOfInteraction === "positive") {
+      const inverseFilteredArray = getInverseSortedArray(filteredArray);
+      const inverseProbabilityArray = createProbabilityMap(inverseFilteredArray);
+      for (let i = 0; i < pointsToAlter; i++) {
         const randomIndex = getRandomIndex(inverseProbabilityArray);
-        /// console.log(`the random index is ${randomIndex}`);
-        // the random index will be used to select the tag to alter
         const tagToAlterNegative = inverseFilteredArray[randomIndex].tag;
-        // console.log(`the tag to alter is ${tagToAlterNegative}`);
-        // now we need to run the function to alter the users preferences
         tempArray = adjustTagScore(tempArray, tagToAlterNegative, typeOfInteraction);
-}
-}
-return tempArray
-}
+      }
+    }
+   
+    return tempArray;
+   }
+   
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -645,7 +616,7 @@ const getChosenPostId = (postIds) => {
 // ~~~~~~~~~~~~~~~~~~~~~~  TEST CODE BLOCK ~~~~~~~~~~~~~~~~~~~~~~~~
 //THIS IS WHERE THE TEST CODE WILL GO THAT WILL RUN THE TESTS ON THE USERS INTERACTIONS WITH THE POSTS      
 function runTests(userArray, action) {
-    const testsToRun = 1000;
+    const testsToRun = 10000;
     let iterations;
     console.log(`\n\n\n`);
     console.log(`the test will run ${testsToRun} times...`);

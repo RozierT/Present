@@ -7,7 +7,7 @@ import "./index.css";
 import Settings from './pages/SettingPage.jsx';
 import Login from './pages/TestLoginPage.jsx';
 import Signup from './pages/TestSignUp.jsx';
-
+import NotificationPage from './pages/NotificationPage.jsx';
 
 const router = createBrowserRouter([
   {
@@ -33,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: 'settings',
         element: <Settings />,
+      },
+      {
+        path: 'notifications',
+        element: <NotificationPage />,
       },
     ],
   },

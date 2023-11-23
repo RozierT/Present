@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import MyButton from '../profile/MyButton';
 import { HeartStraight, ArrowDown, Export } from '@phosphor-icons/react';
 
-const InteractionBar = ({ userId, postId, data }) => {
+const InteractionBar = ({ userId, postId, likes, tags }) => {
+  let action
   const like = () => {
     console.log('like');
+    action = "like"
   };
   const dislike = () => {
     console.log('dislike');
@@ -12,6 +14,12 @@ const InteractionBar = ({ userId, postId, data }) => {
   const share = () => {
     console.log('share');
   };
+
+  // get user preferences from database
+
+  // for as many tags as a are on post run alterPreferences function
+
+  // send back to database as mutated array
 
   return (
     <div className='flex justify-between bg-bkg-2 border-t-2 border-b-2 border-accent-2'>
@@ -23,7 +31,7 @@ const InteractionBar = ({ userId, postId, data }) => {
           action={like}
           shape='circle'
         />
-        <div className='likeCount'>{data.likes}</div>
+        <div className='likeCount'>{likes}</div>
 
         <MyButton
           size='xSmall'

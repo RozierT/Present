@@ -45,7 +45,7 @@ function BioSection({ profile }) {
           </div>
           {/* Follow button */}
           <div className="flex justify-start p-1">
-            <MyButton size={"small"} shape={"circle"} content={"follow"} action={sayHi} type={"empty"} />
+            <MyButton size={"small"} shape={"circle"} content={"follow"} action={sayHi} type={"bordered"} />
           </div>
         </div>
       </div>

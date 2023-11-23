@@ -65,6 +65,7 @@ import placeholdIcon from "../../assets/images/placeholdIcon.png";
 // ];
 // *REMOVE/REPLACE Placeholders with actual icons when the are created
 
+
 const PostContent = ({ content, tags }) => {
   return (
     <div style={{ position: "relative" }}>
