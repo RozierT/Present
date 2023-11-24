@@ -3,21 +3,31 @@ const { signToken, AuthenticationError } = require('../utils/auth')
 
 const resolvers = {
   Query: {
-    user: async (parent, { userId }) => {
-      return User.findOne({ _id: userId });
+    userPrefs: async ( parent, args, context) => {
+
+      if (!context.user) {
+        throw new Error('Authentication required');
+      }
+
+      const userPrefs = await User.findById(context.user._id)
+
+      return userPrefs
     },
-    posts: async () => {
-      return Post.find();
-    },
-    post: async (parent, { postId }) => {
-      return Post.findOne({ _id: postId });
-    },
-    comments: async () => {
-      return Comment.find();
-    },
-    comment: async (parent, { commentId }) => {
-      return Comment.findOne({ _id: commentId });
-    },
+    // user: async (parent, { userId }) => {
+    //   return User.findOne({ _id: userId });
+    // },
+    // posts: async () => {
+    //   return Post.find();
+    // },
+    // post: async (parent, { postId }) => {
+    //   return Post.findOne({ _id: postId });
+    // },
+    // comments: async () => {
+    //   return Comment.find();
+    // },
+    // comment: async (parent, { commentId }) => {
+    //   return Comment.findOne({ _id: commentId });
+    // },
     // profiles: async () => {
     //   return Profile.find();
     // },
@@ -50,45 +60,36 @@ const resolvers = {
       return { token, user };
     },
     addUser: async (parent, { firstName, lastName, email, password }) => {
+      
       const user = await User.create({ firstName, lastName, email, password });
+      
       const token = signToken(user);
 
       return { token, user };
     },
-    // updateUser: async (parent, args) => {
-    //   return User.findOneAndUpdate(
-    //     { _id: args._id },
-    //     { $set: args },
-    //     { new: true }
-    //   );
-    // },
-    // addPost: async (parent, args) => {
-    //   const post = await Post.create(args);
-    //   return post;
-    // },
-    // addComment: async (parent, args) => {
-    //   const comment = await Comment.create(args);
-    //   return comment;
-    // },
-    // updateComment: async (parent, args) => {
-    //   return Comment.findOneAndUpdate(
-    //     { _id: args._id },
-    //     { $set: args },
-    //     { new: true }
-    //   );
-    // },
-    addProfile: async (parent, args) => {
+    addProfile: async (parent, args, context) => {
+
+      console.log('args', args)
+
+      if (!context.user) {
+        throw new Error('Authentication required');
+      }
+
       const profile = await Profile.create(args);
       
       return profile;
     },
-    // updateProfile: async (parent, args) => {
-    //   return Profile.findOneAndUpdate(
-    //     { _id: args._id },
-    //     { $set: args },
-    //     { new: true }
-    //   );
-    // },
+    updateUserPrefs: async (parent, args, context) => {
+
+      if (!context.user) {
+        throw new Error('Authentication required');
+      }
+
+      const updatedUser = await User.findOneAndUpdate(
+        { _id: context.user._id },
+        { }
+      )
+    },
     // addLink: async (parent, args) => {
     //   const link = await Link.create(args);
     //   return link;
