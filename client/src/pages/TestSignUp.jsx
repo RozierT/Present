@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../utils/mutations';
@@ -13,6 +13,9 @@ const Signup = () => {
     email: '',
     password: '',
   });
+
+  const navigate  = useNavigate();
+
   const [addUser, { error, data }] = useMutation(ADD_USER);
 
   const handleChange = (event) => {
@@ -34,6 +37,7 @@ const Signup = () => {
       });
 
       Auth.login(data.addUser.token);
+      navigate('/signup/profile')
     } catch (e) {
       console.error(e);
     }

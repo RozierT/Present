@@ -59,6 +59,11 @@ const typeDefs = `
     user: User
   }
 
+  input flairScoreInput {
+    tag: String
+    score: Int
+  }
+
 
   type Query {
     user(_id: ID!): Profile
@@ -74,7 +79,8 @@ const typeDefs = `
   type Mutation {
     login(email: String!, password: String!): Auth
     addUser(firstName: String!, lastName: String!, email: String! password: String!): Auth
-    addProfile(username: String!, ): Profile
+    addProfile(username: String!, bio: String): Profile
+    updateUserPrefs(_id: ID!, input: [flairScoreInput]): User
   }
 `;
 

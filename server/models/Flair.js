@@ -1,7 +1,7 @@
 const { Schema } = require('mongoose')
 
 const flairSchema = new Schema({
-    name: {
+    tag: {
         type: String,
         required: true
     },

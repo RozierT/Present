@@ -23,3 +23,28 @@ export const ADD_USER = gql`
   }
 `;
 
+// creates profile and returns(?) token and user id (intended for context)
+export const CREATE_PROFILE = gql`
+  mutation addProfile($username: String!, $bio: String) {
+    addProfile(username: $username, bio: $bio) {
+      userId
+      username
+      bio
+      profilePicture
+      _id
+    }
+  }
+`
+
+// update user prefs based off of input array and return token and user (id and new flairscores array)
+export const UPDATE_USER_PREFS = gql`
+  mutation updateUserPrefs($id: ID!, $input: [flairScoreInput]) {
+  updateUserPrefs(_id: $id, input: $input) {
+    _id
+    flairScores {
+      score
+      tag
+    }
+  }
+}
+`
