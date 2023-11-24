@@ -1,5 +1,7 @@
 const { Schema, model } = require('mongoose')
 
+// TODO: add username(userOfOrigin) keep userId
+
 const commentSchema = new Schema({
     userId: {
         type: Schema.Types.ObjectId,
