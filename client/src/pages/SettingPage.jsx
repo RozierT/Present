@@ -1,6 +1,6 @@
 import Header from "../components/Headers";
 import Footer from "../components/Footer";
-import Settings from "../components/Settings/Index";
+import Settings from "../components/Settings";
 import SettingsList from "../components/Settings/DefaultSettings";
 
 const SettingPage = () => {
