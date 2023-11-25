@@ -72,6 +72,7 @@ const MakeProfile = () => {
     
             if (profileData) {
                 try {
+<<<<<<< HEAD
                     console.log('flair array before attempt: ', flairsToUpdate)
 
                     const { data: userData } = await updateUserPrefs({
@@ -82,6 +83,16 @@ const MakeProfile = () => {
     
                     console.log('updated User: ', userData)
 
+=======
+                    const { data: userData } = await updateUserPrefs({
+                        variables: { 
+                            flairScores: flairsToUpdate 
+                        },
+                    });
+    
+                    console.log('updated User: ', userData)
+
+>>>>>>> 11b86a5f81b5ccab4607cc6ae00dbad51e5b6a58
                     if (userData) {
                         navigate('/')
                     }
