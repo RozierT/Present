@@ -58,21 +58,23 @@ const MakeProfile = () => {
             return alert('Missing values!')
         }
 
-        console.log('data to be sent: ', username, bio, selectedTags)
+        const flairsToUpdate = selectedTags.map(flair => {
+            return {
+                tag: flair.tag,
+                score: flair.score
+            }
+        })
 
         try {
             const { data: profileData } = await createProfile({
                 variables: { username, bio },
             });
-
-            console.log('Profile data: ', profileData)
     
             if (profileData) {
                 try {
                     const { data: userData } = await updateUserPrefs({
                         variables: { 
-                            _id: context.user._id,
-                            flairScores: selectedTags 
+                            flairScores: flairsToUpdate 
                         },
                     });
     

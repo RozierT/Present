@@ -80,7 +80,7 @@ const typeDefs = `
     login(email: String!, password: String!): Auth
     addUser(firstName: String!, lastName: String!, email: String! password: String!): Auth
     addProfile(username: String!, bio: String, userId: ID): Profile
-    updateUserPrefs(_id: ID!, input: [flairScoreInput]): User
+    updateUserPrefs(input: [flairScoreInput]): User
   }
 `;
 

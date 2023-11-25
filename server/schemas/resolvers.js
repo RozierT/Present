@@ -81,18 +81,8 @@ const resolvers = {
       
       return profile;
     },
-    updateUserPrefs: async (parent, { flairScores }, context) => {
+    updateUserPrefs: async (parent, args, context) => {
 
-      console.log('initial flair array: ', flairScores)
-
-      const flairsToUpdate = flairScores.map(flair => {
-        return {
-          tag: flair.tag,
-          score: flair.score
-        }
-      })
-
-      console.log('parsed flair array: ', flairsToUpdate)
 
       if (!context.user) {
         throw new Error('Authentication required');
@@ -100,7 +90,7 @@ const resolvers = {
 
       const updatedUser = await User.findOneAndUpdate(
         { _id: context.user._id },
-        { flairScores: flairsToUpdate },
+        { flairScores: args.flairScores },
         { new: true }
       )
 
