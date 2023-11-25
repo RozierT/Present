@@ -2,6 +2,7 @@ const express = require("express");
 const { ApolloServer } = require("@apollo/server");
 const { expressMiddleware } = require("@apollo/server/express4");
 const path = require("path");
+const multer = require("multer"); // for parsing multipart/form-data
 
 const { typeDefs, resolvers } = require("./schemas");
 const db = require("./config/connection");
@@ -13,6 +14,26 @@ const server = new ApolloServer({
   typeDefs,
   resolvers,
 });
+
+// Set up Multer middleware
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/');
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + '-' + file.originalname);
+  }
+});
+
+// Create the multer instance
+const upload = multer({ storage: storage });
+
+   // Use the multer middleware for a specific route
+   app.post('/upload', upload.single('file'), (req, res) => {
+    // Handle the uploaded file
+    console.log(req.file);
+    res.send('File uploaded successfully');
+  });
 
 const startApolloServer = async () => {
   await server.start();
