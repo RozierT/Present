@@ -1,5 +1,5 @@
-import React, { useRef } from "react";
-import { useState, useLocation } from "react";
+import React from "react";
+//import { useState, useLocation } from "react";
 import { IconContext, House, Bell, ArrowLeft } from "@phosphor-icons/react";
 //TODO import notification component and display in header
 //import ToggleSwitch from "./Toggle";
