@@ -6,6 +6,7 @@ import Feed from "../components/PostedContent/Feed";
 // ~~~~~~~~~~~Test Data~~~~~~~~~~~~~~
 import placeholdIcon from "../assets/images/placeholdIcon.png";
 import BioSection from "../components/profile/BioSection";
+
 const testProfile = {
   userId: "254",
   userName: "JohnIsCool",
@@ -26,25 +27,21 @@ const testProfile = {
       date: "1/1/11",
       likes: 4,
       tags: ["tag1"],
-      id: "254",
+      _id: "254",
       comments: [
         {
           userOfOrigin: "JohnIsCool",  
           profilePicture: placeholdIcon,
           textContent: "im a comment",
           date: "1/1/11",
-          likes: 4,
           id: "2347546586",
-          shouldRenderImg: true,
         },
         {
           userOfOrigin: "JohnIsCool",  
           profilePicture: placeholdIcon,
           textContent: "im another comment",
           date: "1/1/11",
-          likes: 4,
           id: "24352435",
-          shouldRenderImg: true,
         },
      
 
@@ -52,7 +49,6 @@ const testProfile = {
 
       id: "35467",
       tags: ["tag1", "tag2"],
-      shouldRenderImg: true,
     },
     {
       userOfOrigin: "JohnIsCool",  
@@ -73,7 +69,6 @@ const testProfile = {
           date: "1/1/11",
           likes: 4,
           id: "2347546586",
-          shouldRenderImg: true,
         },
         {
           userOfOrigin: "JohnIsCool",  
@@ -82,14 +77,12 @@ const testProfile = {
           date: "1/1/11",
           likes: 4,
           id: "24352435",
-          shouldRenderImg: true,
         },
      
 
       ],
       id: "35467",
       tags: ["tag1", "tag2"],
-      shouldRenderImg: true,
     },
     {
       userOfOrigin: "JohnIsCool",  
@@ -110,7 +103,6 @@ const testProfile = {
           date: "1/1/11",
           likes: 4,
           id: "2347546586",
-          shouldRenderImg: true,
         },
         {
           userOfOrigin: "JohnIsCool",  
@@ -119,14 +111,12 @@ const testProfile = {
           date: "1/1/11",
           likes: 4,
           id: "24352435",
-          shouldRenderImg: true,
         },
      
 
       ],
       id: "35467",
       tags: ["tag1", "tag2"],
-      shouldRenderImg: true,
     },
     {
       userOfOrigin: "JohnIsCool",  
@@ -147,7 +137,6 @@ const testProfile = {
           date: "1/1/11",
           likes: 4,
           id: "2347546586",
-          shouldRenderImg: true,
         },
         {
           userOfOrigin: "JohnIsCool",  
@@ -156,14 +145,12 @@ const testProfile = {
           date: "1/1/11",
           likes: 4,
           id: "24352435",
-          shouldRenderImg: true,
         },
      
 
       ],
       id: "35467",
       tags: ["tag1", "tag2"],
-      shouldRenderImg: true,
     },
     {
       userOfOrigin: "JohnIsCool",  
@@ -184,7 +171,6 @@ const testProfile = {
           date: "1/1/11",
           likes: 4,
           id: "2347546586",
-          shouldRenderImg: true,
         },
         {
           userOfOrigin: "JohnIsCool",  
@@ -193,14 +179,12 @@ const testProfile = {
           date: "1/1/11",
           likes: 4,
           id: "24352435",
-          shouldRenderImg: true,
         },
      
 
       ],
       id: "35467",
       tags: ["tag1", "tag2"],
-      shouldRenderImg: true,
     },
     {
       userOfOrigin: "JohnIsCool",  
@@ -221,7 +205,6 @@ const testProfile = {
           date: "1/1/11",
           likes: 4,
           id: "2347546586",
-          shouldRenderImg: true,
         },
         {
           userOfOrigin: "JohnIsCool",  
@@ -230,14 +213,12 @@ const testProfile = {
           date: "1/1/11",
           likes: 4,
           id: "24352435",
-          shouldRenderImg: true,
         },
      
 
       ],
       id: "35467",
       tags: ["tag1", "tag2"],
-      shouldRenderImg: true,
     },
     {
       userOfOrigin: "JohnIsCool",  
@@ -258,7 +239,6 @@ const testProfile = {
           date: "1/1/11",
           likes: 4,
           id: "2347546586",
-          shouldRenderImg: true,
         },
         {
           userOfOrigin: "JohnIsCool",  
@@ -267,14 +247,12 @@ const testProfile = {
           date: "1/1/11",
           likes: 4,
           id: "24352435",
-          shouldRenderImg: true,
         },
      
 
       ],
       id: "35467",
       tags: ["tag1", "tag2"],
-      shouldRenderImg: true,
     },
     
   ]
@@ -302,7 +280,7 @@ const ProfilePage = () => {
     <div className="bg-black text-content">
       <Header />
       <BioSection profile={testProfile} />
-      <Feed dataArray={testProfile.posts } type={"post"} feedToUse={"profile"} />
+      <Feed dataArray={testProfile.posts} type={"post"} feedToUse={"profile"} />
       <Footer />
     </div>
   );

@@ -21,17 +21,45 @@ const InteractionBar = ({ userId, postId, likes, tags }) => {
 
   // send back to database as mutated array
 
+//!!!!!!!!!!!
+  // this is the logic for the like buttons appearance and functionality
+  // const likedByViewer = likes.find((like) => like.user.id === viewerId) !== undefined;
+// this will be the proper way of calling this in final version
+//!!!!!!!!!!!
+//state for if the post is liked by the viewer
+const [likedByViewer, setLikedByViewer] = useState(false);
+
+const toggleLikedByViewer = () => {
+setLikedByViewer(!likedByViewer)
+}
+
   return (
     <div className='flex justify-between bg-bkg-2 border-t-2 border-b-2 border-accent-2'>
-      <div className='flex'>
+       <div className='flex'>
+     {likedByViewer ? (
         <MyButton
           size='xSmall'
           type='empty'
-          content={<HeartStraight size={32} color='#999999' weight='fill' />}
-          action={like}
+          content={<HeartStraight size={32}  weight='fill' />}
+          action={toggleLikedByViewer}
           shape='circle'
         />
+      ) : (
+        <MyButton
+          size='xSmall'
+          type='empty'
+          content={<HeartStraight size={32}  />}
+          action={toggleLikedByViewer}
+          shape='circle'
+        />
+      )}
+     
+    
+        
         <div className='likeCount'>{likes}</div>
+        {/*  this will be the proper way of calling this in final version */}
+        {/* <div className='likeCount'>{likes.length}</div> */}
+
 
         <MyButton
           size='xSmall'
