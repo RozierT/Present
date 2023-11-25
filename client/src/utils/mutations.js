@@ -38,13 +38,13 @@ export const CREATE_PROFILE = gql`
 
 // update user prefs based off of input array and return token and user (id and new flairscores array)
 export const UPDATE_USER_PREFS = gql`
-  mutation updateUserPrefs($id: ID!, $input: [flairScoreInput]) {
-  updateUserPrefs(_id: $id, input: $input) {
-    _id
-    flairScores {
-      score
-      tag
+  mutation updateUserPrefs($input: [flairScoreInput]) {
+    updateUserPrefs(input: $input) {
+      _id
+      flairScores {
+        score
+        tag
+      }
     }
   }
-}
 `
