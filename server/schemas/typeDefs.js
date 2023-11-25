@@ -67,7 +67,7 @@ const typeDefs = `
 
   type Query {
     user(_id: ID!): Profile
-    friends(_id: ID!): [User]
+
     scrapbook(_id: ID!): [Post]
     post(_id: ID!): Post
 

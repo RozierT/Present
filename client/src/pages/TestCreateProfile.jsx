@@ -72,9 +72,11 @@ const MakeProfile = () => {
     
             if (profileData) {
                 try {
+                    console.log('flair array before attempt: ', flairsToUpdate)
+
                     const { data: userData } = await updateUserPrefs({
                         variables: { 
-                            flairScores: flairsToUpdate 
+                            input: flairsToUpdate 
                         },
                     });
     
