@@ -28,7 +28,7 @@ const profileSchema = new Schema({
         type: String,
         default: 'https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg'
     },
-    latestPosts: [
+    posts: [
         {
             type: Schema.Types.ObjectId,
             ref: 'post'

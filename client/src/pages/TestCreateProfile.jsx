@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { useMutation } from '@apollo/client';
 import { CREATE_PROFILE, UPDATE_USER_PREFS } from '../utils/mutations'
@@ -27,6 +27,8 @@ const MakeProfile = () => {
         { tag: "travel", score: 100, selected: false },
         { tag: "photography", score: 100, selected: false }
     ]);
+
+    const navigate = useNavigate();
 
     const [createProfile] = useMutation(CREATE_PROFILE);
     const [updateUserPrefs] = useMutation(UPDATE_USER_PREFS);
@@ -56,31 +58,48 @@ const MakeProfile = () => {
             return alert('Missing values!')
         }
 
-        console.log('data to be sent: ', username, bio, selectedTags)
+        const flairsToUpdate = selectedTags.map(flair => {
+            return {
+                tag: flair.tag,
+                score: flair.score
+            }
+        })
 
         try {
             const { data: profileData } = await createProfile({
                 variables: { username, bio },
             });
-
-            console.log('Profile data: ', profileData)
     
-            // if (profileData) {
-            //     try {
-            //         const { data: userData } = await updateUserPrefs({
-            //             variables: { userId: context.userId, flairScores: selectedTags },
-            //         });
-    
-            //         console.log('updated User: ', userData)
+            if (profileData) {
+                try {
+<<<<<<< HEAD
+                    console.log('flair array before attempt: ', flairsToUpdate)
 
-            //         if (userData) {
-            //             // Redirect to '/'
-                        
-            //         }
-            //     } catch (error) {
-            //         console.error('updating user error: ', error)
-            //     }
-            // }
+                    const { data: userData } = await updateUserPrefs({
+                        variables: { 
+                            input: flairsToUpdate 
+                        },
+                    });
+    
+                    console.log('updated User: ', userData)
+
+=======
+                    const { data: userData } = await updateUserPrefs({
+                        variables: { 
+                            flairScores: flairsToUpdate 
+                        },
+                    });
+    
+                    console.log('updated User: ', userData)
+
+>>>>>>> 11b86a5f81b5ccab4607cc6ae00dbad51e5b6a58
+                    if (userData) {
+                        navigate('/')
+                    }
+                } catch (error) {
+                    console.error('updating user error: ', error)
+                }
+            }
             
         } catch (error) {
             console.error('creating profile error: ', error)

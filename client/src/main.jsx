@@ -9,6 +9,9 @@ import Login from './pages/TestLoginPage.jsx';
 import Signup from './pages/TestSignUp.jsx';
 import NotificationPage from './pages/NotificationPage.jsx';
 import MakeProfile from './pages/TestCreateProfile.jsx';
+import HomePage from './pages/TestHomePage.jsx';
+import FeedPage from './pages/FeedPage.jsx';
+
 
 
 
@@ -20,7 +23,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <ProfilePage />
+        element: <HomePage />
       },
       {
         path: 'login',
@@ -34,10 +37,10 @@ const router = createBrowserRouter([
         path: 'signup/profile',
         element: <MakeProfile />
       },
-      // {
-      //   path: 'feed',
-      //   element: <Feed />,
-      // },
+      {
+        path: 'feed',
+        element: <FeedPage />,
+      },
       {
         path: 'settings',
         element: <Settings />,
