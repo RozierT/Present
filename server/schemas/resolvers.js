@@ -83,14 +83,11 @@ const resolvers = {
     },
     updateUserPrefs: async (parent, args, context) => {
 
-<<<<<<< HEAD
       const { input } = args
 
       console.log('input: ', input)
       console.log('user id: ', context.user._id)
 
-=======
->>>>>>> 11b86a5f81b5ccab4607cc6ae00dbad51e5b6a58
 
       if (!context.user) {
         throw new Error('Authentication required');
@@ -98,11 +95,7 @@ const resolvers = {
 
       const updatedUser = await User.findOneAndUpdate(
         { _id: context.user._id },
-<<<<<<< HEAD
         { $set: { flairScores: input } },
-=======
-        { flairScores: args.flairScores },
->>>>>>> 11b86a5f81b5ccab4607cc6ae00dbad51e5b6a58
         { new: true }
       )
 
