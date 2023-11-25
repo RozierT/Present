@@ -59,6 +59,7 @@ const MakeProfile = () => {
         console.log('data to be sent: ', username, bio, selectedTags)
 
         try {
+            // TODO: ADD USER ID
             const { data: profileData } = await createProfile({
                 variables: { username, bio },
             });
