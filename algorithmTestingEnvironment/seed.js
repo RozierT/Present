@@ -23,7 +23,6 @@ const commenterJoeData = {
       {tag: 'flair2', score: 100}
     ],
    };
-
   
   // ok how do we start. lets start with the users
   // we need to create a user with a profile, i think it should be at least 250 users
