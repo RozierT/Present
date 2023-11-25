@@ -165,6 +165,8 @@ profileArray
     console.log(element.userName);
     
 });
+
+
 console.log(userArray.length);
 console.log(profileArray.length);
 console.log(postArray.length);
