@@ -18,7 +18,7 @@ const commentSchema = new Schema({
     },
     parentId: {
         type: Schema.Types.ObjectId,
-        ref: 'comment',
+        ref: 'Comment',
         default: null, // Sets the default value to null for rootComment functionality
     }
 })
