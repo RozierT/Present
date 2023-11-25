@@ -1,4 +1,4 @@
-import Header from "../components/Headers/HeaderProf";
+import Header from "../components/Headers";
 import Footer from "../components/Footer";
 import Feed from "../components/PostedContent/Feed";
 import NotifyHeader from "../components/notifications/NotifyHeader";

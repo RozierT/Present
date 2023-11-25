@@ -16,7 +16,7 @@ const buttons2 = [
 
 const Footer = () => {
   return (
-    <footer className="fixed bottom-0 w-full bg-accent-2 flex justify-around items-center p-2">
+    <footer className="fixed sticky bottom-0 w-full bg-bkg-1 flex justify-around items-center p-2">
       {buttons2.map((button) => (
         <button
           key={button.id}
@@ -25,7 +25,7 @@ const Footer = () => {
           <a href={button.path}>
             <IconContext.Provider
               value={{
-                color: "black",
+                color: "silver",
                 size: 32,
                 weight: "bold",
                 mirrored: false,

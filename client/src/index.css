@@ -38,7 +38,7 @@
   }
 
   :root[data-theme="dark"] {
-    --color-bkg: #362a49;
+    --color-bkg: #110625;
     --color-bkg2: #35204d;
 
     --color-content: #dedede;

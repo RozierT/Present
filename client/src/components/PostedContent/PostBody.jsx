@@ -19,7 +19,7 @@ type === 'post'?
         <div className='bg-bkg-2'>
         <PostHeader userOfOrigin={data.userOfOrigin} profilePicture={data.profilePicture} date={data.date} type={type}/>
         </div>
-      <div className="flex-1 p-0">
+      <div className="flex-1 p-1">
 
         {/* this shows the image and is only show if the showcontent boolean it true */}
         
