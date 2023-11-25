@@ -67,19 +67,32 @@ const resolvers = {
 
       return { token, user };
     },
-    addProfile: async (parent, args, context) => {
-
-      console.log('args', args)
+    addProfile: async (parent, { username, bio }, context) => {
 
       if (!context.user) {
         throw new Error('Authentication required');
       }
 
-      const profile = await Profile.create(args);
+      const profile = await Profile.create({
+        username,
+        bio,
+        userId: context.user._id
+      });
       
       return profile;
     },
-    updateUserPrefs: async (parent, args, context) => {
+    updateUserPrefs: async (parent, { flairScores }, context) => {
+
+      console.log('initial flair array: ', flairScores)
+
+      const flairsToUpdate = flairScores.map(flair => {
+        return {
+          tag: flair.tag,
+          score: flair.score
+        }
+      })
+
+      console.log('parsed flair array: ', flairsToUpdate)
 
       if (!context.user) {
         throw new Error('Authentication required');
@@ -87,35 +100,12 @@ const resolvers = {
 
       const updatedUser = await User.findOneAndUpdate(
         { _id: context.user._id },
-        { }
+        { flairScores: flairsToUpdate },
+        { new: true }
       )
+
+      return updatedUser
     },
-    // addLink: async (parent, args) => {
-    //   const link = await Link.create(args);
-    //   return link;
-    // },
-    // updateLink: async (parent, args) => {
-    //   return Link.findOneAndUpdate(
-    //     { _id: args._id },
-    //     { $set: args },
-    //     { new: true }
-    //   );
-    // },
-    // deleteUser: async (parent, { userId }) => {
-    //   return User.findOneAndDelete({ _id: userId });
-    // },
-    // deletePost: async (parent, { postId }) => {
-    //   return Post.findOneAndDelete({ _id: postId });
-    // },
-    // deleteComment: async (parent, { commentId }) => {
-    //   return Comment.findOneAndDelete({ _id: commentId });
-    // },
-    // deleteProfile: async (parent, { profileId }) => {
-    //   return Profile.findOneAndDelete({ _id: profileId });
-    // },
-    // deleteLink: async (parent, { linkId }) => {
-    //   return Link.findOneAndDelete({ _id: linkId });
-    // },
   },
 };
 

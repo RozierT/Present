@@ -4,8 +4,8 @@ const typeDefs = `
     firstName: String!
     lastName: String!
     email: String!
-    friends: [User]
-    scrapbook: [Post]
+    friends: [ID]
+    scrapbook: [ID]
     flairScores: [flairScore]
   }
 
@@ -15,9 +15,9 @@ const typeDefs = `
   }
 
   type Profile {
-    _id: ID
+    _id: ID!
     username: String!
-    userId: String
+    userId: ID!
     bio: String
     profilePicture: String
     links: [Link]
@@ -79,7 +79,7 @@ const typeDefs = `
   type Mutation {
     login(email: String!, password: String!): Auth
     addUser(firstName: String!, lastName: String!, email: String! password: String!): Auth
-    addProfile(username: String!, bio: String): Profile
+    addProfile(username: String!, bio: String, userId: ID): Profile
     updateUserPrefs(_id: ID!, input: [flairScoreInput]): User
   }
 `;
