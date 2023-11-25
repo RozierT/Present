@@ -32,10 +32,21 @@ const client = new ApolloClient({
 });
 
 function App() {
+
+  //   const [user, setUser] = useState(null);
+  
+  //   useQuery(() => {
+  //     // Fetch user data from the API
+  //     axios.get('/api/user').then((response) => {
+  //       setUser(response.data);
+  //     });
+  //   }, []);
+  window.user = "HI"
+  window.profile = "HI again"
   return (
     <ApolloProvider client={client}>
 
-        <Outlet />
+        <Outlet  />
   
     </ApolloProvider>
   );
