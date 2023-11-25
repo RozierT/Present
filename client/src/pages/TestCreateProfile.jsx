@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { useMutation } from '@apollo/client';
 import { CREATE_PROFILE, UPDATE_USER_PREFS } from '../utils/mutations'
@@ -27,6 +27,8 @@ const MakeProfile = () => {
         { tag: "travel", score: 100, selected: false },
         { tag: "photography", score: 100, selected: false }
     ]);
+
+    const navigate = useNavigate();
 
     const [createProfile] = useMutation(CREATE_PROFILE);
     const [updateUserPrefs] = useMutation(UPDATE_USER_PREFS);
@@ -59,29 +61,30 @@ const MakeProfile = () => {
         console.log('data to be sent: ', username, bio, selectedTags)
 
         try {
-            // TODO: ADD USER ID
             const { data: profileData } = await createProfile({
                 variables: { username, bio },
             });
 
             console.log('Profile data: ', profileData)
     
-            // if (profileData) {
-            //     try {
-            //         const { data: userData } = await updateUserPrefs({
-            //             variables: { userId: context.userId, flairScores: selectedTags },
-            //         });
+            if (profileData) {
+                try {
+                    const { data: userData } = await updateUserPrefs({
+                        variables: { 
+                            _id: context.user._id,
+                            flairScores: selectedTags 
+                        },
+                    });
     
-            //         console.log('updated User: ', userData)
+                    console.log('updated User: ', userData)
 
-            //         if (userData) {
-            //             // Redirect to '/'
-                        
-            //         }
-            //     } catch (error) {
-            //         console.error('updating user error: ', error)
-            //     }
-            // }
+                    if (userData) {
+                        navigate('/')
+                    }
+                } catch (error) {
+                    console.error('updating user error: ', error)
+                }
+            }
             
         } catch (error) {
             console.error('creating profile error: ', error)
