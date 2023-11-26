@@ -9,28 +9,19 @@ const resolvers = {
         throw new Error('Authentication required');
       }
 
-      const userPrefs = await User.findById(context.user._id)
+      const userPrefs = await User.findById(context.user._id).select('flairScores')
 
-      return userPrefs
+      return userPrefs.flairScores
     },
-    // user: async (parent, { userId }) => {
-    //   return User.findOne({ _id: userId });
-    // },
-    // posts: async () => {
-    //   return Post.find();
-    // },
-    // post: async (parent, { postId }) => {
-    //   return Post.findOne({ _id: postId });
-    // },
-    // comments: async () => {
-    //   return Comment.find();
-    // },
-    // comment: async (parent, { commentId }) => {
-    //   return Comment.findOne({ _id: commentId });
-    // },
-    // profiles: async () => {
-    //   return Profile.find();
-    // },
+    getWeightedPosts: async ( parent, args, context ) => {
+
+      if (!context.user) {
+        throw new Error('Authentication required');
+      }
+
+
+
+    },
     profile: async (parent, { userId }) => {
       return Profile.findOne({ userId: userId });
     },
@@ -81,12 +72,10 @@ const resolvers = {
       
       return profile;
     },
+    // Used to update a user's flairScores array after Profile creation
     updateUserPrefs: async (parent, args, context) => {
 
       const { input } = args
-
-      console.log('input: ', input)
-
 
       if (!context.user) {
         throw new Error('Authentication required');
@@ -97,6 +86,18 @@ const resolvers = {
         { $set: { flairScores: input } },
         { new: true }
       )
+
+      // if (!user) {
+      //   throw new Error('User not found');
+      // }
+
+      // input.forEach(flairScore => {
+      //   const index = user.flairScores.findIndex(fs => fs.tag === flairScore.tag);
+        
+      //   if (index !== -1) {
+      //     user.flairScores[index].score = flairScore.score;
+      //   }
+      // });
 
       return updatedUser
     },

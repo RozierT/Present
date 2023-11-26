@@ -73,7 +73,8 @@ const typeDefs = `
 
 
     profile(userId: ID!): Profile
-    userPrefs(_id: ID!): [flairScore]
+    userPrefs: [flairScore]
+    getWeightedPosts(flairs: [String], recencyScore: Int, dateRange: [String]): [Post]
   }
 
   type Mutation {

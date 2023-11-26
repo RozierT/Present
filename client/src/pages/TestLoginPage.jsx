@@ -31,7 +31,7 @@ const Login = () => {
         });
 
         Auth.login(data.login.token);
-        navigate('/')
+        navigate('/feed')
     } catch (e) {
         console.error(e);
     }
@@ -52,7 +52,7 @@ const Login = () => {
             {data ? (
                 <p>
                 Success! You may now head{" "}
-                <Link to='/'>back to the homepage.</Link>
+                <Link to='/feed'> to your personalized feed...</Link>
                 </p>
             ) : (
                 <form onSubmit={handleFormSubmit}>

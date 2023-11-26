@@ -1,5 +1,37 @@
 
 
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function createProbabilityMap(array) {
+    let probabilityArray = array.flatMap((item, index) => {
+        return Array(item.score).fill(index);
+    });
+
+    return probabilityArray;
+}
+
+export const getRandomIndex = (array) => {
+
+    let results = [];
+    for (let i = 0; i < 5; i++) {
+        let randomItem = array[Math.floor(Math.random() * array.length)];
+        results.push(randomItem);
+    }
+    
+   let randomIndex = results[Math.floor(Math.random() * results.length)];
+    return randomIndex
+}
+
+const getRandomIndexForPreference = (array) => {
+    let results = [];
+    for (let i = 0; i < 3; i++) {
+        let randomIndex = Math.floor(Math.random() * array.length);
+        results.push(array[randomIndex]);
+        array = array.filter(item => item !== results[i]); // remove all occurrences of the chosen tag
+    }
+    let randomIndex = results[Math.floor(Math.random() * results.length)];
+    return randomIndex
+}
+
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // this uses the user array to select a random tag based on the score of each tag
 const selectPreferenceParameter = (array) => {
@@ -26,7 +58,6 @@ const selectPreferenceParameter = (array) => {
             {timeFrame: "28", score: 1},
         ];
     
-      
     
     
         let probabilityArray = createProbabilityMap(dateRange);
@@ -87,16 +118,29 @@ const selectPreferenceParameter = (array) => {
     
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // builds the request parameters for the server query
-    const generateRequestParameters = (userArray) => {
+    export const generateRequestParameters = (userArray) => {
         let requestParameters = {
             tag: null,
             dateRange: [],
             recencyScore: null,
         }
-         dateRangeParameter = selectDateRange();
-         requestParameters.tag = selectPreferenceParameter(userArray);
-         requestParameters.recencyScore = selectRecencyScore();
-         requestParameters.dateRange = createArrayWithPreviousDays(new Date(), dateRangeParameter);
+
+        let dateRangeParameter = selectDateRange();
+
+        requestParameters.tag = selectPreferenceParameter(userArray);
+
+        requestParameters.recencyScore = selectRecencyScore();
+
+        let fullDateRange = createArrayWithPreviousDays(new Date(), dateRangeParameter);
+
+        requestParameters.dateRange = []
+
+        requestParameters.dateRange.push(fullDateRange[0])
+        
+        if (fullDateRange.length > 1) {
+            requestParameters.dateRange.push(fullDateRange[fullDateRange.length - 1])
+        }
+
     
         return requestParameters
     }
@@ -104,7 +148,7 @@ const selectPreferenceParameter = (array) => {
     
     
     // this takes the returned posts from the server and returns the postId of a random post
-    const getChosenPostId = (postIds) => {
+    export const getChosenPostId = (postIds) => {
         let randomIndex = Math.floor(Math.random() * postIds.length);
         let postId = postIds[randomIndex];
         return postId

@@ -2,31 +2,25 @@ import Header from "../components/Headers";
 import Footer from "../components/Footer";
 
 import { useQuery } from '@apollo/client'
+import { GET_FLAIR_SCORES, GET_WEIGHTED_POSTS } from "../utils/queries";
+import { generateRequestParameters, getChosenPostId } from "../utils/algorithms/genRequestParams";
+
+
 
 const FeedPage = () => {
-// k so we need stuff...
-// we need to bring in the user preferences from the database
-
+        // k so we need stuff...
+        // we need to bring in the user preferences from the database
+        const { loading, data: userFlairs , error } = useQuery(GET_FLAIR_SCORES)
         // this will de the 'userPrefArray'
+        // then we need to use those preferences to make a query to the api
+        // this will be done by rolling these 'dice'
+        if (!loading) {
+
+                const weightedPostParams =  generateRequestParameters(userFlairs.userPrefs)
+
+                console.log('weightPostParams: ', weightedPostParams)
+        }
         
-
-// then we need to use those preferences to make a query to the api
-// this will be done by rolling these 'dice'
-
-        // const generateRequestParameters = (userPrefArray) => {
-        //   let requestParameters = {
-        //       tag: null,
-        //       dateRange: [],
-        //       recencyScore: null,
-        //   }
-        //    dateRangeParameter = selectDateRange();
-        //    requestParameters.tag = selectPreferenceParameter(userPrefArray);
-        //    requestParameters.recencyScore = selectRecencyScore();
-        //    requestParameters.dateRange = createArrayWithPreviousDays(new Date(), dateRangeParameter);
-
-        //   return requestParameters
-        // }
-
 // then we need to make the api call
 // this will be done by using the 'requestParameters' to make the api call 
 // this is an array that contains the 'tag', 'dateRange', and 'recencyScore'
@@ -70,11 +64,17 @@ const FeedPage = () => {
 // we will need a solution for adding more posts to the feed when the user clicks the 'load more' button
 
 
-  return (
-    <div className="bg-bkg-1 text-content">
-
-    </div>
-  );
+        return (
+                <div className="bg-bkg-1 text-content">
+                        {loading ? (
+                        <div>Loading...</div>
+                        ) : (
+                        <div>
+                                { error ? (<p>Error! {error.message}</p>): (<h2>Some data should have been sent back!</h2>) }
+                        </div>
+                        )}
+                </div>
+        );
 };
 
 export default FeedPage;
