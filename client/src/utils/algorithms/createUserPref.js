@@ -24,7 +24,7 @@ let userArray = [...userPrefArray.tags]
 
 
 //this is for adding points to the userArray when they select a tag that they like on creating profile
-const addPoints = (userArray, userChoices) => {
+export const addPoints = (userArray, userChoices) => {
 
     let numberOfSelections = userChoices.length;
     let tempArray = [...userArray]

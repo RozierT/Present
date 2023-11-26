@@ -1,8 +1,14 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-
+import { Form, Link, useNavigate } from 'react-router-dom';
+import InputField from '../components/FormStuffs/InputField';
+import FormContainer from '../components/FormStuffs/FormContainer';
 import { useMutation } from '@apollo/client';
 import { CREATE_PROFILE, UPDATE_USER_PREFS } from '../utils/mutations'
+import MyButton from '../components/profile/MyButton';
+import FormTitle from '../components/FormStuffs/FormTitle';
+import TextField from '../components/FormStuffs/TextField';
+import GridOfStuff from '../components/FormStuffs/GridOfStuff';
+import { addPoints } from '../utils/algorithms/createUserPref';
 // creating a profile requirements:
 // - username (optional: as user types, check value against existing usernames)
 // - 1 to 5 flairs to prefer
@@ -92,18 +98,38 @@ const MakeProfile = () => {
     };
 
     return (
-        <main className=''>
-            <form onSubmit={handleSubmit} className='bg-purple-400 m-4 flex-wrap '>
-                <input
-                    className=''
-                    type='text' 
-                    value={username}
-                    name='username'
-                    onChange={handleUsernameChange}
-                    placeholder='what should people call you online?'
-                />
-                
+        <FormContainer>
+          
+                <FormTitle title={"Create Profile"} />
 
+                <div className='flex justify-center'>
+                <div className='bkg-white
+                h-40 w-40 border rounded-full flex justify-center'>
+                    <p className='self-center p-4'>
+          placeholder for where the add image will go for profile pic</p>
+                </div>
+                </div>
+               
+                <p>Username</p>
+                 <InputField
+                  placeholder={"what will you go by?"}
+                  name={"username"}
+                  type={"text"}
+                  value={username}
+                  onChange={handleUsernameChange}
+                  size={"w-full mb-2 "}
+                />
+                <p>What interests you? (pick up to 5)</p>
+                
+                <GridOfStuff columns={"3"} content={<>    <div>01</div>
+    <div>02</div>
+    <div>03</div>
+    <div>04</div>
+    <div>05</div>
+    <div>06</div>
+    <div>07</div>
+    <div>08</div>
+    <div>09</div></>} />
                 <div className='tag-choices flex'>
                 {selectedTags.map((tag) => (
                     <div key={tag.tag}>
@@ -118,23 +144,19 @@ const MakeProfile = () => {
                     </div>
                     ))}
                 </div>
-
-                <textarea 
+                <p>All about you</p>
+                <TextField 
                     value={bio}
-                    name='bio'
+                    name={'bio'}
                     onChange={handleBioChange} 
-                    placeholder='Tell me a bit about yourself...'
+                    placeholder={'Share a bit about yourself...'}
                 />
-
-                <button
-                    className="m-3"
-                    style={{ cursor: 'pointer' }}
-                    type="submit"
-                >
-                    Submit
-                </button>
-            </form>
-        </main>
+                    <MyButton
+                        size={"large"}
+                        action={handleSubmit}
+                        content={<>Submit</>}
+                      />
+        </FormContainer>
     )
 }
 

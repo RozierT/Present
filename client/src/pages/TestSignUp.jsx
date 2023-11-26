@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import FormTitle from '../components/FormStuffs/FormTitle';
 import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../utils/mutations';
-
+import MyButton from '../components/profile/MyButton';
+import InputField from '../components/FormStuffs/InputField';
 import Auth from '../utils/auth';
+import FormContainer from '../components/FormStuffs/FormContainer';
 
 const Signup = () => {
   const [formState, setFormState] = useState({
@@ -44,10 +46,13 @@ const Signup = () => {
   };
 
   return (
-    <main className="flex-row justify-center mb-4">
+    <FormContainer>
+
+    <div className="flex-row justify-center mb-4">
       <div className="col-12 col-lg-10">
         <div className="card">
-          <h4 className="card-header bg-dark text-light p-2">Sign Up</h4>
+        <FormTitle title={"Sign up"} />
+
           <div className="card-body">
             {data ? (
               <p>
@@ -55,47 +60,52 @@ const Signup = () => {
                 <Link to="/signup/profile">to creating your Profile!</Link>
               </p>
             ) : (
-              <form onSubmit={handleFormSubmit}>
-                <input
-                  className="form-input"
-                  placeholder="Your first name"
-                  name="firstName"
-                  type="text"
+               <div>
+                <p>first name</p>
+                 <InputField
+                  placeholder={" first name..."}
+                  name={"lastName"}
+                  type={"text"}
                   value={formState.firstName}
                   onChange={handleChange}
+                  size={"w-full mb-2 "}
                 />
-                <input
-                  className="form-input"
-                  placeholder="Your last name"
-                  name="lastName"
-                  type="text"
+                <p>last name</p>
+                <InputField
+                  placeholder={" last name..."}
+                  name={"lastName"}
+                  type={"text mb-2"}
                   value={formState.lastName}
                   onChange={handleChange}
+                  size={"w-full mb-2"}
                 />
-                <input
-                  className="form-input"
-                  placeholder="Your email"
-                  name="email"
-                  type="email"
-                  value={formState.email}
-                  onChange={handleChange}
-                />
-                <input
-                  className="form-input"
-                  placeholder="******"
-                  name="password"
-                  type="password"
-                  value={formState.password}
-                  onChange={handleChange}
-                />
-                <button
-                  className="btn btn-block btn-primary"
-                  style={{ cursor: 'pointer' }}
-                  type="submit"
-                >
-                  Submit
-                </button>
-              </form>
+                <p>email</p>
+
+                  <InputField
+                      name={"email"}
+                      value={formState.email}
+                      onChange={handleChange}
+                      type={"email"}
+                      placeholder={" email..."}
+                      size={"w-full mb-2"}
+                    />
+                <p>password</p>
+                 <InputField
+                      name={"password"}
+                      value={formState.password}
+                      onChange={handleChange}
+                      type={"password"}
+                      placeholder={" password..."}
+                      size={"w-full "}
+                    />
+                   <div className="w-full mt-4">
+                      <MyButton
+                        size={"large"}
+                        action={handleFormSubmit}
+                        content={<>Submit</>}
+                      />
+                    </div>
+                    </div>
             )}
 
             {error && (
@@ -106,7 +116,8 @@ const Signup = () => {
           </div>
         </div>
       </div>
-    </main>
+    </div>
+    </FormContainer>
   );
 };
 
