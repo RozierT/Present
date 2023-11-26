@@ -72,18 +72,14 @@ const MakeProfile = () => {
     
             if (profileData) {
                 try {
-                    console.log('flair array before attempt: ', flairsToUpdate)
-
                     const { data: userData } = await updateUserPrefs({
                         variables: { 
                             input: flairsToUpdate 
                         },
                     });
-    
-                    console.log('updated User: ', userData)
 
                     if (userData) {
-                        navigate('/')
+                        navigate('/feed')
                     }
                 } catch (error) {
                     console.error('updating user error: ', error)

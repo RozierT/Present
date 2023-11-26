@@ -121,11 +121,11 @@ function createProbabilityMap(array) {
    }
 
 // this selects a random tag from the probability array with a bit of randomness thrown in
-const getRandomIndex = (array) => {
+export const getRandomIndex = (array) => {
 
     let results = [];
     for (let i = 0; i < 5; i++) {
-        randomItem = array[Math.floor(Math.random() * array.length)];
+        let randomItem = array[Math.floor(Math.random() * array.length)];
        results.push(randomItem);
     }
     
@@ -143,7 +143,7 @@ const getRandomIndexForPreference = (array) => {
     }
     let randomIndex = results[Math.floor(Math.random() * results.length)];
     return randomIndex
-  }
+}
   
 // this adjusts the score of the tag that was selected to be either reduced or increased by one point
 // the reason for this is to give a bit of randomness to the algorithm so the changes are more distributed
@@ -252,7 +252,7 @@ function alterUserArray(userArray, action, tagToAlter) {
     return tempArray;
    }
    
-   userArray = alterUserArray(userArray, action, tagToAlter)
+  //  userArray = alterUserArray(userArray, action, tagToAlter)
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 

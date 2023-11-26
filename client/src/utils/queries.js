@@ -1,16 +1,16 @@
 import { gql } from '@apollo/client';
 
 // this should only return posts id PLEASE EDIT
-export const GET_POSTS = gql`
-  query getPosts($flares: [String], $recencyScore: Int, $dateRange: [String]) {
-    posts(flares: $flares, recencyScore: $recencyScore, dateRange: $dateRange) {
+export const GET_WEIGHTED_POSTS = gql`
+  query getPosts($flairs: [String], $recencyScore: Int, $dateRange: [String]) {
+    posts(flairs: $flairs, recencyScore: $recencyScore, dateRange: $dateRange) {
       dateCreated
       userId
       imageSrc
       title
       description
       likes
-      flares
+      flairs
       commentable
       comments
       shouldRendering
@@ -56,6 +56,12 @@ export const GET_PROFILE = gql`
   }
 `
 
+// get a user's flair scores. id passed in resolver thru context
 export const GET_FLAIR_SCORES = gql`
-  query 
+  query userPrefs {
+  userPrefs {
+    score
+    tag
+  }
+}
 `
