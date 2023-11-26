@@ -86,7 +86,6 @@ const resolvers = {
       const { input } = args
 
       console.log('input: ', input)
-      console.log('user id: ', context.user._id)
 
 
       if (!context.user) {

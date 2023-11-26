@@ -3,9 +3,9 @@ import photoBack from '../assets/images/pexels-stock.jpg'
 
 function HomePage() {
     return (
-        <div className="flex flex-col justify-center text-content" style={{backgroundImage: `url(${photoBack})`, backgroundSize: 'cover', height: '100vh', width: '100vw'}}>
-            <h6 className="p-4 m-2 text-center  text-3xl text-purple-500">Live in the...</h6>
-            <h1 className="p-4 m-2 text-center font-mono text-4xl text-purple-400">Present</h1>
+        <div className="flex flex-col justify-center text-content" style={{backgroundImage: `url(${photoBack})`, backgroundSize: 'contain', height: '100vh', width: '100vw'}}>
+            <h6 className="p-4 m-2 text-center  text-3xl text-purple-500"><span className='text-white'>Capture</span> the...</h6>
+            <h1 className="p-4 m-2 text-center font-mono text-4xl text-purple-100">Present</h1>
 
             <div className="p-4 m-2 flex justify-center">
                 <Link to="/login">

@@ -1,6 +1,8 @@
 import Header from "../components/Headers";
 import Footer from "../components/Footer";
 
+import { useQuery } from '@apollo/client'
+
 const FeedPage = () => {
 // k so we need stuff...
 // we need to bring in the user preferences from the database

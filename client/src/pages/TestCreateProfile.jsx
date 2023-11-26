@@ -83,7 +83,7 @@ const MakeProfile = () => {
                     console.log('updated User: ', userData)
 
                     if (userData) {
-                        navigate('/')
+                        // navigate('/')
                     }
                 } catch (error) {
                     console.error('updating user error: ', error)
