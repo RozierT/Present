@@ -249,8 +249,9 @@ console.log("one user done")
   
 // });
 
-console.log('users: ', userArray)
-// console.log('profiles: ', profileArray)
+// console.log(profileArray)
+console.log(postArray)
+
 
 console.log('# of users: ', userArray.length);
 console.log('# of profiles: ', profileArray.length);
