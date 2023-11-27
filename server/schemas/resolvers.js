@@ -87,17 +87,9 @@ const resolvers = {
         { new: true }
       )
 
-      // if (!user) {
-      //   throw new Error('User not found');
-      // }
-
-      // input.forEach(flairScore => {
-      //   const index = user.flairScores.findIndex(fs => fs.tag === flairScore.tag);
-        
-      //   if (index !== -1) {
-      //     user.flairScores[index].score = flairScore.score;
-      //   }
-      // });
+      if (!updatedUser) {
+        throw new Error('User not found');
+      }
 
       return updatedUser
     },

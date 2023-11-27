@@ -14,6 +14,8 @@ const FeedPage = () => {
         // this will de the 'userPrefArray'
         // then we need to use those preferences to make a query to the api
         // this will be done by rolling these 'dice'
+
+        console.log('userFlairs: ', userFlairs)
         if (!loading) {
 
                 const weightedPostParams =  generateRequestParameters(userFlairs.userPrefs)
