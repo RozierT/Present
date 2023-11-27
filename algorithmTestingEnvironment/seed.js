@@ -83,8 +83,10 @@ let likeArray = [];
         isUniqueUsername = true;
       }
     }
+    //let userId = ObjectId();
     let user = {
       _id: `${username}ID`,
+      // _id: userId,
       firstName: first,
       lastName: last,
       email: `${username}@example.com`,
