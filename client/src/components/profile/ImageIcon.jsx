@@ -21,7 +21,7 @@ const ImageIcon = ({ imageSrc, size, linked, linkUrl, shape, bordered, actionabl
       ? "border-2 border-accent-2"
       : null;
     
-  console.log(imageSize)
+  // console.log(imageSize)
     return (
       <div className="flex justify-center " >
         {linked ? (

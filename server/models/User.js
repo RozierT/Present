@@ -27,18 +27,16 @@ const userSchema = new Schema({
       // At least 8 chars w/ at least 1 upper/lower/num/special character
       // match: [/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/, 'Must match all password criteria!']
     },
-    friends: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'user',
-      },
-    ],
-    scrapbook: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'post',
-      }
-    ],
+    friends: {
+      type: [Schema.Types.ObjectId],
+      ref: 'user',
+      default: []
+    },
+    scrapbook: {
+      type: [Schema.Types.ObjectId],
+      ref: 'post',
+      default: []
+    },
     flairScores: {
       type: [flairSchema],
       default: function() {

@@ -15,6 +15,8 @@ import { useEffect } from 'react';
 import { useQuery } from '@apollo/client'
 import { GET_FLAIR_SCORES } from "../utils/queries";
 import addPoints from "../utils/algorithms/createUserPref"
+import ImageUpload from '../components/ImageComponents/ImageUpload';
+
 // creating a profile requirements:
 // - username (optional: as user types, check value against existing usernames)
 // - 1 to 5 flairs to prefer
@@ -23,9 +25,10 @@ const MakeProfile = () => {
     const [username, setUsername] = useState('');
     const [bio, setBio] = useState('');
     const [selectedTags, setSelectedTags] = useState([]);
+    const [profilePicture, setProfilePic] = useState('https://cataas.com/cat')
 
     const { loading, data: userFlairs , error } = useQuery(GET_FLAIR_SCORES)
-console.log('userFlairs: ', userFlairs)
+// console.log('userFlairs: ', userFlairs)
 const visualTags = [
     { tag: "food", image: placeHoldImage},
     { tag: "sports", image: placeHoldImage},
@@ -45,38 +48,41 @@ const visualTags = [
 ]
 
 
-const handleTagClick = (tag) => {
-    if (selectedTags.includes(tag)) {
-      setSelectedTags(selectedTags.filter((t) => t !== tag));
-    } else {
-      setSelectedTags([...selectedTags, tag]);
-    }
-    
-  };
-
-  useEffect(() => {
-    if (selectedTags.length > 5) {
-        setSelectedTags(selectedTags.slice(1, 6));
-      }
-    console.log(selectedTags);
-  }, [selectedTags]);
-
-
-const tagElements = visualTags.map((tag, index) => (
-    <div className='m-3' key={index} onClick={() => handleTagClick(tag.tag)}>
-        {selectedTags.includes(tag.tag)? 
-        <div className='border bg-accent-2 rounded-full p-1 m-1' >
-        <ImageIcon content={tag.image} size={"small"} shape={"circle"} selected={true}/>
-        </div>
-        : 
-        <div className='border rounded-full p-1 m-1' >
-         <ImageIcon content={tag.image} size={"small"} shape={"circle"}/>
-         </div>
+    const handleTagClick = (tag) => {
+        if (selectedTags.includes(tag)) {
+        setSelectedTags(selectedTags.filter((t) => t !== tag));
+        } else {
+        setSelectedTags([...selectedTags, tag]);
         }
+        
+    };
 
-    </div>
- ));
+    useEffect(() => {
+        if (selectedTags.length > 5) {
+            setSelectedTags(selectedTags.slice(1, 6));
+        }
+        // console.log(selectedTags);
+    }, [selectedTags]);
 
+
+    const tagElements = visualTags.map((tag, index) => (
+        <div className='m-3' key={index} onClick={() => handleTagClick(tag.tag)}>
+            {selectedTags.includes(tag.tag)? 
+            <div className='border bg-accent-2 rounded-full p-1 m-1' >
+            <ImageIcon content={tag.image} size={"small"} shape={"circle"} selected={true}/>
+            </div>
+            : 
+            <div className='border rounded-full p-1 m-1' >
+            <ImageIcon content={tag.image} size={"small"} shape={"circle"}/>
+            </div>
+            }
+
+        </div>
+    ));
+
+    const handleImageUpload = (url) => {
+        setProfilePic(url);
+    };
 
 
     const [createProfile] = useMutation(CREATE_PROFILE);
@@ -125,8 +131,10 @@ console.log('newUserFlairs: ', newUserFlairs)
             console.error('updating flairs error: ', error)
         }
         try {
+            console.log('profilePicData: ', profilePicture)
+
             const { data: profileData } = await createProfile({
-                variables: { username, bio },
+                variables: { username, bio, profilePicture },
             });
             console.log('Profile data: ', profileData)
         } catch (error) {
@@ -144,8 +152,9 @@ console.log('newUserFlairs: ', newUserFlairs)
                 <div className='flex justify-center'>
                 <div className='bkg-white
                 h-40 w-40 border rounded-full flex justify-center'>
-                    <p className='self-center p-4'>
-          placeholder for where the add image will go for profile pic</p>
+                    {/* <p className='self-center p-4'>
+          placeholder for where the add image will go for profile pic</p> */}
+                    <ImageUpload onImageUpload={handleImageUpload}/>
                 </div>
                 </div>
                

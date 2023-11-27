@@ -1,3 +1,8 @@
+const db = require('../config/connection');
+const User = require('../models/User')
+const Profile = require('../models/Profile')
+const cleanDB = require('./cleanDB')
+const mongoose = require('mongoose')
 
 // this is commenter joes data
 // this is gonna be the guy who comments on all the posts in the seed data
@@ -5,7 +10,7 @@
 
 
 const commenterJoeData = {
-  _id: 'commenterjoesID',
+  _id: new mongoose.Types.ObjectId(),
   firstName: 'commenter',
   lastName: 'joe',
   email: 'john.doe@example.com',
@@ -13,11 +18,11 @@ const commenterJoeData = {
  };
  
  const commenterJoeProfileData = {
-  _id: 'customProfileID',
+  _id: new mongoose.Types.ObjectId(),
   userName: 'iCommentOnThings',
   bio: 'I comment on things, all the time. lol',
   profilePicture: 'http://example.com/profilePicture.jpg',
-  userId: 'commenterjoesID',
+  userId: commenterJoeData._id,
   flairPref: [
     {tag: 'flair1', score: 100},
     {tag: 'flair2', score: 100}
@@ -55,6 +60,62 @@ const flairNames = [
  "photography", 
 ]
 
+const tags = [
+  { tag: "food", score: 100 },
+  { tag: "sports", score: 100 },
+  { tag: "lifestyle", score: 100 },
+  { tag: "news", score: 100 },
+  { tag: "music", score: 100 },
+  { tag: "movies", score: 100 },
+  { tag: "gaming", score: 100 },
+  { tag: "funny", score: 100 },
+  { tag: "animals", score: 100 },
+  { tag: "science", score: 100 },
+  { tag: "technology", score: 100 },
+  { tag: "art", score: 100 },
+  { tag: "books", score: 100 },
+  { tag: "travel", score: 100 },
+  { tag: "photography", score: 100 }
+]
+
+// // generate a random number between 10 and 750
+function getRandomScore() {
+  return Math.round(Math.random() * 740) + 10; 
+}
+ // takes in a user with default flair scores and returns user with randomized scores
+function generateTagScores(user) {
+  let totalScore = 0;
+  let scores = [];
+ 
+  // Generate initial scores for all tags
+  for (let tag of tags) {
+    let score = getRandomScore();
+    totalScore += score;
+    scores.push(score);
+  }
+ 
+  // Adjust scores to ensure total equals 2000
+  while (totalScore !== 2000) {
+    let index = Math.floor(Math.random() * scores.length);
+    let adjustment = 2000 - totalScore;
+    if (scores[index] + adjustment > 700) {
+      scores[index] = 700;
+    } else if (scores[index] + adjustment < 100) {
+      scores[index] = 100;
+    } else {
+      scores[index] += adjustment;
+    }
+    totalScore = scores.reduce((a, b) => a + b, 0);
+  }
+ 
+  // Update user's flair scores
+  for (let i = 0; i < tags.length; i++) {
+    user.flairScores.find(flair => flair.tag === tags[i].tag).score = scores[i];
+  }
+ 
+  return user;
+}
+
 const pickFromArray = (array) => {
   let randomIndex = Math.floor(Math.random() * array.length);
   return array[randomIndex];
@@ -64,6 +125,8 @@ function getRndInteger(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+
+
 let userArray = []; 
 let profileArray = [];
 let postArray = [];
@@ -72,10 +135,12 @@ let likeArray = [];
 
 
 const generateRandomUser = () => {
+
   let first = pickFromArray(names);
   let last = pickFromArray(names);
   let username = `${first}${last}${Math.floor(Math.random() * 1000)}`;
   let isUniqueUsername = false;
+  
   while (!isUniqueUsername) {
     if (profileArray.some((u) => u.userName === username)) {
       username = `${first}${last}${Math.floor(Math.random() * 1000)}`;
@@ -84,35 +149,52 @@ const generateRandomUser = () => {
       isUniqueUsername = true;
     }
   }
+
   let user = {
-    _id: `${username}ID`,
+    _id: new mongoose.Types.ObjectId(),
     firstName: first,
     lastName: last,
     email: `${username}@example.com`,
     password: 'password123',
     lifeTimePosts: [],
+    flairScores: [
+      { tag: "food", score: 100 },
+      { tag: "sports", score: 100 },
+      { tag: "lifestyle", score: 100 },
+      { tag: "news", score: 100 },
+      { tag: "music", score: 100 },
+      { tag: "movies", score: 100 },
+      { tag: "gaming", score: 100 },
+      { tag: "funny", score: 100 },
+      { tag: "animals", score: 100 },
+      { tag: "science", score: 100 },
+      { tag: "technology", score: 100 },
+      { tag: "art", score: 100 },
+      { tag: "books", score: 100 },
+      { tag: "travel", score: 100 },
+      { tag: "photography", score: 100 }
+    ]
   };
-  userArray.push(user);
+
+  let finalUser = generateTagScores(user)
+
+  userArray.push(finalUser);
+  
   let profile = {
-      _id: `${username}ProfileID`,
-      userName: username,
+      _id: new mongoose.Types.ObjectId(),
+      username: username,
       bio: `This is a test bio about ${username}`,
       profilePicture: 'https://cataas.com/cat',
-      userId: `${username}ID`,
+      userId: user._id ,
       posts: [],
-      flairPref: [
-        { tag: "food", score: 100 },
-        { tag: "sports", score: 100 },
-        // ...rest of the flairPref array
-      ],
     }
   profileArray.push(profile);
   
   for (let i = 1; i < 8; i++) {
     let post = {
-      _id: `${username}Post${i}ID`,
+      _id: new mongoose.Types.ObjectId(),
       dateCreated: new Date(),
-      userId: `${username}ID`,
+      userId: user._id,
       profilePicture: 'https://cataas.com/cat',
       content: 'https://cataas.com/cat',
       textContent: `This is a test post from ${username}`,
@@ -130,8 +212,8 @@ const generateRandomUser = () => {
     let numberOfComments = getRndInteger(1, 10);
       for (let k = 0; k < numberOfComments; k++) {
           let comment = {
-          _id: `${username}Post${i}Comment${k}ID`,
-          userId: `commenterjoesID`,
+          _id: new mongoose.Types.ObjectId(),
+          userId: commenterJoeData._id,
           profilePicture: 'https://cataas.com/cat',
           dateCreated: new Date(),
           textContent: `This is a test comment from commenterjoe on ${username}'s post${i} `,
@@ -143,8 +225,8 @@ const generateRandomUser = () => {
       let numberOflikes = getRndInteger(1, 50);
       for (let k = 0; k < numberOflikes; k++) {
           let like = {
-          _id: `${username}Post${i}like${k}ID`,
-          userId: `commenterjoesID`,
+          _id: new mongoose.Types.ObjectId(),
+          userId: commenterJoeData._id,
           };
           post.likes.push(like._id);
           likeArray.push(like);
@@ -156,22 +238,25 @@ const generateRandomUser = () => {
 };
 
 
-for (i = 0; i < 1000; i++ ){
+for (i = 0; i < 10; i++ ){
 generateRandomUser();
-
+console.log("one user done")
 }
-profileArray
-.forEach(element => {
-  console.log(element.userName);
+
+// profileArray
+// .forEach(element => {
+//   console.log(element.userName);
   
-});
+// });
 
+console.log('users: ', userArray)
+// console.log('profiles: ', profileArray)
 
-console.log(userArray.length);
-console.log(profileArray.length);
-console.log(postArray.length);
-console.log(commentArray.length);
-console.log(likeArray.length);
+console.log('# of users: ', userArray.length);
+console.log('# of profiles: ', profileArray.length);
+console.log('# of posts: ', postArray.length);
+console.log('# of comments: ', commentArray.length);
+console.log('# of likes: ', likeArray.length);
 // i need to break out this array into 5 arrays so that i can easily do bulk create with them
 // the first array will be the users
 // the second array will be the profiles
@@ -184,3 +269,13 @@ console.log(likeArray.length);
 // then for each post makes a random number of comments and adds it to the comment array
 // then for each post makes a random number of likes and adds it to the like array
 
+db.once('open', async () => {
+  await cleanDB('User', 'users');
+  await cleanDB('Profile', 'profiles');
+
+  const users = await User.insertMany(userArray)
+  const profiles = await Profile.insertMany(profileArray)
+
+  console.log('all done!');
+  process.exit(0);
+})
