@@ -6,7 +6,7 @@
 const InputField = ({ name, value, onChange, type, placeholder, size }) => {
     return (
         <input
-            className={`form-input ${size}`}
+            className={`form-input text-black ${size}`}
             name={name}
             type={type}
             value={value}

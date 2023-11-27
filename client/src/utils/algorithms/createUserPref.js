@@ -1,32 +1,11 @@
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-let userPrefArray = {
-    tags: [
-        {tag: "food", score: 100},
-        {tag: "sports", score: 100},
-        {tag: "lifestyle", score: 100},
-        {tag: "news", score: 100},
-        {tag: "music", score: 100},
-        {tag: "movies", score: 100},
-        {tag: "gaming", score: 100},
-        {tag: "funny", score: 100},
-        {tag: "animals", score: 100},
-        {tag: "science", score: 100},
-        {tag: "technology", score: 100},
-        {tag: "art", score: 100},
-        {tag: "books", score: 100},
-        {tag: "travel", score: 100},
-        {tag: "photography", score: 100}
-    ],
-}
-
-
-let userArray = [...userPrefArray.tags]
 
 
 //this is for adding points to the userArray when they select a tag that they like on creating profile
-export const addPoints = (userArray, userChoices) => {
-
+ const addPoints = (userArray, userChoices) => {
+console.log(userArray)
+console.log(userChoices)
     let numberOfSelections = userChoices.length;
+console.log(numberOfSelections)
     let tempArray = [...userArray]
     let pointsToAdd 
 
@@ -39,7 +18,7 @@ export const addPoints = (userArray, userChoices) => {
     } else if (numberOfSelections === 5) {
         pointsToAdd = 100;
     }
-    
+console.log(pointsToAdd)  
 
 if (numberOfSelections === 3) {
     tempArray = tempArray.map(item => {
@@ -63,10 +42,16 @@ if (numberOfSelections === 3) {
         }
         });
 }}
+
+for (let i = 0; i < tempArray.length; i++) {
+    console.log(`tempArray is: ${tempArray[i].tag} ${tempArray[i].score}`)
+}
+
 return tempArray
 }
 
- userArray = addPoints( userArray, userChoices)
+ 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
+export default addPoints;

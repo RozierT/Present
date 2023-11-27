@@ -12,6 +12,9 @@ import placeHoldImage from '../assets/images/placeHoldIcon.png';
 import ImageIcon from '../components/profile/ImageIcon';
 import { SlackLogo } from '@phosphor-icons/react';
 import { useEffect } from 'react';
+import { useQuery } from '@apollo/client'
+import { GET_FLAIR_SCORES } from "../utils/queries";
+import addPoints from "../utils/algorithms/createUserPref"
 // creating a profile requirements:
 // - username (optional: as user types, check value against existing usernames)
 // - 1 to 5 flairs to prefer
@@ -21,8 +24,8 @@ const MakeProfile = () => {
     const [bio, setBio] = useState('');
     const [selectedTags, setSelectedTags] = useState([]);
 
-
-
+    const { loading, data: userFlairs , error } = useQuery(GET_FLAIR_SCORES)
+console.log('userFlairs: ', userFlairs)
 const visualTags = [
     { tag: "food", image: placeHoldImage},
     { tag: "sports", image: placeHoldImage},
@@ -78,6 +81,8 @@ const tagElements = visualTags.map((tag, index) => (
 
     const [createProfile] = useMutation(CREATE_PROFILE);
     const [updateUserPrefs] = useMutation(UPDATE_USER_PREFS);
+
+
     const handleUsernameChange = (event) => {
         setUsername(event.target.value);
     };
@@ -90,7 +95,35 @@ const tagElements = visualTags.map((tag, index) => (
             return alert('Missing values!')
         }
 
-        console.log('data to be sent: ', username, bio, selectedTags)
+        console.log('data to be sent: ',selectedTags)
+let userChoices =[]
+        selectedTags.forEach(tag => {
+            userChoices.push({tag: tag})
+        })
+
+
+        userChoices = addPoints( userFlairs.userPrefs, userChoices)
+        console.log('userPrefsArray: ', userChoices)
+let newUserFlairs =
+{
+    userPrefs: userChoices
+}
+
+const flairsToUpdate = newUserFlairs.userPrefs.map(flair => {
+    return {
+        tag: flair.tag,
+        score: flair.score
+    }
+})
+
+console.log('newUserFlairs: ', newUserFlairs)
+        try {
+            const { data: userData } = await updateUserPrefs({
+                variables: { input: flairsToUpdate },
+            });
+        } catch (error) {
+            console.error('updating flairs error: ', error)
+        }
         try {
             const { data: profileData } = await createProfile({
                 variables: { username, bio },
