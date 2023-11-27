@@ -25,8 +25,8 @@ export const ADD_USER = gql`
 
 // creates profile and returns(?) token and user id (intended for context)
 export const CREATE_PROFILE = gql`
-  mutation addProfile($username: String!, $bio: String) {
-    addProfile(username: $username, bio: $bio) {
+  mutation addProfile($username: String!, $bio: String, $profilePicture: String) {
+    addProfile(username: $username, bio: $bio, profilePicture: $profilePicture) {
       userId
       username
       bio

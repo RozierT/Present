@@ -58,7 +58,9 @@ const resolvers = {
 
       return { token, user };
     },
-    addProfile: async (parent, { username, bio }, context) => {
+    addProfile: async (parent, { username, bio, profilePicture }, context) => {
+
+      console.log('profilePic value: ', profilePicture)
 
       if (!context.user) {
         throw new Error('Authentication required');
@@ -67,9 +69,12 @@ const resolvers = {
       const profile = await Profile.create({
         username,
         bio,
+        profilePicture,
         userId: context.user._id
       });
       
+      console.log('returned profile: ', profile)
+
       return profile;
     },
     // Used to update a user's flairScores array after Profile creation
