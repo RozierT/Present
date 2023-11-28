@@ -15,7 +15,7 @@ function Header() {
             mirrored: false,
           }}
         >
-          <a href="/search">
+          <a href="/explore">
             <MagnifyingGlass />
           </a>
           <h1 className="text-content font-bold items-center flex"> Present  </h1>
@@ -48,20 +48,5 @@ function Header() {
     </header>
   );
 }
-
-{/* Admin Header Below
-<header className="fixed sticky top-0 w-full bg-accent-2 flex justify-around items-center p-2">
-    <IconContext.Provider
-              value={{
-                color: "black",
-                size: 32,
-                weight: "bold",
-                mirrored: false,
-              }}
-            ><a href='/'><House /></a>
-     <span className='font-bold text-black'>Admin</span>
-     
-     <a href='/notifications'><Bell /></a></IconContext.Provider>
-   </header> */}
 
 export default Header;
