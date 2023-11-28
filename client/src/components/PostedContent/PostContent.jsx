@@ -1,70 +1,39 @@
 import ImageIcon from "../profile/ImageIcon";
 import placeholdIcon from "../../assets/images/placeholdIcon.png";
 
-// const tagIcons = [
-//   {
-//     tag: 'food',
-//     imageSrc: 'PlaceholderIcon.png'
-//   },
-//   {
-//     tag: 'science',
-//     imageSrc: 'PlaceholderIcon.png'
-//   },
-//   {
-//     tag: 'art',
-//     imageSrc: 'PlaceholderIcon.png'
-//   },
-//   {
-//     tag: 'music',
-//     imageSrc: 'PlaceholderIcon.png'
-//   },
-//   {
-//     tag: 'travel',
-//     imageSrc: 'PlaceholderIcon.png'
-//   },
-//   {
-//     tag: 'sports',
-//     imageSrc: 'PlaceholderIcon.png'
-//   },
-//   {
-//     tag: 'games',
-//     imageSrc: 'PlaceholderIcon.png'
-//   },
-//   {
-//     tag: 'fashion',
-//     imageSrc: 'PlaceholderIcon.png'
-//   },
-//   {
-//     tag: 'technology',
-//     imageSrc: 'PlaceholderIcon.png'
-//   },
-//   {
-//     tag: 'health',
-//     imageSrc: 'PlaceholderIcon.png'
-//   },
-//   {
-//     tag: 'education',
-//     imageSrc: 'PlaceholderIcon.png'
-//   },
-//   {
-//     tag: 'politics',
-//     imageSrc: 'PlaceholderIcon.png'
-//   },
-//   {
-//     tag: 'religion',
-//     imageSrc: 'PlaceholderIcon.png'
-//   },
-//   {
-//     tag: 'news',
-//     imageSrc: 'PlaceholderIcon.png'
-//   },
-//   {
-//     tag: 'books',
-//     imageSrc: 'PlaceholderIcon.png'
-//    }
-// ];
-// *REMOVE/REPLACE Placeholders with actual icons when the are created
+import animals from '../../assets/images/animals.png';
+import art from '../../assets/images/art.png';
+import books from '../../assets/images/books.png';
+import food from '../../assets/images/food.png';
+import funny from '../../assets/images/funny.png';
+import gaming from '../../assets/images/gaming.png';
+import lifestyle from '../../assets/images/lifestyle.png';
+import movies from '../../assets/images/movies.png';
+import music from '../../assets/images/music.png';
+import news from '../../assets/images/news.png';
+import photography from '../../assets/images/photography.png';
+import science from '../../assets/images/science.png';
+import sports from '../../assets/images/sports.png';
+import technology from '../../assets/images/tech.png';
+import travel from '../../assets/images/travel.png';
 
+const visualTags = [
+  { tag: "food", image: food},
+  { tag: "sports", image: sports},
+  { tag: "lifestyle", image: lifestyle},
+  { tag: "news", image: news},
+  { tag: "music", image: music},
+  { tag: "movies", image: movies},
+  { tag: "gaming", image: gaming},
+  { tag: "funny", image: funny},
+  { tag: "animals", image: animals},
+  { tag: "science", image: science},
+  { tag: "technology", image: technology},
+  { tag: "art", image: art},
+  { tag: "books", image: books},
+  { tag: "travel", image: travel},
+  { tag: "photography", image: photography}
+]
 
 const PostContent = ({ content, tags }) => {
   return (
@@ -83,26 +52,26 @@ const PostContent = ({ content, tags }) => {
         style={{ position: "absolute", bottom: "0", right: "0" }}
       >
         <div className="flex">
-          {tags.map((item, index) => (
-            <div className="p-1">
-              {/*(tag => {
-                // Find matching icon
-                const tagIcon = tagIcons.find(icon => icon.tag === item.tag);
-                if (tagIcon) {
-                  return <img src={tagIcon.imageSrc} alt={tagIcon.tag} />;
-                } else {
-                  return null;
-                }
-              })*/}
-              <ImageIcon
-                size={"small"}
-                imageSrc={placeholdIcon}
-                shape={"circle"}
-                bordered={true}
-                linked={false}
-              />
-            </div>
-          ))}
+        {tags.map((item, index) => (
+    <div className="p-1" key={index}>
+      {visualTags.map((tag) => {
+        if (tag.tag === item.tag) {
+          return (
+            <ImageIcon
+              key={tag.tag}
+              size={"small"}
+              imageSrc={tag.image}
+              shape={"circle"}
+              bordered={true}
+              linked={false}
+            />
+          );
+        } else {
+          return null;
+        }
+      })}
+    </div>
+  ))}
         </div>
       </div>
     </div>

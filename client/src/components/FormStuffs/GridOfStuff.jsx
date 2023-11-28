@@ -6,7 +6,7 @@ const GridOfStuff = ({ columns, arrayOfHtml }) => {
     let gridCols = `repeat(${columns}, 1fr)`; // Set the number of columns using CSS Grid's repeat function
 
     return (
-      <div className={`justify-center grid`} style={{ gridTemplateColumns: gridCols, gap: '4px' }}>
+      <div className={`justify-center grid`} style={{ gridTemplateColumns: gridCols, gap: '0px' }}>
         {arrayOfHtml}
       </div>
     );

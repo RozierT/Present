@@ -4,7 +4,7 @@ import Header from "../components/Headers";
 import Footer from "../components/Footer";
 import Feed from "../components/PostedContent/Feed";
 // ~~~~~~~~~~~Test Data~~~~~~~~~~~~~~
-import placeholdIcon from "../assets/images/placeholdIcon.png";
+
 import BioSection from "../components/profile/BioSection";
 
 // const testProfile = {
