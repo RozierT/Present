@@ -58,6 +58,33 @@ const resolvers = {
       const queriedPost = await Post.findById(args._id)
 
       return queriedPost
+    },
+    me: async (parent, args, context) => {
+
+      if (!context.user) {
+        throw new Error('Authentication required');
+      }
+
+      console.log('user id: ', context.user._id)
+
+      const thisUser = await Profile.findById(context.user._id)
+
+      return thisUser
+    },
+    getOthersProfile: async (parent, args, context) => {
+
+      if (!context.user) {
+        throw new Error('Authentication required');
+      }
+
+      console.log('args: ', args)
+      console.log('userId: ', args.userId)
+
+      const othersProlie = await Profile.find({
+        userId: args.userId
+      })
+
+      return othersProlie
     }
   },
   Mutation: {
@@ -121,6 +148,29 @@ const resolvers = {
       }
 
       return updatedUser
+    },
+    // creates post based on passed in data then updates profile with new post id
+    createPost: async (parent, { content, textContent, flairs}, context) => {
+
+      if (!context.user) {
+        throw new Error('Authentication required');
+      }
+
+      const createdPost = await Post.create({
+        content,
+        textContent,
+        flairs
+      })
+
+      if (createdPost) {
+        const updatedProfile = await Profile.findOneAndUpdate(
+          { userId: context.user._id },
+          { $push: { posts: createdPost._id } },
+          { new: true },
+        )
+
+        return { createdPost, updatedProfile }
+      }
     },
   },
 };

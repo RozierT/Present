@@ -1,8 +1,4 @@
-
-
 const typeDefs = `
-
-
   type User {
     _id: ID
     firstName: String!
@@ -71,14 +67,13 @@ const typeDefs = `
 
 
   type Query {
-    user(_id: ID!): Profile
-
-    scrapbook(_id: ID!): [Post]
-    getPostById(_id: ID!): Post
-
-    profile(userId: ID!): Profile
     userPrefs: [flairScore]
+
+    me: Profile
+    getOthersProfile(userId: ID!): Profile
+
     getWeightedPosts(flair: String, recencyScore: Int, dateRange: [String]): [Post]
+    getPostById(_id: ID!): Post
   }
 
   type Mutation {
@@ -86,6 +81,8 @@ const typeDefs = `
     addUser(firstName: String!, lastName: String!, email: String! password: String!): Auth
     addProfile(username: String!, bio: String, profilePicture: String, userId: ID): Profile
     updateUserPrefs(input: [flairScoreInput]): User
+
+    createPost(content: String!, textContent: String!, flairs: [String!]!): Post
   }
 `;
 
