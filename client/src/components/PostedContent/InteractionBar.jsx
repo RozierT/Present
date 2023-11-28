@@ -63,6 +63,10 @@ const buildNotificationAndUpdatePost = (action, postId) => {
 //     action: action,
 //     userToNotifyId: userId
 //   }
+// if (likedByViewer) {
+//   action = "unlike"
+//  } else {
+//   action = "like"
 
   // try {
   //     const { data: userData } = await buildNotification({

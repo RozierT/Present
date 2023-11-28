@@ -65,3 +65,41 @@ export const GET_FLAIR_SCORES = gql`
   }
 }
 `
+
+// get user by username
+export const GET_USER = gql`
+  query user($username: String!) {
+    user(username: $username) {
+      _id
+      username
+      userId
+      profilePicture
+      bio
+      links {
+        _id
+        name
+        url
+        imageSrc
+      }
+      latestPosts {
+        _id
+        userId
+        dateCreated
+        imageSrc
+        title
+        description
+        likes
+        flairs
+        commentable
+        shouldRendering
+        comments {
+          text
+          userId
+          dateCreated
+          commentable
+          _id
+        }
+      }
+    }
+  }
+`
