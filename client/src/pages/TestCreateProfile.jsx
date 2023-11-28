@@ -3,6 +3,21 @@ import { Form, Link, useNavigate } from 'react-router-dom';
 import InputField from '../components/FormStuffs/InputField';
 import FormContainer from '../components/FormStuffs/FormContainer';
 import { useMutation } from '@apollo/client';
+import animals from '../assets/images/animals.png';
+import art from '../assets/images/art.png';
+import books from '../assets/images/books.png';
+import food from '../assets/images/food.png';
+import funny from '../assets/images/funny.png';
+import gaming from '../assets/images/gaming.png';
+import lifestyle from '../assets/images/lifestyle.png';
+import movies from '../assets/images/movies.png';
+import music from '../assets/images/music.png';
+import news from '../assets/images/news.png';
+import photography from '../assets/images/photography.png';
+import science from '../assets/images/science.png';
+import sports from '../assets/images/sports.png';
+import technology from '../assets/images/tech.png';
+import travel from '../assets/images/travel.png';
 import { CREATE_PROFILE, UPDATE_USER_PREFS } from '../utils/mutations'
 import MyButton from '../components/profile/MyButton';
 import FormTitle from '../components/FormStuffs/FormTitle';
@@ -15,6 +30,7 @@ import { useEffect } from 'react';
 import { useQuery } from '@apollo/client'
 import { GET_FLAIR_SCORES } from "../utils/queries";
 import addPoints from "../utils/algorithms/createUserPref"
+import { newInvariantError } from '@apollo/client/utilities/globals';
 import ImageUpload from '../components/ImageComponents/ImageUpload';
 
 // creating a profile requirements:
@@ -30,21 +46,21 @@ const MakeProfile = () => {
     const { loading, data: userFlairs , error } = useQuery(GET_FLAIR_SCORES)
 // console.log('userFlairs: ', userFlairs)
 const visualTags = [
-    { tag: "food", image: placeHoldImage},
-    { tag: "sports", image: placeHoldImage},
-    { tag: "lifestyle", image: placeHoldImage},
-    { tag: "news", image: placeHoldImage},
-    { tag: "music", image: placeHoldImage},
-    { tag: "movies", image: placeHoldImage},
-    { tag: "gaming", image: placeHoldImage},
-    { tag: "funny", image: placeHoldImage},
-    { tag: "animals", image: placeHoldImage},
-    { tag: "science", image: placeHoldImage},
-    { tag: "technology", image: placeHoldImage},
-    { tag: "art", image: placeHoldImage},
-    { tag: "books", image: placeHoldImage},
-    { tag: "travel", image: placeHoldImage},
-    { tag: "photography", image: placeHoldImage}
+    { tag: "food", image: food},
+    { tag: "sports", image: sports},
+    { tag: "lifestyle", image: lifestyle},
+    { tag: "news", image: news},
+    { tag: "music", image: music},
+    { tag: "movies", image: movies},
+    { tag: "gaming", image: gaming},
+    { tag: "funny", image: funny},
+    { tag: "animals", image: animals},
+    { tag: "science", image: science},
+    { tag: "technology", image: technology},
+    { tag: "art", image: art},
+    { tag: "books", image: books},
+    { tag: "travel", image: travel},
+    { tag: "photography", image: photography}
 ]
 
 
@@ -65,17 +81,17 @@ const visualTags = [
     }, [selectedTags]);
 
 
-    const tagElements = visualTags.map((tag, index) => (
-        <div className='m-3' key={index} onClick={() => handleTagClick(tag.tag)}>
-            {selectedTags.includes(tag.tag)? 
-            <div className='border bg-accent-2 rounded-full p-1 m-1' >
-            <ImageIcon content={tag.image} size={"small"} shape={"circle"} selected={true}/>
-            </div>
-            : 
-            <div className='border rounded-full p-1 m-1' >
-            <ImageIcon content={tag.image} size={"small"} shape={"circle"}/>
-            </div>
-            }
+const tagElements = visualTags.map((tag, index) => (
+    <div className='m-3' key={index} onClick={() => handleTagClick(tag.tag)}>
+        {selectedTags.includes(tag.tag)? 
+        <div className='border bg-accent-1 rounded-full p-2 ' >
+        <ImageIcon imageSrc={tag.image} size={"small"} shape={"circle"} selected={true}/>
+        </div>
+        : 
+        <div className='border rounded-full p-2 ' >
+         <ImageIcon imageSrc={tag.image} size={"small"} shape={"circle"}/>
+         </div>
+        }
 
         </div>
     ));
@@ -145,6 +161,7 @@ console.log('newUserFlairs: ', newUserFlairs)
 
 
     return (
+        
         <FormContainer>
           
                 <FormTitle title={"Create Profile"} />
@@ -186,6 +203,7 @@ console.log('newUserFlairs: ', newUserFlairs)
                         content={<>Submit</>}
                       />
         </FormContainer>
+       
     )
 }
 
