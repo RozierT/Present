@@ -23,11 +23,11 @@ Capture The ... Present. Present is a photo centric social media application opt
 
 ### Deployed Application URL
 
-[Present App Login/Sign-Up Page](#https://present-social-app-4b519de33a7f.herokuapp.com/)
+[Present App Login/Sign-Up Page](https://present-social-app-4b519de33a7f.herokuapp.com/)
 
 ### Deployed Application Screenshots
 
-![Login/Sign-Up Page](present-social-app-4b519de33a7f.herokuapp.com_.png)
+![Login/Sign-Up Page](./client/src/assets/images/present-social-app-4b519de33a7f.herokuapp.com_.png)
 
 ### Credits
 
@@ -42,3 +42,14 @@ Created by:
 Starter Code Provided by University of California, Davis Coding Bootcamp
 
 #### Technologies Used
+- React
+- MongoDB
+- Mongoose
+- Express
+- JavaScript
+- Visual Studio Code
+- GitHub
+- Git
+- Heroku
+- Material UI
+- Tailwind
