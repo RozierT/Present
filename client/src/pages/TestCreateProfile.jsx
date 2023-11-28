@@ -165,14 +165,12 @@ console.log('newUserFlairs: ', newUserFlairs)
         <FormContainer>
           
                 <FormTitle title={"Create Profile"} />
-
+                
+         <ImageUpload tags={selectedTags} onImageUpload={handleImageUpload} shape={"round"}/>
+               
                 <div className='flex justify-center'>
-                <div className='bkg-white
-                h-40 w-40 border rounded-full flex justify-center'>
-                    {/* <p className='self-center p-4'>
-          placeholder for where the add image will go for profile pic</p> */}
-                    <ImageUpload onImageUpload={handleImageUpload}/>
-                </div>
+           
+                 
                 </div>
                
                 <p>Username</p>
