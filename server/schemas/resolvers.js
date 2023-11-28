@@ -1,8 +1,11 @@
 const { User, Post, Comment, Profile } = require("../models");
 const { signToken, AuthenticationError } = require('../utils/auth')
 
+
 const resolvers = {
+
   Query: {
+    // Find (logged in) user by id (context) and return their Flair Score Array
     userPrefs: async ( parent, args, context) => {
 
       if (!context.user) {
@@ -11,26 +14,51 @@ const resolvers = {
 
       const userPrefs = await User.findById(context.user._id).select('flairScores')
 
+      // console.log('userPrefs: ', userPrefs)
+
       return userPrefs.flairScores
     },
-    getWeightedPosts: async ( parent, args, context ) => {
+    // Find posts in db that match passed in params and return the ids (array)
+    getWeightedPosts: async ( parent, { flair, recencyScore, dateRange }, context ) => {
 
       if (!context.user) {
         throw new Error('Authentication required');
       }
 
+      let startDate, endDate;
 
+      if (dateRange.length > 1) {
+        startDate = new Date(dateRange[1]);
+        endDate = new Date(dateRange[0]);
+      } else {
+        startDate = new Date(dateRange[0]);
+        startDate.setHours(0, 0, 0, 0); // set to the start of the day
+        endDate = new Date(dateRange[0]);
+      }
 
+      const weightedPosts = await Post.find({
+        flairs: { $in: [flair] }, 
+        recencyScore: recencyScore,
+        dateCreated: {
+          $gte: startDate, 
+          $lte: endDate 
+        }
+      })
+      .select('_id')
+
+      return weightedPosts
     },
-    profile: async (parent, { userId }) => {
-      return Profile.findOne({ userId: userId });
-    },
-    // links: async () => {
-    //   return Link.find();
-    // },
-    // link: async (parent, { linkId }) => {
-    //   return Link.findOne({ _id: linkId });
-    // },
+    // find post by id that is passed in thru args
+    getPostById: async (parent, args, context) => {
+
+      // if (!context.user) {
+      //   throw new Error('Authentication required');
+      // }
+
+      const queriedPost = await Post.findById(args._id)
+
+      return queriedPost
+    }
   },
   Mutation: {
     login: async (parent, { email, password }) => {
@@ -60,8 +88,6 @@ const resolvers = {
     },
     addProfile: async (parent, { username, bio, profilePicture }, context) => {
 
-      console.log('profilePic value: ', profilePicture)
-
       if (!context.user) {
         throw new Error('Authentication required');
       }
@@ -72,8 +98,6 @@ const resolvers = {
         profilePicture,
         userId: context.user._id
       });
-      
-      console.log('returned profile: ', profile)
 
       return profile;
     },

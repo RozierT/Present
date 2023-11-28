@@ -44,24 +44,26 @@ const MakeProfile = () => {
     const [profilePicture, setProfilePic] = useState('https://cataas.com/cat')
 
     const { loading, data: userFlairs , error } = useQuery(GET_FLAIR_SCORES)
-// console.log('userFlairs: ', userFlairs)
-const visualTags = [
-    { tag: "food", image: food},
-    { tag: "sports", image: sports},
-    { tag: "lifestyle", image: lifestyle},
-    { tag: "news", image: news},
-    { tag: "music", image: music},
-    { tag: "movies", image: movies},
-    { tag: "gaming", image: gaming},
-    { tag: "funny", image: funny},
-    { tag: "animals", image: animals},
-    { tag: "science", image: science},
-    { tag: "technology", image: technology},
-    { tag: "art", image: art},
-    { tag: "books", image: books},
-    { tag: "travel", image: travel},
-    { tag: "photography", image: photography}
-]
+
+    const navigate = useNavigate();
+
+    const visualTags = [
+        { tag: "food", image: food},
+        { tag: "sports", image: sports},
+        { tag: "lifestyle", image: lifestyle},
+        { tag: "news", image: news},
+        { tag: "music", image: music},
+        { tag: "movies", image: movies},
+        { tag: "gaming", image: gaming},
+        { tag: "funny", image: funny},
+        { tag: "animals", image: animals},
+        { tag: "science", image: science},
+        { tag: "technology", image: technology},
+        { tag: "art", image: art},
+        { tag: "books", image: books},
+        { tag: "travel", image: travel},
+        { tag: "photography", image: photography}
+    ]
 
 
     const handleTagClick = (tag) => {
@@ -117,47 +119,57 @@ const tagElements = visualTags.map((tag, index) => (
             return alert('Missing values!')
         }
 
-        console.log('data to be sent: ',selectedTags)
-let userChoices =[]
+        // console.log('data to be sent: ',selectedTags)
+        let userChoices =[]
         selectedTags.forEach(tag => {
             userChoices.push({tag: tag})
         })
 
 
         userChoices = addPoints( userFlairs.userPrefs, userChoices)
-        console.log('userPrefsArray: ', userChoices)
-let newUserFlairs =
-{
-    userPrefs: userChoices
-}
+        // console.log('userPrefsArray: ', userChoices)
+        
+        let newUserFlairs =
+        {
+            userPrefs: userChoices
+        }
 
-const flairsToUpdate = newUserFlairs.userPrefs.map(flair => {
-    return {
-        tag: flair.tag,
-        score: flair.score
-    }
-})
+        const flairsToUpdate = newUserFlairs.userPrefs.map(flair => {
+            return {
+                tag: flair.tag,
+                score: flair.score
+            }
+        })
 
-console.log('newUserFlairs: ', newUserFlairs)
+        
+        console.log('newUserFlairs: ', newUserFlairs)
+
         try {
             const { data: userData } = await updateUserPrefs({
                 variables: { input: flairsToUpdate },
             });
+
+            if (userData) {
+                try {
+                    const { data: profileData } = await createProfile({
+                        variables: { username, bio, profilePicture },
+                    });
+
+                    if (userData && profileData) {
+                        navigate('/feed')
+                    }
+        
+                    console.log('Profile data: ', profileData)
+                } catch (error) {
+                    console.error('creating profile error: ', error)
+                }
+            }
         } catch (error) {
             console.error('updating flairs error: ', error)
         }
-        try {
-            console.log('profilePicData: ', profilePicture)
 
-            const { data: profileData } = await createProfile({
-                variables: { username, bio, profilePicture },
-            });
-            console.log('Profile data: ', profileData)
-        } catch (error) {
-            console.error('creating profile error: ', error)
-        }
+
     };
-
 
 
     return (

@@ -67,14 +67,14 @@ const postSchema = new Schema(
 );
 
 // Virtual: commentCount
-postSchema.virtual('commentCount').get(function () {
-  return this.comments.length;
-});
+// postSchema.virtual('commentCount').get(function () {
+//   return this.comments.length;
+// });
 
 // Virtual: Associated User's Profile pic
-postSchema.virtual('profilePicture').get(function() {
-  return this.userId.profilePicture;
-});
+// postSchema.virtual('profilePicture').get(function() {
+//   return this.userId.profilePicture;
+// });
 
 const Post = model('post', postSchema);
 

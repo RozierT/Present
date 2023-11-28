@@ -1,4 +1,8 @@
+
+
 const typeDefs = `
+
+
   type User {
     _id: ID
     firstName: String!
@@ -31,11 +35,12 @@ const typeDefs = `
     content: String
     title: String
     textContent: String
-    likes: Int
+    likes: [ID]
     flairs: [String]
     commentable: Boolean
     comments: [Comment]
     shouldRendering: Boolean
+    recencyScore: Int
   }
 
   type Comment {
@@ -69,12 +74,11 @@ const typeDefs = `
     user(_id: ID!): Profile
 
     scrapbook(_id: ID!): [Post]
-    post(_id: ID!): Post
-
+    getPostById(_id: ID!): Post
 
     profile(userId: ID!): Profile
     userPrefs: [flairScore]
-    getWeightedPosts(flairs: [String], recencyScore: Int, dateRange: [String]): [Post]
+    getWeightedPosts(flair: String, recencyScore: Int, dateRange: [String]): [Post]
   }
 
   type Mutation {

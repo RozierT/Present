@@ -142,6 +142,8 @@ const selectPreferenceParameter = (array) => {
         }
 
     
+        // console.log('requestParams: ', requestParameters)
+
         return requestParameters
     }
     

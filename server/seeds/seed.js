@@ -246,7 +246,7 @@ const generateRandomUser = () => {
 
 for (i = 0; i < 100; i++ ){
 generateRandomUser();
-console.log("one user done")
+// console.log("one user done")
 }
 
 // profileArray
@@ -256,7 +256,7 @@ console.log("one user done")
 // });
 
 // console.log(profileArray)
-console.log(commentArray)
+// console.log(commentArray)
 
 
 console.log('# of users: ', userArray.length);
