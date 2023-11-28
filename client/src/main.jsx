@@ -12,7 +12,7 @@ import MakeProfile from './pages/TestCreateProfile.jsx';
 import HomePage from './pages/TestHomePage.jsx';
 import FeedPage from './pages/FeedPage.jsx';
 import NewImagePage from './pages/ImageUpload.jsx';
-
+import CreatePost from './pages/CreatePost.jsx';
 
 
 
@@ -61,6 +61,10 @@ const router = createBrowserRouter([
       {
         path: 'explore',
         element: <ExplorePage />,
+      },
+      {
+        path: 'createpost',
+        element: <CreatePost />,
       },
     ],
   },

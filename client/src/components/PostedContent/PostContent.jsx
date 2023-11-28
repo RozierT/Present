@@ -49,22 +49,22 @@ const PostContent = ({ content, tags }) => {
       />
       <div
         className="flex justify-end bg-transparent"
-        style={{ position: "absolute", bottom: "0", right: "0" }}
+        style={{ position: "absolute", bottom: "0", right: "0", zIndex: "100" }}
       >
         <div className="flex">
         {tags.map((item, index) => (
-    <div className="p-1" key={index}>
+ <div className="p-1" key={index}>
       {visualTags.map((tag) => {
-        if (tag.tag === item.tag) {
+        if (tag.tag === item) {
           return (
-            <ImageIcon
-              key={tag.tag}
-              size={"small"}
-              imageSrc={tag.image}
-              shape={"circle"}
-              bordered={true}
-              linked={false}
-            />
+             <ImageIcon
+               key={tag.tag}
+               size={"small"}
+               imageSrc={tag.image}
+               shape={"circle"}
+               bordered={true}
+               linked={false}
+             />
           );
         } else {
           return null;
