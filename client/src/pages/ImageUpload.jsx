@@ -1,18 +1,19 @@
 import Header from "../components/Headers";
 import Footer from "../components/Footer";
-import Settings from "../components/Settings";
-import SettingsList from "../components/Settings/DefaultSettings";
+import ImageUpload from "../components/ImageComponents/ImageUpload";
 
-const SettingPage = () => {
+const NewImagePage = () => {
   //logic to get feed of users profile
   return (
     <div className="bg-bkg-1 text-content">
       <Header />
-      <Settings settingsToUse={SettingsList} />
-      <br></br>
+      <div className="">
+      <ImageUpload  />
+      </div>
+      
       <Footer />
     </div>
   );
 };
 
-export default SettingPage;
+export default NewImagePage;

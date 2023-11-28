@@ -11,6 +11,7 @@ import NotificationPage from './pages/NotificationPage.jsx';
 import MakeProfile from './pages/TestCreateProfile.jsx';
 import HomePage from './pages/TestHomePage.jsx';
 import FeedPage from './pages/FeedPage.jsx';
+import NewImagePage from './pages/ImageUpload.jsx';
 
 
 
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
       {
         path: 'feed',
         element: <FeedPage />,
+      },
+      {
+        path: 'camera',
+        element: <NewImagePage />,
       },
       {
         path: 'settings',

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Toggle from "./Toggle";
 import SettingsList from "./DefaultSettings";
+import { LOGOUT_USER } from "../../utils/mutations";
 
 export default function Settings() {
   const [settings, setSettings] = useState(() => {
@@ -62,6 +63,9 @@ export default function Settings() {
           </div>
         ))}
       </form>
+      <br></br>
+      <button onClick={LOGOUT_USER}>Logout</button>
+
     </div>
   );
 }
