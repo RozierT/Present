@@ -12,8 +12,39 @@ const PostText = ({ textContent, comments, type, postId, profilePicture }) => {
    setInputValue(event.target.value);
  };
 
+
+   const buildCommentAndNotify = (commentText, postId) => {
+    //   let comment = {
+    //     commentText: action,
+    //     postId: postId
+    //   }
+    //let notification = {
+      //     action: action,
+      //     userToNotifyId: userId
+      //   }
+  
+      // try {
+      //     const { data: userData } = await buildNotification({
+      //         variables: { notification },
+      //     });
+      // } catch (error) {
+      //     console.error('updating post stats error: ', error)
+      // }
+      // try {
+      //     const { data: userData } = await updatePostComments({
+      //         variables: { comment },
+      //     });
+      // } catch (error) {
+      //     console.error('updating post Comments error: ', error)
+      // }
+    
+    };
+    
+
+
  const createComment = () => {
    console.log(inputValue);
+    buildCommentAndNotify(inputValue, postId)
    // this will be the mutation to create a comment
   // this will use the postId to find the post and then add the comment to the database
  };
