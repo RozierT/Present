@@ -1,6 +1,8 @@
 const db = require('../config/connection');
 const User = require('../models/User')
 const Profile = require('../models/Profile')
+const Post = require('../models/Post')
+const Comment = require('../models/Comment')
 const cleanDB = require('./cleanDB')
 const mongoose = require('mongoose')
 
@@ -150,6 +152,7 @@ const generateRandomUser = () => {
     }
   }
 
+  // create a randomly generated User
   let user = {
     _id: new mongoose.Types.ObjectId(),
     firstName: first,
@@ -180,6 +183,7 @@ const generateRandomUser = () => {
 
   userArray.push(finalUser);
   
+  // we create a Profile for the user
   let profile = {
       _id: new mongoose.Types.ObjectId(),
       username: username,
@@ -190,12 +194,13 @@ const generateRandomUser = () => {
     }
   profileArray.push(profile);
   
+  // Now we autogenerate Posts for the user
   for (let i = 1; i < 8; i++) {
     let post = {
       _id: new mongoose.Types.ObjectId(),
       dateCreated: new Date(),
       userId: user._id,
-      profilePicture: 'https://cataas.com/cat',
+      // profilePicture: profile.profilePicture,
       content: 'https://cataas.com/cat',
       textContent: `This is a test post from ${username}`,
       likes: [],
@@ -209,12 +214,13 @@ const generateRandomUser = () => {
 
     postArray.push(post);
     
+    // for each Post, create comments
     let numberOfComments = getRndInteger(1, 10);
       for (let k = 0; k < numberOfComments; k++) {
           let comment = {
           _id: new mongoose.Types.ObjectId(),
           userId: commenterJoeData._id,
-          profilePicture: 'https://cataas.com/cat',
+          // profilePicture: 'https://cataas.com/cat',
           dateCreated: new Date(),
           textContent: `This is a test comment from commenterjoe on ${username}'s post${i} `,
           };
@@ -238,7 +244,7 @@ const generateRandomUser = () => {
 };
 
 
-for (i = 0; i < 10; i++ ){
+for (i = 0; i < 100; i++ ){
 generateRandomUser();
 console.log("one user done")
 }
@@ -250,7 +256,7 @@ console.log("one user done")
 // });
 
 // console.log(profileArray)
-console.log(postArray)
+console.log(commentArray)
 
 
 console.log('# of users: ', userArray.length);
@@ -273,9 +279,13 @@ console.log('# of likes: ', likeArray.length);
 db.once('open', async () => {
   await cleanDB('User', 'users');
   await cleanDB('Profile', 'profiles');
+  await cleanDB('Post', 'posts');
+  await cleanDB('Comment', 'comments');
 
   const users = await User.insertMany(userArray)
   const profiles = await Profile.insertMany(profileArray)
+  const posts = await Post.insertMany(postArray)
+  const comments = await Comment.insertMany(commentArray)
 
   console.log('all done!');
   process.exit(0);

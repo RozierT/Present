@@ -28,9 +28,9 @@ const typeDefs = `
     _id: ID
     userId: ID
     dateCreated: String
-    imageSrc: String
+    content: String
     title: String
-    description: String
+    textContent: String
     likes: Int
     flairs: [String]
     commentable: Boolean
