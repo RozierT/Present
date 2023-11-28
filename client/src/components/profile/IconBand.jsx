@@ -19,25 +19,42 @@ const IconBand = ({ dataArray, refsArray }) => {
   return (
     <>
       <div className="border-bkg-1 border-b-4 border-t-4">
-        <div className="flex">
-          {dataArray.slice(0, 7).map((item, index) => (
-            item.shouldRenderImg ?
-            <div key={index} className="flex-1 p-0">
-                
-              <ImageIcon
-                size="fill"
-                bordered={true}
-                shape="square"
-                imageSrc={item.content}
-                alt=""
-                linked={false}
-                actionable={true}
-                action={() => handleClick(index)}
-              /> 
-
-            </div>:  <div key={index} className="flex-1 p-0"> </div>
-          ))}
+      <div className="flex">
+  {new Array(7).fill(null).map((_, index) => {
+    const item = dataArray[index];
+    if (item && item.shouldRenderImg) {
+      return (
+        <div key={index} className="flex-1 p-0">
+          <ImageIcon
+            size="fill"
+            bordered={true}
+            shape="square"
+            imageSrc={item.content}
+            alt=""
+            linked={false}
+            actionable={true}
+            action={() => handleClick(index)}
+          />
         </div>
+      );
+    } else {
+      return (
+        <div key={index} className="flex-1 p-0">
+          <ImageIcon
+            size="fill"
+            bordered={true}
+            shape="square"
+            imageSrc={null}
+            alt=""
+            linked={false}
+            actionable={true}
+            action={() => handleClick(index)}
+          />
+        </div>
+      );
+    }
+  })}
+</div>
       </div>
       
     </>
@@ -45,3 +62,8 @@ const IconBand = ({ dataArray, refsArray }) => {
 };
 
 export default IconBand;
+
+
+
+
+

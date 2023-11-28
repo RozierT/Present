@@ -67,6 +67,8 @@ const FeedPage = () => {
 
 
         return (
+                <>
+                <Header />
                 <div className="bg-bkg-1 text-content">
                         {loading ? (
                         <div>Loading...</div>
@@ -76,6 +78,8 @@ const FeedPage = () => {
                         </div>
                         )}
                 </div>
+                <Footer />
+                </>
         );
 };
 

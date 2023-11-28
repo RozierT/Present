@@ -1,27 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import MyButton from '../profile/MyButton';
-import { HeartStraight, ArrowDown, Export } from '@phosphor-icons/react';
+import { HeartStraight, ArrowDown, Export, Target } from '@phosphor-icons/react';
+import { UPDATE_USER_PREFS } from '../../utils/mutations'
+import { useQuery } from '@apollo/client'
+import { GET_FLAIR_SCORES } from "../../utils/queries";
+import alterUserArray from "../../utils/algorithms/alterUserPref"
 
 const InteractionBar = ({ userId, postId, likes, tags }) => {
+
+  const { loading, data: userFlairs , error } = useQuery(GET_FLAIR_SCORES)
   let action
-  const like = () => {
-    console.log('like');
-    action = "like"
-  };
-  const dislike = () => {
-    console.log('dislike');
-  };
-  const share = () => {
-    console.log('share');
-  };
 
-  // get user preferences from database
 
-  // for as many tags as a are on post run alterPreferences function
-
-  // send back to database as mutated array
-
-//!!!!!!!!!!!
   // this is the logic for the like buttons appearance and functionality
   // const likedByViewer = likes.find((like) => like.user.id === viewerId) !== undefined;
 // this will be the proper way of calling this in final version
@@ -33,9 +23,95 @@ const toggleLikedByViewer = () => {
 setLikedByViewer(!likedByViewer)
 }
 
+
+const handleAction = async (action) => {
+  console.log('data to be sent: ',selectedTags)
+let userChoices =[]
+  selectedTags.forEach(tag => {
+      userChoices.push({tag: tag})
+  })
+let variableTags = [...userFlairs.userPrefs]
+for (let i = 0; i < tags.length; i++) {
+  variableTags = alterUserArray( variableTags, action, tags[i])
+  console.log('new userPrefsArray: ', variableTags)
+}
+let newUserFlairs =
+{
+userPrefs: variableTags
+}
+
+const flairsToUpdate = newUserFlairs.userPrefs.map(flair => {
+return {
+  tag: flair.tag,
+  score: flair.score
+}
+})
+
+console.log('newUserFlairs: ', newUserFlairs)
+  try {
+      const { data: userData } = await updateUserPrefs({
+          variables: { input: flairsToUpdate },
+      });
+  } catch (error) {
+      console.error('updating flairs error: ', error)
+  }
+
+};
+
+const buildNotificationAndUpdatePost = (action, postId) => {
+//   let notification = {
+//     action: action,
+//     userToNotifyId: userId
+//   }
+// if (likedByViewer) {
+//   action = "unlike"
+//  } else {
+//   action = "like"
+
+  // try {
+  //     const { data: userData } = await buildNotification({
+  //         variables: { notification },
+  //     });
+  // } catch (error) {
+  //     console.error('updating post stats error: ', error)
+  // }
+  // try {
+  //     const { data: userData } = await updatePostStats({
+  //         variables: { notification },
+  //     });
+  // } catch (error) {
+  //     console.error('updating post stats error: ', error)
+  // }
+};
+ 
+
+
+
+
+const like = () => {
+  console.log('like');
+  action = "like"
+  handleAction(action)
+  buildNotification(action, postId)
+};
+const dislike = () => {
+  console.log('dislike');
+  action = "dislike"
+  handleAction(action)
+  buildNotification(action, postId)
+
+};
+const share = () => {
+  console.log('share');
+  action = "share"
+  handleAction(action)
+  buildNotification(action, postId)
+
+};
   return (
     <div className='flex justify-between bg-bkg-2 border-t-2 border-b-2 border-accent-2'>
        <div className='flex'>
+        <div onClick={like}>
      {likedByViewer ? (
         <MyButton
           size='xSmall'
@@ -53,7 +129,7 @@ setLikedByViewer(!likedByViewer)
           shape='circle'
         />
       )}
-     
+     </div>
     
         
         <div className='likeCount'>{likes}</div>
