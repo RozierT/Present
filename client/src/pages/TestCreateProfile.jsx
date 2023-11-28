@@ -23,7 +23,7 @@ import MyButton from '../components/profile/MyButton';
 import FormTitle from '../components/FormStuffs/FormTitle';
 import TextField from '../components/FormStuffs/TextField';
 import GridOfStuff from '../components/FormStuffs/GridOfStuff';
-import placeHoldImage from '../assets/images/placeHoldIcon.png';
+
 import ImageIcon from '../components/profile/ImageIcon';
 import { SlackLogo } from '@phosphor-icons/react';
 import { useEffect } from 'react';
