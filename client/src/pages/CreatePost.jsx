@@ -37,13 +37,12 @@ import ImageUpload from '../components/ImageComponents/ImageUpload';
 // - username (optional: as user types, check value against existing usernames)
 // - 1 to 5 flairs to prefer
 // - userid (from context)
-const MakeProfile = () => {
+const CreatePost = () => {
     const [username, setUsername] = useState('');
-    const [bio, setBio] = useState('');
+    const [description, setDescription] = useState('');
     const [selectedTags, setSelectedTags] = useState([]);
-    const [profilePicture, setProfilePic] = useState('https://cataas.com/cat')
+    const [image, setImage] = useState('https://cataas.com/cat')
 
-    const { loading, data: userFlairs , error } = useQuery(GET_FLAIR_SCORES)
 // console.log('userFlairs: ', userFlairs)
 const visualTags = [
     { tag: "food", image: food},
@@ -74,8 +73,8 @@ const visualTags = [
     };
 
     useEffect(() => {
-        if (selectedTags.length > 5) {
-            setSelectedTags(selectedTags.slice(1, 6));
+        if (selectedTags.length > 3) {
+            setSelectedTags(selectedTags.slice(1, 4));
         }
         // console.log(selectedTags);
     }, [selectedTags]);
@@ -100,63 +99,14 @@ const tagElements = visualTags.map((tag, index) => (
         setProfilePic(url);
     };
 
+const handleDescriptionChange = (event) => {
+    setDescription(event.target.value);
+};
 
-    const [createProfile] = useMutation(CREATE_PROFILE);
-    const [updateUserPrefs] = useMutation(UPDATE_USER_PREFS);
-
-
-    const handleUsernameChange = (event) => {
-        setUsername(event.target.value);
-    };
-    const handleBioChange = (event) => {
-        setBio(event.target.value);
-    };
     const handleSubmit = async (event) => {
-        event.preventDefault();
-        if (!username || !bio || selectedTags.length === 0) {
-            return alert('Missing values!')
-        }
 
-        console.log('data to be sent: ',selectedTags)
-let userChoices =[]
-        selectedTags.forEach(tag => {
-            userChoices.push({tag: tag})
-        })
-
-
-        userChoices = addPoints( userFlairs.userPrefs, userChoices)
-        console.log('userPrefsArray: ', userChoices)
-let newUserFlairs =
-{
-    userPrefs: userChoices
-}
-
-const flairsToUpdate = newUserFlairs.userPrefs.map(flair => {
-    return {
-        tag: flair.tag,
-        score: flair.score
     }
-})
 
-console.log('newUserFlairs: ', newUserFlairs)
-        try {
-            const { data: userData } = await updateUserPrefs({
-                variables: { input: flairsToUpdate },
-            });
-        } catch (error) {
-            console.error('updating flairs error: ', error)
-        }
-        try {
-            console.log('profilePicData: ', profilePicture)
-
-            const { data: profileData } = await createProfile({
-                variables: { username, bio, profilePicture },
-            });
-            console.log('Profile data: ', profileData)
-        } catch (error) {
-            console.error('creating profile error: ', error)
-        }
-    };
 
 
 
@@ -164,36 +114,24 @@ console.log('newUserFlairs: ', newUserFlairs)
         
         <FormContainer>
           
-                <FormTitle title={"Create Profile"} />
-                
-         <ImageUpload tags={selectedTags} onImageUpload={handleImageUpload} shape={"round"}/>
+                <FormTitle title={"Create Post"} />
+
+
+                    <ImageUpload tags={selectedTags} onImageUpload={handleImageUpload} shape={"round"}/>
                
-                <div className='flex justify-center'>
-           
-                 
-                </div>
-               
-                <p>Username</p>
-                 <InputField
-                  placeholder={"what will you go by?"}
-                  name={"username"}
-                  type={"text"}
-                  value={username}
-                  onChange={handleUsernameChange}
-                  size={"w-full mb-2 "}
-                />
-                <p>What interests you?</p>
-                
+       <div className='flex justify-center'>
+                <p> what represents this moment</p>
+         </div>       
      
            
 
                 <GridOfStuff columns={"3"} arrayOfHtml={tagElements} />
-                <p>All about you</p>
+                <p>All about this moment</p>
                 <TextField 
-                    value={bio}
-                    name={'bio'}
-                    onChange={handleBioChange} 
-                    placeholder={'Share a bit about yourself...'}
+                    value={description}
+                    name={'description'}
+                    onChange={handleDescriptionChange} 
+                    placeholder={'describe the moment...'}
                 />
                     <MyButton
                         size={"large"}
@@ -205,4 +143,4 @@ console.log('newUserFlairs: ', newUserFlairs)
     )
 }
 
-export default MakeProfile;
+export default CreatePost

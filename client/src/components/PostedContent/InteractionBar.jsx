@@ -85,33 +85,6 @@ const buildNotificationAndUpdatePost = (action, postId) => {
 };
  
 
-const buildCommentAndNotify = (commentText, postId) => {
-  //   let comment = {
-  //     commentText: action,
-  //     postId: postId
-  //   }
-  //let notification = {
-    //     action: action,
-    //     userToNotifyId: userId
-    //   }
-
-    // try {
-    //     const { data: userData } = await buildNotification({
-    //         variables: { notification },
-    //     });
-    // } catch (error) {
-    //     console.error('updating post stats error: ', error)
-    // }
-    // try {
-    //     const { data: userData } = await updatePostComments({
-    //         variables: { comment },
-    //     });
-    // } catch (error) {
-    //     console.error('updating post Comments error: ', error)
-    // }
-  
-  };
-  
 
 
 
