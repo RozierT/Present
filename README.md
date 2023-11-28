@@ -58,11 +58,11 @@ Capture The ... Present. Present is a photo centric social media application opt
 
 Created by:
 
-- [Colton Firestone](#https://github.com/ColtonMakesStuff)
-- [Omar Razo](#https://github.com/Omar-Razo)
-- [Taylor Rozier](#https://github.com/RozierT)
-- [Hamza Lhamous](#https://github.com/musicchef)
-- [Sier Behashti](#https://github.com/Sbehashti)
+- [Colton Firestone](https://github.com/ColtonMakesStuff)
+- [Omar Razo](https://github.com/Omar-Razo)
+- [Taylor Rozier](https://github.com/RozierT)
+- [Hamza Lhamous](https://github.com/musicchef)
+- [Sier Behashti](https://github.com/Sbehashti)
 
 Starter Code Provided by University of California, Davis Coding Bootcamp
 
