@@ -18,7 +18,7 @@ const ImageIcon = ({ imageSrc, size, linked, linkUrl, shape, bordered, actionabl
     
     let border =
     bordered === true
-      ? "border-2 border-accent-2"
+      ? "border-2 border-accent-2 bg-bkg-2"
       : null;
     
   // console.log(imageSize)

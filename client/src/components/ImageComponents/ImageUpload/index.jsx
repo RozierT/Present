@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Cloudinary } from "@cloudinary/url-gen";
+import MyButton from '../../profile/MyButton';
+import PostContent from '../../PostedContent/PostContent';
 
 
 const ImageUpload = (props) => {
@@ -24,17 +26,24 @@ const ImageUpload = (props) => {
     })
     .catch(err => console.log(err));
   };
-  
+  console.log(props.tags)
   return (
     <div className='flex-col justify-center '>
-      <input type="file" onChange={(e) => setImage(e.target.files[0])} className=''/>
-      <button onClick={uploadImage} className='rounded-2xl border-2 border-black bg-purple-400 px-6 py-3 font-semibold uppercase text-black transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none flex-1 '>Upload</button>
-      <div>
+     
+      <MyButton onClick={uploadImage} size={"large"} content={"upload image"} />
+      <div className='flex justify-center '>
         {/* <h1>Upload</h1> */}
 
         {/* below is the output/preview. classes added just so pic wasn't taking up whole form. */}
-        <img src={url} id='profilePicURL' className='bkg-white
-                h-40 w-40 border rounded-full flex justify-center'/>
+        <input type="file" onChange={(e) => setImage(e.target.files[0])} className=''/>
+     
+      </div> 
+      <div className="w-full  bg-bkg-2 p-2 mb-4 mt-4">
+        {props.tags? <PostContent tags={props.tags} content={'https://cataas.com/cat'}/>: <PostContent tags={[]} content={'https://cataas.com/cat'}/> }
+               
+        
+       
+       
       </div>
     </div>
   );

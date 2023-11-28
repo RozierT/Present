@@ -3,16 +3,13 @@ import Footer from "../components/Footer";
 import Feed from "../components/PostedContent/Feed";
 import NotifyHeader from "../components/notifications/NotifyHeader";
 import MyButton from "../components/profile/MyButton";
+import { useEffect } from "react";
 
-const NotificationPage = ({}) => {
+const NotificationPage = () => {
     //logic to get feed of users profile
     
     // every time this page is loaded it needs a profile to display
-    
-    // the profile will be passed in as a prop
-    
-    //this will be the profile of the user that is logged in when the user clicks on their profile
-    
+
     //every time the user clicks on another profile it will load the profile page with the profile of the user that was clicked on
   
     // nothing will change from user profile to user profile except the data that is passed in as a prop and the follow button will not be present if the user is viewing their own profile
@@ -77,6 +74,17 @@ console.log(window.user)
   
     //query the database for the users profile data using user props 
     //this will be the users profile data
+let notificationData 
+
+ useEffect(() => {
+    console.log(window.user)
+    // query the database for the users profile data using user props
+    },[]);
+
+const dismissAll = () => {
+    console.log("dismiss all")
+    // this will dismiss all notifications
+}
 
 
     return (
