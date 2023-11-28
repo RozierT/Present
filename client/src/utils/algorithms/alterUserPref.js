@@ -255,5 +255,6 @@ function alterUserArray(userArray, action, tagToAlter) {
   //  userArray = alterUserArray(userArray, action, tagToAlter)
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+export default alterUserArray;
 
 

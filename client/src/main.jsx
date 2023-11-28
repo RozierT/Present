@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-
+import ExplorePage from './pages/ExplorePage.jsx';
 import App from './App.jsx';
 import ProfilePage from './pages/ProfilePage.jsx';
 import "./index.css";
@@ -52,6 +52,10 @@ const router = createBrowserRouter([
       {
         path: 'notifications',
         element: <NotificationPage />,
+      },
+      {
+        path: 'explore',
+        element: <ExplorePage />,
       },
     ],
   },
