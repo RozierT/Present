@@ -3,6 +3,7 @@
 import ImageIcon from "./ImageIcon";
 import StrictTxtContainer from "./StrictTxtContainer";
 import MyButton from "./MyButton";
+import { useEffect, useState } from "react";
 
 // Define a test profile object
 
@@ -10,9 +11,38 @@ import MyButton from "./MyButton";
 // Define the BioSection component
 function BioSection({ profile }) {
 
+
+// i need to run a function on load using a use effect that will check the profiles followers array and see if the logged in user is un it, if they are then the follow button will be changed to unfollow and the action will be changed to unfollow
+ const [followButton, setFollowButton] = useState("follow")
+
+ // TODO work this out with the backend team
+let storedUserId = "logic for getting the stored user id"
+
+ const checkFollow = () => {
+  console.log("check follow");
+  
+  if (profile.followers.includes(storedUserId)) {
+    setFollowButton("unfollow");
+  }
+};
+
+
+  useEffect(() => {
+    checkFollow()
+  }
+  ,[]);
+
   // Define a function for testing purposes
-  const sayHi = () => {
-    console.log('hi')
+  const followAccount = () => {
+    // this where we will add the logic to follow an account
+    console.log("follow account")
+    setFollowButton("unfollow")
+
+  }
+  const unfollowAccount = () => {
+    // this where we will add the logic to unfollow an account
+    console.log("unfollow account")
+    setFollowButton("follow")
   }
 
   return (
@@ -45,7 +75,7 @@ function BioSection({ profile }) {
           </div>
           {/* Follow button */}
           <div className="flex justify-start p-1">
-            <MyButton size={"small"} shape={"circle"} content={"follow"} action={sayHi} type={"bordered"} />
+            <MyButton size={"small"} shape={"circle"} content={"follow"} action={followAccount} type={"bordered"} />
           </div>
         </div>
       </div>
