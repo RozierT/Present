@@ -116,7 +116,7 @@ const PostText = ({ textContent, comments, type, postId, profilePicture }) => {
         {textContent}
         </div>
         <div className="flex justify-end">
-          <MyButton shape={"circle"} type={"empty"} content={<XCircle size={28}  />} action={dismiss}/>
+          <MyButton shape={"circle"} type={"empty"} content={<XCircle size={28}  />} action={dismissNotification}/>
           </div>
       </div>
     ) : (

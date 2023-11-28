@@ -4,7 +4,7 @@
 const TextField = ({ name, value, onChange, placeholder, styles }) => {
     return (
         <textarea 
-        className={`form-input w-full ${styles}`}
+        className={`form-input w-full text-black ${styles}`}
         rows={4}
         value={value}
         name={name}
