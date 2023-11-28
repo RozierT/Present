@@ -10,8 +10,7 @@ export default function Settings() {
     } else {
       return {
         theme: "light",
-        notifications: true,
-        //visibility: "public",
+        notifications: true
       };
     }
   });

@@ -17,7 +17,7 @@ const buttons2 = [
 const Footer = () => {
   return (
     <footer className="fixed sticky bottom-0 w-full bg-bkg-1 flex justify-around items-center p-2">
-      {buttons2.map((button) => (
+      {buttons.map((button) => (
         <button
           key={button.id}
           className="flex flex-col items-center text-white"

@@ -21,8 +21,8 @@ function Header() {
           mirrored: false,
         }}
       >
-        <a href="/">
-          <ArrowLeft />
+        <a href="/feed">
+          <House />
         </a>
         <h1 className="text-content font-bold"> [Our Logo Here] </h1>
         {/* <ToggleSwitch
