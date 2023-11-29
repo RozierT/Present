@@ -21,7 +21,7 @@ const commenterJoeData = {
  
  const commenterJoeProfileData = {
   _id: new mongoose.Types.ObjectId(),
-  userName: 'iCommentOnThings',
+  username: 'iCommentOnThings',
   bio: 'I comment on things, all the time. lol',
   profilePicture: 'http://example.com/profilePicture.jpg',
   userId: commenterJoeData._id,
@@ -201,7 +201,8 @@ const generateRandomUser = () => {
       _id: new mongoose.Types.ObjectId(),
       dateCreated: new Date(),
       userId: user._id,
-      // profilePicture: profile.profilePicture,
+      profilePicture: profile.profilePicture,
+      username: profile.username,
       content: 'https://cataas.com/cat',
       textContent: `This is a test post from ${username}`,
       likes: [],
@@ -221,7 +222,8 @@ const generateRandomUser = () => {
           let comment = {
           _id: new mongoose.Types.ObjectId(),
           userId: commenterJoeData._id,
-          // profilePicture: 'https://cataas.com/cat',
+          profilePicture: 'https://cataas.com/cat',
+          username: commenterJoeProfileData.username,
           dateCreated: new Date(),
           textContent: `This is a test comment from commenterjoe on ${username}'s post${i} `,
           };

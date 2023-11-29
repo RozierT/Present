@@ -27,12 +27,11 @@ const profileSchema = new Schema({
     profilePicture: {
         type: String,
     },
-    posts: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: 'post'
-        }
-    ]
+    posts: {
+        type: [Schema.Types.ObjectId],
+        ref: 'post',
+        default: []
+    }
 })
 
 const Profile = model('profile', profileSchema)

@@ -2,13 +2,25 @@ import Header from "../components/Headers";
 import Footer from "../components/Footer";
 import { useEffect, useState } from "react";
 import { useQuery, useLazyQuery } from '@apollo/client'
-import { GET_FLAIR_SCORES, GET_WEIGHTED_POSTS, GET_POSTS_BY_ID } from "../utils/queries";
+import { GET_FLAIR_SCORES, GET_WEIGHTED_POSTS, GET_POSTS_BY_ID, GET_MY_PROFILE, GET_THIS_USER } from "../utils/queries";
 import { generateRequestParameters, getChosenPostId } from "../utils/algorithms/genRequestParams";
 import Feed from "../components/PostedContent/Feed";
 
 
 
 const FeedPage = () => {
+
+        const { loading: profileLoading, data: profileData, error: profileError } = useQuery(GET_MY_PROFILE)
+        const { loading: userLoading, data: userData, error: userError } = useQuery(GET_THIS_USER)
+
+        useEffect(() => {
+                if (profileData && userData) {
+                        localStorage.setItem('user', JSON.stringify(userData.getUser))
+                        localStorage.setItem('profile', JSON.stringify(profileData.me))
+                }
+
+        }, [profileData, userData])
+
         const { loading: flairsLoading, data: userFlairs, error: flairsError } = useQuery(GET_FLAIR_SCORES);
         const [getWeightedPosts, { loading: weightedPostsLoading, data: weightedPostsData, error: weightedPostsError }] = useLazyQuery(GET_WEIGHTED_POSTS);
         const [weightedPostParams, setWeightedPostParams] = useState(null);
@@ -85,7 +97,7 @@ const FeedPage = () => {
                         })
                         
                 }
-        }, [randomPostIdArray])
+        }, [randomPostIdArray]) 
 
         useEffect(() => {
                 if (queriedPostsData) {  

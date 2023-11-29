@@ -10,20 +10,23 @@ export const GET_WEIGHTED_POSTS = gql`
 `;
 
 export const GET_PROFILE_BY_ID = gql`
-  query getOthersProfile($id: ID!) {
-    getOthersProfile(_id: $id) {
+  query getOthersProfile($userId: ID!) {
+    getOthersProfile(userId: $userId) {
       _id
+      username
+      userId
       bio
       profilePicture
-      userId
-      username
       links {
-        imageSrc
+        _id
         name
         url
+        imageSrc
       }
-      latestPosts {
+      posts {
         _id
+        username
+        profilePicture
         userId
         dateCreated
         content
@@ -34,16 +37,18 @@ export const GET_PROFILE_BY_ID = gql`
         commentable
         comments {
           _id
-          text
           userId
+          username
+          profilePicture
           dateCreated
+          text
           commentable
         }
         shouldRendering
         recencyScore
       }
+    }
   }
-}
 `
 
 // get a user's flair scores. id passed in resolver thru context
@@ -57,65 +62,8 @@ export const GET_FLAIR_SCORES = gql`
 `
 
 export const GET_POST_BY_ID = gql`
-  query GetPostById($id: ID!) {
+  query getPostById($id: ID!) {
     getPostById(_id: $id) {
-      _id
-      commentable
-      content
-      dateCreated
-      flairs
-      likes
-      recencyScore
-      shouldRendering
-      textContent
-      title
-      userId
-    }
-}
-`
-
-export const GET_MY_PROFILE = gql`
-  query Me {
-    me {
-      _id
-      username
-      userId
-      profilePicture
-      bio
-      latestPosts {
-        _id
-        commentable
-        content
-        dateCreated
-        flairs
-        likes
-        recencyScore
-        shouldRendering
-        textContent
-        title
-        userId
-        comments {
-          _id
-          commentable
-          dateCreated
-          reply {
-            reply {
-              text
-              userId
-              commentable
-              _id
-              dateCreated
-            }
-          }
-        }
-      }
-    }
-  }
-`
-
-export const GET_POSTS_BY_ID = gql`
-  query GetPostsById($ids: [ID!]!) {
-    getPostsById(ids: $ids) {
       _id
       userId
       dateCreated
@@ -127,9 +75,100 @@ export const GET_POSTS_BY_ID = gql`
       commentable
       comments {
         _id
+        userId
+        text
+        dateCreated
+        commentable
       }
       shouldRendering
       recencyScore
+    }
+  }
+`
+
+export const GET_MY_PROFILE = gql`
+  query me {
+    me {
+      _id
+      username
+      userId
+      bio
+      profilePicture
+      links {
+        _id
+        name
+        url
+        imageSrc
+      }
+      posts {
+        _id
+        username
+        profilePicture
+        userId
+        dateCreated
+        content
+        title
+        textContent
+        likes
+        flairs
+        commentable
+        comments {
+          _id
+          userId
+          username
+          profilePicture
+          dateCreated
+          text
+          commentable
+        }
+        shouldRendering
+        recencyScore
+      }
+    }
+  }
+`
+
+export const GET_POSTS_BY_ID = gql`
+  query getPostById($id: ID!) {
+    getPostById(_id: $id) {
+      _id
+      username
+      profilePicture
+      userId
+      dateCreated
+      content
+      title
+      textContent
+      likes
+      flairs
+      commentable
+      comments {
+        _id
+        userId
+        username
+        profilePicture
+        dateCreated
+        text
+        commentable
+      }
+      shouldRendering
+      recencyScore
+    }
+  }
+`
+export const GET_THIS_USER = gql`
+  query getUser {
+    getUser {
+      _id
+      email
+      firstName
+      flairScores {
+        score
+        tag
+      }
+      lastName
+      scrapbook
+      following
     }
 }
 `
