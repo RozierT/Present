@@ -77,6 +77,11 @@ let storedUserId = "logic for getting the stored user id"
           <div className="flex justify-start p-1">
             <MyButton size={"small"} shape={"circle"} content={"follow"} action={followAccount} type={"bordered"} />
           </div>
+          <div>
+            <p>
+            followers: {profile.followers.length}
+            </p>
+          </div>
         </div>
       </div>
     </div>

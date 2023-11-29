@@ -44,6 +44,7 @@ const ExplorePage = () => {
  const handleFormSubmit = () => {
      console.log(formState)
      setSearchResults("results")
+     // find all users where username includes formstate
     }
 
     return (
