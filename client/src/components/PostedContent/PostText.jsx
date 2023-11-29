@@ -59,9 +59,13 @@ const PostText = ({ textContent, comments, type, postId, profilePicture, tags}) 
       }
       );
         //getting child comments has not yet been solved and will need some work but remember that is NOT MVP only work on if comment MVP is done and nothing else is in need of work (meaning the comments are displayed on the post page)
-       let selectedTags = [...tags ]
+        let selectedTags
+      if (tags) {
+         selectedTags = [...tags ]
+      }
+        
     const handleAction = async (action) => {
-        console.log('data to be sent: ',selectedTags)
+        console.log('data to be sent: ', selectedTags)
       let userChoices =[]
         selectedTags.forEach(tag => {
             userChoices.push({tag: tag})
