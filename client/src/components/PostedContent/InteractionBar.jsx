@@ -12,8 +12,13 @@ const InteractionBar = ({ userId, postId, likes, tags }) => {
   
   const { loading, data: userFlairs , error } = useQuery(GET_FLAIR_SCORES)
   let action
-
-  const [updateUserPrefs] = useMutation(UPDATE_USER_PREFS);
+  let tagsToReference = [...userFlairs.userPrefs]
+  
+  const [updateUserPrefs] = useMutation(UPDATE_USER_PREFS,
+    {
+refetchQueries: [{ query: GET_FLAIR_SCORES }],
+    }
+    );
   // this is the logic for the like buttons appearance and functionality
   // const likedByViewer = likes.find((like) => like.user.id === viewerId) !== undefined;
 // this will be the proper way of calling this in final version
@@ -35,18 +40,21 @@ console.log('likeCount: ', likeCount)
 
 
 const handleAction = async (action) => {
+  console.log('tagsToReference: ', tagsToReference)
   console.log('data to be sent: ',tags)
 let userChoices =[]
 tags.forEach(tag => {
       userChoices.push({tag})
   })
   console.log('userChoices: ', userChoices)
-let variableTags = [...userFlairs.userPrefs]
+let variableTags = [...tagsToReference]
 console.log('variableTags: ', variableTags)
 for (let i = 0; i < tags.length; i++) {
   variableTags = alterUserArray( variableTags, action, tags[i])
   console.log('new userPrefsArray: ', variableTags)
 }
+tagsToReference = [...variableTags]
+console.log('tagsToReference: ', tagsToReference)
 let newUserFlairs =
 {
 userPrefs: variableTags
@@ -59,11 +67,12 @@ return {
 }
 })
 
-console.log('newUserFlairs: ', newUserFlairs)
+console.log('newUserFlairs: ', flairsToUpdate)
   try {
       const { data: userData } = await updateUserPrefs({
           variables: { input: flairsToUpdate },
       });
+      console.log('userData: ', userData)
   } catch (error) {
       console.error('updating flairs error: ', error)
   }
