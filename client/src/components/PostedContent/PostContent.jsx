@@ -49,11 +49,11 @@ const PostContent = ({ content, tags }) => {
       />
       <div
         className="flex justify-end bg-transparent"
-        style={{ position: "absolute", bottom: "0", right: "0", zIndex: "100" }}
+        style={{ position: "absolute", bottom: "0", right: "0" }}
       >
         <div className="flex">
         {tags.map((item, index) => (
- <div className="p-1" key={index}>
+ <div className="p-1"  key={index}>
       {visualTags.map((tag) => {
         if (tag.tag === item) {
           return (

@@ -13,14 +13,36 @@ const FeedPage = () => {
         const [getWeightedPosts, { loading: weightedPostsLoading, data: weightedPostsData, error: weightedPostsError }] = useLazyQuery(GET_WEIGHTED_POSTS);
         const [weightedPostParams, setWeightedPostParams] = useState(null);
         const [randomPostIdArray, setRandomPostIdArray] = useState([]);
+        const [postsToShow, setPostsToShow] = useState([]);
+
+        const [amountToShow, setAmountToShow] = useState(1);
+
+        const addToAmountToShow = () => {       
+           setAmountToShow(amountToShow + 1);
+           }     
+
+           window.addEventListener('scroll', () => {
+                const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+                
+                let scrollPosition = scrollTop + clientHeight;
+                scrollPosition = parseInt(scrollPosition);
+                let variableScrollHeight = parseInt(scrollHeight);
+                if (scrollPosition + 500 > variableScrollHeight || scrollPosition===variableScrollHeight ) {
+                        addToAmountToShow()
+                      
+                        
+                }
+              });
+
 
         // waits until first query is finished before running second query
         useEffect(() => {
+               
                 if (!flairsLoading && userFlairs) {
                         const params = generateRequestParameters(userFlairs.userPrefs);
                         setWeightedPostParams(params)
                 }
-        }, [flairsLoading, userFlairs]);
+        }, [flairsLoading, userFlairs, amountToShow]);
 
         useEffect(() => {
                 if (weightedPostParams) {
@@ -38,7 +60,7 @@ const FeedPage = () => {
                         const formattedPostIds = weightedPostsData.getWeightedPosts.map((postResult) => postResult._id)
                         let randomPostIDSet = new Set();
         
-                        for (let i = 0; i < 7; i++) {
+                        for (let i = 0; i < 1; i++) {
                                 let id = getChosenPostId(formattedPostIds);
                                 
                                 while (randomPostIDSet.has(id)) {
@@ -61,13 +83,18 @@ const FeedPage = () => {
                         getQueriedPosts({
                                 variables: { ids: randomPostIdArray }
                         })
+                        
                 }
         }, [randomPostIdArray])
 
-
+        useEffect(() => {
+                if (queriedPostsData) {  
+                        setPostsToShow([...postsToShow, ...queriedPostsData.getPostsById])
+                }
+        }, [queriedPostsData])
         // THIS IS THE POST DATA TO BE PASSED INTO DISPLAYING COMPONENT
-        console.log('queried posts: ', queriedPostsData)
-
+        
+        
 //then we need to display the post data in a feedCompononent
         //this will be done by using the 'PostdataArray' to populate the feedComponent
         //this will be in the return statement for this component
@@ -80,15 +107,16 @@ const FeedPage = () => {
                 <>
                 <Header />
                 <div className="bg-bkg-1 text-content">
-                        {!queriedPostsData ? (
+                        {!postsToShow ? (
                         <div>Loading...</div>
                         ) : (
                         <div>
-                                <Feed dataArray={queriedPostsData.getPostsById} type={"post"} feedToUse={"posts"} />
-                                { queriedPostsError ? (<p>Error! {queriedPostsError.message}</p>): (<h2>Some data should have been sent back!</h2>) }
+                                <Feed dataArray={postsToShow} type={"post"} feedToUse={"posts"} />
+                                { queriedPostsError ? (<p>Error! {queriedPostsError.message}</p>): (<div className='h-60 bg-bkg-1'></div>) }
                         </div>
                         )}
                 </div>
+                
                 <Footer />
                 </>
         );
