@@ -15,8 +15,6 @@ import NewImagePage from './pages/ImageUpload.jsx';
 import CreatePost from './pages/CreatePost.jsx';
 
 
-
-
 const router = createBrowserRouter([
   {
     path: '/',
