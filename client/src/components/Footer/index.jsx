@@ -3,8 +3,10 @@ import React from "react";
 import { IconContext, House, Camera, Gear, User } from "@phosphor-icons/react";
 import { useLocation } from "react";
 
+const user = JSON.parse(localStorage.getItem('user'));
+console.log(user)
 const buttons = [
-  { id: 1, label: "Profile", icon: <User />, path: "/profile" },
+  { id: 1, label: "Profile", icon: <User />, path: `/profile/:` },
   { id: 2, label: "Camera", icon: <Camera />, path: "/camera" },
   { id: 3, label: "Settings", icon: <Gear />, path: "/settings" },
 ];
@@ -62,7 +64,7 @@ const Footer = () => {
               {" "}
               {button.icon}
             </IconContext.Provider>
-            {/* <span>{button.label}</span> */}
+            <span>{button.path}</span> 
           </a>
         </button>
       ))}
