@@ -46,7 +46,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'camera',
-        element: <NewImagePage />,
+        element: <CreatePost />,
       },
       {
         path: 'settings',
@@ -60,10 +60,7 @@ const router = createBrowserRouter([
         path: 'explore',
         element: <ExplorePage />,
       },
-      {
-        path: 'createpost',
-        element: <CreatePost />,
-      },
+
     ],
   },
 ]);

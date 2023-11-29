@@ -12,8 +12,10 @@ const InteractionBar = ({ userId, postId, likes, tags }) => {
   
   const { loading, data: userFlairs , error } = useQuery(GET_FLAIR_SCORES)
   let action
-  let tagsToReference = [...userFlairs.userPrefs]
-  
+  let tagsToReference = []
+  if (userFlairs) {
+  tagsToReference = [...userFlairs.userPrefs]
+  }
   const [updateUserPrefs] = useMutation(UPDATE_USER_PREFS,
     {
 refetchQueries: [{ query: GET_FLAIR_SCORES }],

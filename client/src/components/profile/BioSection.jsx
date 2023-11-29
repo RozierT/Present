@@ -15,6 +15,7 @@ function BioSection({ profile }) {
 
 // i need to run a function on load using a use effect that will check the profiles followers array and see if the logged in user is un it, if they are then the follow button will be changed to unfollow and the action will be changed to unfollow
  const [followButton, setFollowButton] = useState("follow")
+ const [shouldFollowAccount, setShouldFollowAccount] = useState(true)
 // Mutations
 
 
@@ -35,19 +36,28 @@ let storedUserId = JSON.parse(localStorage.getItem('user'))
   }
   ,[]);
 
+  let buttonName = followButton
+
   // Define a function for testing purposes
   const followAccount = () => {
     // this where we will add the logic to follow an account
     console.log("follow account")
     setFollowButton("unfollow")
-
+    setShouldFollowAccount(false)
   }
   const unfollowAccount = () => {
     // this where we will add the logic to unfollow an account
     console.log("unfollow account")
     setFollowButton("follow")
+    setShouldFollowAccount(true)
   }
-
+  const buttonAction = () => {
+    if (shouldFollowAccount) {
+      followAccount()
+    } else {
+      unfollowAccount()
+    }
+  }
   return (
     <div className="container bg-bkg-2">
       <div className="flex columns-2 space-x-2  rounded pt-2 pb-2">
@@ -59,10 +69,10 @@ let storedUserId = JSON.parse(localStorage.getItem('user'))
           <div className="flex margin-0 space-x-1 justify-center">
 
 {/* TODO add logic that will make the link go to the correct social site. also when making profile limit input to 3 and have users choos the site they want to link to and input only username */}
-
+{/* 
             {profile.links.map((link, index) => (
               <ImageIcon size={"xSmall"} imageSrc={link.imageSrc} linked={true} linkUrl={link.url} shape={"circle"} bordered={true}/>
-            ))}
+            ))} */}
           </div>
         </div>
         {/* Right column */}
@@ -70,7 +80,7 @@ let storedUserId = JSON.parse(localStorage.getItem('user'))
           {/* Card housing username and profile description */}
           <div>
             {/* Username */}
-            <h2 className="text-xl font-bold">{profile.userName}</h2>
+            <h2 className="text-xl font-bold">{profile.username}</h2>
             {/* Profile description */}
             <div className="text-sm">
               <StrictTxtContainer maxHeight={'40px'} maxWidth={'300px'} textSrc={profile.bio} />
@@ -78,13 +88,12 @@ let storedUserId = JSON.parse(localStorage.getItem('user'))
           </div>
           {/* Follow button */}
           <div className="flex justify-start p-1">
-            <MyButton size={"small"} shape={"circle"} content={"follow"} action={followAccount} type={"bordered"} />
+            <MyButton size={"small"} shape={"circle"} content={buttonName} action={buttonAction} type={"bordered"} />
+            
+          <p className="ml-4">following: </p>
+          
           </div>
-          <div>
-            <p>
-            {/* followers: {profile.following.length} */}
-            </p>
-          </div>
+         
         </div>
       </div>
     </div>
