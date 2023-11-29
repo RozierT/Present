@@ -56,3 +56,21 @@ export const UPDATE_USER_PREFS = gql`
     }
   }
 `
+
+export const FOLLOW_USER = gql`
+  mutation followUser($followUserId: ID!) {
+    followUser(followUserId: $followUserId) {
+      _id
+      following
+    }
+  }
+`
+
+export const UNFOLLOW_USER = gql`
+  mutation UnFollowUser($unFollowUserId: ID!) {
+    unFollowUser(unFollowUserId: $unFollowUserId) {
+      _id
+      following
+    }
+  }
+`

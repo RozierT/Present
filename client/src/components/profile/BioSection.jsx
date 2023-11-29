@@ -5,6 +5,7 @@ import StrictTxtContainer from "./StrictTxtContainer";
 import MyButton from "./MyButton";
 import { useEffect, useState } from "react";
 import { useMutation } from '@apollo/client'
+import { UNFOLLOW_USER, FOLLOW_USER } from "../../utils/mutations";
 
 // Define a test profile object
 
@@ -18,6 +19,9 @@ function BioSection({ profile }) {
  const [shouldFollowAccount, setShouldFollowAccount] = useState(true)
 // Mutations
 
+// Mutations
+const [addFollow] = useMutation(FOLLOW_USER)
+const [removeFollow] = useMutation(UNFOLLOW_USER)
 
 
 let storedUserId = JSON.parse(localStorage.getItem('user'))
@@ -39,25 +43,41 @@ let storedUserId = JSON.parse(localStorage.getItem('user'))
   let buttonName = followButton
 
   // Define a function for testing purposes
-  const followAccount = () => {
+  const followAccount = async () => {
     // this where we will add the logic to follow an account
     console.log("follow account")
     setFollowButton("unfollow")
     setShouldFollowAccount(false)
+
+    try {
+      const { data: followData } = await addFollow({
+        variables: { followUserId: profile.userId }
+      })
+    } catch (error) {
+      console.error('follow error: ', error)
+    }
   }
-  const unfollowAccount = () => {
+  const unfollowAccount = async () => {
     // this where we will add the logic to unfollow an account
     console.log("unfollow account")
     setFollowButton("follow")
     setShouldFollowAccount(true)
+    try {
+      const { data: unFollowData } = await removeFollow({
+        variables: { unFollowUserId: profile.userId }
+      })
+    } catch (error) {
+      console.error('follow error: ', error)
+    }
   }
   const buttonAction = () => {
     if (shouldFollowAccount) {
       followAccount()
     } else {
       unfollowAccount()
+
     }
-  }
+  }  
   return (
     <div className="container bg-bkg-2">
       <div className="flex columns-2 space-x-2  rounded pt-2 pb-2">
@@ -100,4 +120,4 @@ let storedUserId = JSON.parse(localStorage.getItem('user'))
   );
 }
 
-export default BioSection;
+export default BioSection

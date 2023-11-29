@@ -150,3 +150,17 @@ export const GET_THIS_USER = gql`
     }
 }
 `
+
+export const GET_POST_COMMENTS = gql`
+  query getComments($ids: [ID!]!) {
+  getComments(ids: $ids) {
+    _id
+    userId
+    username
+    profilePicture
+    dateCreated
+    textContent
+    commentable
+  }
+}
+`

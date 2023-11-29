@@ -49,7 +49,6 @@ const typeDefs = `
     dateCreated: String
     textContent: String!
     commentable: Boolean
-    reply: Comment
   }
 
   type Link {
@@ -80,6 +79,8 @@ const typeDefs = `
     getWeightedPosts(flair: String, recencyScore: Int, dateRange: [String]): [Post]
     getPostById(_id: ID!): Post
     getPostsById(ids: [ID!]!): [Post]
+
+    getComments(ids: [ID!]!): [Comment]
   }
 
   type Mutation {

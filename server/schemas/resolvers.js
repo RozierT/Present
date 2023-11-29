@@ -61,7 +61,7 @@ const resolvers = {
       return queriedPost;
     },
     getPostsById: async (parent, args, context) => {
-      console.log("args: ", args);
+      // console.log("args: ", args);
 
       if (!context.user) {
         throw new Error("Authentication required");
@@ -99,7 +99,7 @@ const resolvers = {
       })
       .populate('posts')
 
-      console.log('profile data: ', othersProfile)
+      // console.log('profile data: ', othersProfile)
 
       return othersProfile
     },
@@ -113,6 +113,22 @@ const resolvers = {
 
       return thisUser
     },
+    getComments: async (parents, args, context) => {
+
+      console.log('comment args: ', args)
+
+      if (!context.user) {
+        throw new Error('Authentication required');
+      }
+
+      const queriedComments = await Comment.find({
+        _id: { $in: args.ids },
+      })
+
+      console.log('queried comments: ', queriedComments)
+
+      return queriedComments
+    }
   },
   Mutation: {
     login: async (parent, { email, password }) => {
@@ -200,6 +216,7 @@ const resolvers = {
     },
     // Following a user
     followUser: async (parent, { followUserId }, context) => {
+      
       if (!context.user) {
         throw new AuthenticationError("You must be logged in!");
       }
@@ -208,7 +225,9 @@ const resolvers = {
         { _id: context.user._id },
         { $addToSet: { following: followUserId } },
         { new: true }
-      );
+      ).select('following')
+
+      console.log('updated follow user: ', updatedUser)
 
       return updatedUser;
     },
@@ -223,7 +242,9 @@ const resolvers = {
         { _id: context.user._id },
         { $pull: { following: unFollowUserId } },
         { new: true }
-      );
+      ).select('following')
+
+      console.log('updated unfollow user: ', updatedUser)
 
       return updatedUser;
     },
