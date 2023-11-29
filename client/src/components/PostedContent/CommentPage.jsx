@@ -6,6 +6,8 @@ import { useParams } from "react-router-dom";
 import { useState } from "react";
 import alterUserArray from "../../utils/algorithms/alterUserPref";
 import { GET_FLAIR_SCORES } from "../../utils/queries";
+import { UPDATE_USER_PREFS } from "../../utils/mutations";
+import { useMutation } from '@apollo/client'
 
 const CommentPage = ({ postId, tempPostDataArray }) => {
     // this is it, this is where we will query the database for the comments that are associated with the post id!!!!!!!!!!!!!
@@ -17,52 +19,11 @@ const CommentPage = ({ postId, tempPostDataArray }) => {
 
 
 
-const { loading, data: userFlairs , error } = useQuery(GET_FLAIR_SCORES)
-let action
-  
-    //getting child comments has not yet been solved and will need some work but remember that is NOT MVP only work on if comment MVP is done and nothing else is in need of work (meaning the comments are displayed on the post page)
-    
-const handleAction = async (action) => {
-    console.log('data to be sent: ',selectedTags)
-  let userChoices =[]
-    selectedTags.forEach(tag => {
-        userChoices.push({tag: tag})
-    })
-  let variableTags = [...userFlairs.userPrefs]
-  for (let i = 0; i < tags.length; i++) {
-    variableTags = alterUserArray( variableTags, action, tags[i])
-    console.log('new userPrefsArray: ', variableTags)
-  }
-  let newUserFlairs =
-  {
-  userPrefs: variableTags
-  }
-  
-  const flairsToUpdate = newUserFlairs.userPrefs.map(flair => {
-  return {
-    tag: flair.tag,
-    score: flair.score
-  }
-  })
-  console.log('newUserFlairs: ', newUserFlairs)
-    try {
-        const { data: userData } = await updateUserPrefs({
-            variables: { input: flairsToUpdate },
-        });
-    } catch (error) {
-        console.error('updating flairs error: ', error)
-    }
-  
-  };
-  
-
 
   const comment = () => {
     console.log('share');
-    action = "comment"
-    handleAction(action)
+    
   };
-console.log(tempPostDataArray)
     return (
         <div className="" onClick={comment}>
             {/* temp comment showing based on id for demo purposes */}

@@ -6,7 +6,8 @@ import Feed from "../components/PostedContent/Feed";
 // ~~~~~~~~~~~Test Data~~~~~~~~~~~~~~
 import { GET_PROFILE_BY_ID } from '../utils/queries';
 import BioSection from "../components/profile/BioSection";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
+import { useLazyQuery } from "@apollo/client";
 
 import { useParams } from "react-router-dom";
 
