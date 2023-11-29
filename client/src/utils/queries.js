@@ -36,13 +36,7 @@ export const GET_PROFILE_BY_ID = gql`
         flairs
         commentable
         comments {
-          _id
-          userId
-          username
-          profilePicture
-          dateCreated
-          text
-          commentable
+        _id
         }
         shouldRendering
         recencyScore
@@ -75,10 +69,6 @@ export const GET_POST_BY_ID = gql`
       commentable
       comments {
         _id
-        userId
-        text
-        dateCreated
-        commentable
       }
       shouldRendering
       recencyScore
@@ -113,13 +103,7 @@ export const GET_MY_PROFILE = gql`
         flairs
         commentable
         comments {
-          _id
-          userId
-          username
-          profilePicture
-          dateCreated
-          text
-          commentable
+        _id
         }
         shouldRendering
         recencyScore
@@ -129,8 +113,8 @@ export const GET_MY_PROFILE = gql`
 `
 
 export const GET_POSTS_BY_ID = gql`
-  query getPostById($id: ID!) {
-    getPostById(_id: $id) {
+  query getPostById($ids: [ID!]!) {
+    getPostsById(ids: $ids) {
       _id
       username
       profilePicture
@@ -144,12 +128,6 @@ export const GET_POSTS_BY_ID = gql`
       commentable
       comments {
         _id
-        userId
-        username
-        profilePicture
-        dateCreated
-        text
-        commentable
       }
       shouldRendering
       recencyScore

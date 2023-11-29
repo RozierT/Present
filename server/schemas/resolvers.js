@@ -214,13 +214,14 @@ const resolvers = {
     },
     // Un-following a user
     unFollowUser: async (parent, { unFollowUserId }, context) => {
+      
       if (!context.user) {
         throw new AuthenticationError("You must be logged in!");
       }
 
       const updatedUser = await User.findOneAndUpdate(
         { _id: context.user._id },
-        { $pull: { following: unfollowUserId } },
+        { $pull: { following: unFollowUserId } },
         { new: true }
       );
 

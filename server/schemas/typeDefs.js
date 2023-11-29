@@ -47,7 +47,7 @@ const typeDefs = `
     username: String
     profilePicture: String
     dateCreated: String
-    text: String!
+    textContent: String!
     commentable: Boolean
     reply: Comment
   }
@@ -89,6 +89,9 @@ const typeDefs = `
     updateUserPrefs(input: [flairScoreInput]): User
 
     createPost(content: String!, textContent: String!, flairs: [String!]!, username: String, profilePicture: String): Post
+
+    followUser(followUserId: ID!): User
+    unFollowUser(unFollowUserId: ID!): User
   }
 `;
 

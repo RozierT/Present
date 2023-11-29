@@ -9,9 +9,11 @@ import BioSection from "../components/profile/BioSection";
 import { useQuery, useLazyQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
 
+import { useParams } from "react-router-dom";
+
 // i will handle how to pass this in very soon
-const ProfilePage = ({userToGet}) => {
-  // console.log('user to get:', userToGet)
+const ProfilePage = () => {
+  const { proptopass }  = useParams()
 
   const [userFromStorage, setUserFromStorage] = useState(null)
 
@@ -28,8 +30,9 @@ const ProfilePage = ({userToGet}) => {
     // retrieves locally stored user data
     const user = JSON.parse(localStorage.getItem('user'));
       if (user) {
+        console.log('props: ', proptopass)
         setUserFromStorage(user);
-        getProfile({ variables: { userId: user._id } });
+        getProfile({ variables: { userId: proptopass ? proptopass : user._id } });
       }
   }, []);
 
@@ -43,7 +46,7 @@ const ProfilePage = ({userToGet}) => {
       ): (
         <div>
           {console.log('porf data: ', profileData)}
-          { profileError ? (<p>Error! {profileError.message}</p>): ({}) }
+          { profileError ? (<p>Error! {profileError.message}</p>): (<div></div>) }
           <BioSection profile={profileData.getOthersProfile} />
           {profileData.getOthersProfile.posts.length > 0 ? (
           <Feed dataArray={profileData.getOthersProfile.posts} type={"post"} feedToUse={"profile"} />

@@ -6,7 +6,7 @@ import { useLocation } from "react";
 const user = JSON.parse(localStorage.getItem('user'));
 console.log(user)
 const buttons = [
-  { id: 1, label: "Profile", icon: <User />, path: `/profile/:` },
+  { id: 1, label: "Profile", icon: <User />, path: `/profile/${user._id}` },
   { id: 2, label: "Camera", icon: <Camera />, path: "/camera" },
   { id: 3, label: "Settings", icon: <Gear />, path: "/settings" },
 ];
@@ -64,7 +64,7 @@ const Footer = () => {
               {" "}
               {button.icon}
             </IconContext.Provider>
-            <span>{button.path}</span> 
+            {/* <span>{button.path}</span>  */}
           </a>
         </button>
       ))}
