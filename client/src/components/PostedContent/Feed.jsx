@@ -38,7 +38,7 @@ const Feed = ({ feedToUse, dataArray, type, extraStyles }) => {
 </>
 :<>
 {dataArray.map((item, index) => (
-  <div key={index}  className={`flex-1 p-0 ${extraStyles}`}>
+  <div key={index}  className={`flex-1 mb-4 ${extraStyles}`}>
     <Post data={item} type={type}/>
   </div> 
 ))}

@@ -1,36 +1,48 @@
 import React, { useState, useEffect } from 'react';
 import MyButton from '../profile/MyButton';
-import { HeartStraight, ArrowDown, Export, Target } from '@phosphor-icons/react';
+import { HeartStraight, ArrowDown, Export, Target, CodeSimple } from '@phosphor-icons/react';
 import { UPDATE_USER_PREFS } from '../../utils/mutations'
-import { useQuery } from '@apollo/client'
+import { useQuery, useMutation } from '@apollo/client'
 import { GET_FLAIR_SCORES } from "../../utils/queries";
 import alterUserArray from "../../utils/algorithms/alterUserPref"
 
 const InteractionBar = ({ userId, postId, likes, tags }) => {
 
+
+  
   const { loading, data: userFlairs , error } = useQuery(GET_FLAIR_SCORES)
   let action
 
-
+  const [updateUserPrefs] = useMutation(UPDATE_USER_PREFS);
   // this is the logic for the like buttons appearance and functionality
   // const likedByViewer = likes.find((like) => like.user.id === viewerId) !== undefined;
 // this will be the proper way of calling this in final version
 //!!!!!!!!!!!
 //state for if the post is liked by the viewer
 const [likedByViewer, setLikedByViewer] = useState(false);
+let likeCount = likes.length
+
 
 const toggleLikedByViewer = () => {
 setLikedByViewer(!likedByViewer)
+if (likedByViewer) {
+  likeCount = likes.length
+} else {
+  likeCount+= 1
+}
+console.log('likeCount: ', likeCount)
 }
 
 
 const handleAction = async (action) => {
-  console.log('data to be sent: ',selectedTags)
+  console.log('data to be sent: ',tags)
 let userChoices =[]
-  selectedTags.forEach(tag => {
-      userChoices.push({tag: tag})
+tags.forEach(tag => {
+      userChoices.push({tag})
   })
+  console.log('userChoices: ', userChoices)
 let variableTags = [...userFlairs.userPrefs]
+console.log('variableTags: ', variableTags)
 for (let i = 0; i < tags.length; i++) {
   variableTags = alterUserArray( variableTags, action, tags[i])
   console.log('new userPrefsArray: ', variableTags)
@@ -92,20 +104,20 @@ const like = () => {
   console.log('like');
   action = "like"
   handleAction(action)
-  buildNotification(action, postId)
+  buildNotificationAndUpdatePost(action, postId)
 };
 const dislike = () => {
   console.log('dislike');
   action = "dislike"
   handleAction(action)
-  buildNotification(action, postId)
+  buildNotificationAndUpdatePost(action, postId)
 
 };
 const share = () => {
   console.log('share');
   action = "share"
   handleAction(action)
-  buildNotification(action, postId)
+
 
 };
   return (
@@ -132,7 +144,7 @@ const share = () => {
      </div>
     
         
-        <div className='likeCount'>{likes}</div>
+        <div className='likeCount'>{likeCount}</div>
         {/*  this will be the proper way of calling this in final version */}
         {/* <div className='likeCount'>{likes.length}</div> */}
 

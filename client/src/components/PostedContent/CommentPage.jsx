@@ -5,7 +5,7 @@ import { useQuery } from '@apollo/client';
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import alterUserArray from "../../utils/algorithms/alterUserPref";
-
+import { GET_FLAIR_SCORES } from "../../utils/queries";
 
 const CommentPage = ({ postId, tempPostDataArray }) => {
     // this is it, this is where we will query the database for the comments that are associated with the post id!!!!!!!!!!!!!
@@ -62,10 +62,25 @@ const handleAction = async (action) => {
     action = "comment"
     handleAction(action)
   };
-
+console.log(tempPostDataArray)
     return (
-        <div className="" onclick={comment}>
-            <Feed feedToUse="comment" type={"comment"} dataArray={tempPostDataArray} extraStyles={" border-t-4 border-b-4 border-black"}/>
+        <div className="" onClick={comment}>
+            {/* temp comment showing based on id for demo purposes */}
+            
+            
+            {tempPostDataArray.map((item, i) => {
+                 return( 
+                  <div key={i}>
+                    <p>{tempPostDataArray[i]._id}</p>
+                  </div>)
+                  }
+                )}
+            
+            
+            {/* END temp comment showing  */}
+            
+            
+            {/* <Feed feedToUse="comment" type={"comment"} dataArray={tempPostDataArray} extraStyles={" border-t-4 border-b-4 border-black"}/> */}
         </div>
     );
     }
