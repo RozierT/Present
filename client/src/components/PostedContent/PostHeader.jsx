@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 
 const PostHeader = ({ userOfOrigin, userId, date, profilePicture, type}) => {
-    let path = `/profile/:${userId}`
+    let path = `/profile/${userId}`
     const navigateToProfile = () => {
         console.log("navigate to profile")
 

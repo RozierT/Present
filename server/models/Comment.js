@@ -1,6 +1,5 @@
 const { Schema, model } = require('mongoose')
 
-// TODO: add username(userOfOrigin) keep userId
 
 const commentSchema = new Schema(
     {
@@ -8,6 +7,12 @@ const commentSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: 'user'
         },
+        username: {
+            type: String
+        },
+        profilePicture: {
+            type: String
+        }, 
         dateCreated: {
             type: Date,
             default: Date.now,
@@ -34,10 +39,10 @@ const commentSchema = new Schema(
     }
 )
 
-// Virtual: Associated User's Profile pic
-commentSchema.virtual('profilePicture').get(function() {
-    return this.userId.profilePicture;
-});
+// // Virtual: Associated User's Profile pic
+// commentSchema.virtual('profilePicture').get(function() {
+//     return this.userId.profilePicture;
+// });
 
 const Comment = model('comment', commentSchema)
 

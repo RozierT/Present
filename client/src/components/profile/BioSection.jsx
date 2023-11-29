@@ -4,6 +4,7 @@ import ImageIcon from "./ImageIcon";
 import StrictTxtContainer from "./StrictTxtContainer";
 import MyButton from "./MyButton";
 import { useEffect, useState } from "react";
+import { useMutation } from '@apollo/client'
 
 // Define a test profile object
 
@@ -14,14 +15,16 @@ function BioSection({ profile }) {
 
 // i need to run a function on load using a use effect that will check the profiles followers array and see if the logged in user is un it, if they are then the follow button will be changed to unfollow and the action will be changed to unfollow
  const [followButton, setFollowButton] = useState("follow")
+// Mutations
 
- // TODO work this out with the backend team
-let storedUserId = "logic for getting the stored user id"
+
+
+let storedUserId = JSON.parse(localStorage.getItem('user'))
 
  const checkFollow = () => {
   console.log("check follow");
   
-  if (profile.followers.includes(storedUserId)) {
+  if (storedUserId.following.includes(profile.userId)) {
     setFollowButton("unfollow");
   }
 };
@@ -79,7 +82,7 @@ let storedUserId = "logic for getting the stored user id"
           </div>
           <div>
             <p>
-            followers: {profile.followers.length}
+            {/* followers: {profile.following.length} */}
             </p>
           </div>
         </div>

@@ -4,7 +4,7 @@ const typeDefs = `
     firstName: String!
     lastName: String!
     email: String!
-    friends: [ID]
+    following: [ID]
     scrapbook: [ID]
     flairScores: [flairScore]
   }
@@ -21,11 +21,13 @@ const typeDefs = `
     bio: String
     profilePicture: String
     links: [Link]
-    latestPosts: [Post]
+    posts: [Post]
   }
 
   type Post {
     _id: ID
+    username: String
+    profilePicture: String
     userId: ID
     dateCreated: String
     content: String
@@ -42,8 +44,10 @@ const typeDefs = `
   type Comment {
     _id: ID
     userId: ID
+    username: String
+    profilePicture: String
     dateCreated: String
-    text: String!
+    textContent: String!
     commentable: Boolean
     reply: Comment
   }
@@ -67,6 +71,7 @@ const typeDefs = `
 
 
   type Query {
+    getUser: User
     userPrefs: [flairScore]
 
     me: Profile
@@ -83,7 +88,10 @@ const typeDefs = `
     addProfile(username: String!, bio: String, profilePicture: String, userId: ID): Profile
     updateUserPrefs(input: [flairScoreInput]): User
 
-    createPost(content: String!, textContent: String!, flairs: [String!]!): Post
+    createPost(content: String!, textContent: String!, flairs: [String!]!, username: String, profilePicture: String): Post
+
+    followUser(followUserId: ID!): User
+    unFollowUser(unFollowUserId: ID!): User
   }
 `;
 

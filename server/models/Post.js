@@ -12,6 +12,12 @@ const postSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'user',
     },
+    username: {
+      type: String
+    },
+    profilePicture: {
+      type: String
+    },
     content: {
       type: String,
     },

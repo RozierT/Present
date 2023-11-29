@@ -51,9 +51,10 @@ const resolvers = {
     },
     // find post by id that is passed in thru args
     getPostById: async (parent, args, context) => {
-      // if (!context.user) {
-      //   throw new Error('Authentication required');
-      // }
+
+      if (!context.user) {
+        throw new Error('Authentication required');
+      }
 
       const queriedPost = await Post.findById(args._id);
 
@@ -70,7 +71,7 @@ const resolvers = {
         _id: { $in: args.ids },
       });
 
-      console.log("queried Posts: ", queriedPosts);
+      // console.log('queried Posts: ', queriedPosts)
 
       return queriedPosts;
     },
@@ -79,27 +80,38 @@ const resolvers = {
         throw new Error("Authentication required");
       }
 
-      console.log("user id: ", context.user._id);
+      // console.log('user id: ', context.user._id)
 
-      const thisUser = await Profile.findById(context.user._id).populate(
-        "posts"
-      );
+      const thisUserProfile = await Profile.findOne({ userId: context.user._id }).populate('posts')
 
-      return thisUser;
+      // console.log('user profile: ', thisUserProfile)
+
+      return thisUserProfile
     },
     getOthersProfile: async (parent, args, context) => {
       if (!context.user) {
         throw new Error("Authentication required");
       }
 
-      console.log("args: ", args);
-      console.log("userId: ", args.userId);
 
-      const othersProlie = await Profile.find({
-        userId: args.userId,
-      }).populate("posts");
+      const othersProfile = await Profile.findOne({
+        userId: args.userId
+      })
+      .populate('posts')
 
-      return othersProlie;
+      console.log('profile data: ', othersProfile)
+
+      return othersProfile
+    },
+    getUser: async (parent, args, context) => {
+
+      if (!context.user) {
+        throw new Error('Authentication required');
+      }
+
+      const thisUser = await User.findById(context.user._id).select('-password')
+
+      return thisUser
     },
   },
   Mutation: {
@@ -162,7 +174,8 @@ const resolvers = {
       return updatedUser;
     },
     // creates post based on passed in data then updates profile with new post id
-    createPost: async (parent, { content, textContent, flairs }, context) => {
+    createPost: async (parent, { content, textContent, flairs, username, profilePicture}, context) => {
+
       if (!context.user) {
         throw new Error("Authentication required");
       }
@@ -171,7 +184,9 @@ const resolvers = {
         content,
         textContent,
         flairs,
-      });
+        username,
+        profilePicture
+      })
 
       if (createdPost) {
         const updatedProfile = await Profile.findOneAndUpdate(
@@ -199,13 +214,14 @@ const resolvers = {
     },
     // Un-following a user
     unFollowUser: async (parent, { unFollowUserId }, context) => {
+      
       if (!context.user) {
         throw new AuthenticationError("You must be logged in!");
       }
 
       const updatedUser = await User.findOneAndUpdate(
         { _id: context.user._id },
-        { $pull: { following: unfollowUserId } },
+        { $pull: { following: unFollowUserId } },
         { new: true }
       );
 

@@ -27,7 +27,7 @@ const userSchema = new Schema({
       // At least 8 chars w/ at least 1 upper/lower/num/special character
       // match: [/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/, 'Must match all password criteria!']
     },
-    friends: {
+    following: {
       type: [Schema.Types.ObjectId],
       ref: 'user',
       default: []

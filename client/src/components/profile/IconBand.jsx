@@ -22,7 +22,7 @@ const IconBand = ({ dataArray, refsArray }) => {
       <div className="flex">
   {new Array(7).fill(null).map((_, index) => {
     const item = dataArray[index];
-    if (item && item.shouldRenderImg) {
+    if (item) {
       return (
         <div key={index} className="flex-1 p-0">
           <ImageIcon
