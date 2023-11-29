@@ -1,9 +1,20 @@
 import React, { useState, useEffect } from "react";
 import Toggle from "./Toggle";
 import SettingsList from "./DefaultSettings";
-import { LOGOUT_USER } from "../../utils/mutations";
-
+import auth from '../../utils/auth';
 export default function Settings() {
+
+
+
+
+
+
+  const logout = () => {
+    auth.logout()
+    window.location.replace("/login")
+  }
+
+
   const [settings, setSettings] = useState(() => {
     const savedSettings = localStorage.getItem("settings");
     if (savedSettings) {
@@ -64,7 +75,7 @@ export default function Settings() {
         ))}
       </form>
       <br></br>
-      <button onClick={LOGOUT_USER}>Logout</button>
+      <button onClick={logout}>Logout</button>
 
     </div>
   );
