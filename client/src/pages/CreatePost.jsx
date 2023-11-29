@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Form, Link, useNavigate } from 'react-router-dom';
 import InputField from '../components/FormStuffs/InputField';
 import FormContainer from '../components/FormStuffs/FormContainer';
-import { useMutation } from '@apollo/client';
 import animals from '../assets/images/animals.png';
 import art from '../assets/images/art.png';
 import books from '../assets/images/books.png';
@@ -27,7 +26,7 @@ import GridOfStuff from '../components/FormStuffs/GridOfStuff';
 import ImageIcon from '../components/profile/ImageIcon';
 import { SlackLogo } from '@phosphor-icons/react';
 import { useEffect } from 'react';
-import { useQuery } from '@apollo/client'
+import { useQuery, useMutation } from '@apollo/client'
 import { GET_FLAIR_SCORES } from "../utils/queries";
 import addPoints from "../utils/algorithms/createUserPref"
 import { newInvariantError } from '@apollo/client/utilities/globals';

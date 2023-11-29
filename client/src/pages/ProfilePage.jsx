@@ -41,7 +41,7 @@ const ProfilePage = () => {
   return (
     <div className="bg-bkg-1 text-content">
       <Header />
-      {!profileData ?(
+      {!profileData ? (
         <div>Loading...</div>
       ): (
         <div>

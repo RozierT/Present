@@ -88,8 +88,8 @@ userSchema.methods.isCorrectPassword = async function (password) {
 // virtuals
 
 // return # of friends
-userSchema.virtual('friendCount').get(function () {
-  return this.friends.length
+userSchema.virtual('followingCount').get(function () {
+  return this.following.length
 })
 
 // reture # of lifetime posts
