@@ -14,9 +14,9 @@ const [getComments, { loading: commentLoading, data: commentData , error: commen
 
     useEffect(() => {
       if (tempPostDataArray) {
-        console.log('temp array: ', tempPostDataArray)
+        // console.log('temp array: ', tempPostDataArray)
         const formattedCommentIds = tempPostDataArray.map((id) => id._id)
-        console.log('formatted array: ', formattedCommentIds)
+        // console.log('formatted array: ', formattedCommentIds)
         getComments({
           variables: { ids: formattedCommentIds }
         })

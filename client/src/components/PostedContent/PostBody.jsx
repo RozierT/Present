@@ -29,7 +29,7 @@ type === 'post'?
         {type==="post" && <InteractionBar userId={'test'} postId={data.postId} likes={data.likes} tags={data.flairs}/>}
 
         {/* this shows the text data of the post and will appear on every post type */}
-        <PostText textContent={data.textContent} type={type} comments={data.comments} postId={data.postId} profilePicture={data.profilePicture} tags={data.flairs}/>
+        <PostText textContent={data.textContent} type={type} comments={data.comments} postId={data.postId} profilePicture={data.profilePicture} tags={data.flairs ? data.flairs : null}/>
 
       </div>
     </div>
