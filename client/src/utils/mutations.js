@@ -67,10 +67,35 @@ export const FOLLOW_USER = gql`
 `
 
 export const UNFOLLOW_USER = gql`
-  mutation UnFollowUser($unFollowUserId: ID!) {
+  mutation unFollowUser($unFollowUserId: ID!) {
     unFollowUser(unFollowUserId: $unFollowUserId) {
       _id
       following
+    }
+  }
+`
+
+export const CREATE_COMMENT = gql`
+  mutation createComment($textContent: String!, $username: String!, $profilePicture: String!, $postId: ID!) {
+    createComment(textContent: $textContent, username: $username, profilePicture: $profilePicture, postId: $postId) {
+      _id
+      username
+      userId
+      comments {
+        _id
+      }
+    }
+  }
+`
+export const CREATE_POST = gql`
+  mutation CreatePost($content: String!, $textContent: String!, $flairs: [String!]!, $username: String, $profilePicture: String) {
+    createPost(content: $content, textContent: $textContent, flairs: $flairs, username: $username, profilePicture: $profilePicture) {
+      _id
+      username
+      userId
+      posts {
+        _id
+      }
     }
   }
 `

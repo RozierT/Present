@@ -1,7 +1,7 @@
 import Feed from "./Feed";
 import Post from "./PostBody";
 import { useLazyQuery } from '@apollo/client';
-import {  useEffect } from "react";
+import { useEffect } from "react";
 import { GET_POST_COMMENTS } from "../../utils/queries";
 
 const CommentPage = ({ postId, tempPostDataArray }) => {

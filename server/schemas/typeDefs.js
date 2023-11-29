@@ -89,7 +89,8 @@ const typeDefs = `
     addProfile(username: String!, bio: String, profilePicture: String, userId: ID): Profile
     updateUserPrefs(input: [flairScoreInput]): User
 
-    createPost(content: String!, textContent: String!, flairs: [String!]!, username: String, profilePicture: String): Post
+    createPost(content: String!, textContent: String!, flairs: [String!]!, username: String, profilePicture: String): Profile
+    createComment(textContent: String!, username: String!, profilePicture: String!, postId: ID!): Post
 
     followUser(followUserId: ID!): User
     unFollowUser(unFollowUserId: ID!): User
