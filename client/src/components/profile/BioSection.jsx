@@ -76,7 +76,8 @@ let storedUserId = JSON.parse(localStorage.getItem('user'))
     } else {
       unfollowAccount()
 
-  }
+    }
+  }  
   return (
     <div className="container bg-bkg-2">
       <div className="flex columns-2 space-x-2  rounded pt-2 pb-2">
@@ -119,4 +120,4 @@ let storedUserId = JSON.parse(localStorage.getItem('user'))
   );
 }
 
-export default BioSection;
+export default BioSection
