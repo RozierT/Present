@@ -16,6 +16,10 @@ const notificationSchema = new Schema({
     },
     profilePicture: {
         type: String
+    },
+    read: {
+        type: Boolean,
+        default: false
     }
 })
 

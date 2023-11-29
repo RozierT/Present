@@ -111,5 +111,25 @@ export const GET_MY_PROFILE = gql`
       }
     }
   }
+`
+
+export const GET_POSTS_BY_ID = gql`
+  query GetPostsById($ids: [ID!]!) {
+    getPostsById(ids: $ids) {
+      _id
+      userId
+      dateCreated
+      content
+      title
+      textContent
+      likes
+      flairs
+      commentable
+      comments {
+        _id
+      }
+      shouldRendering
+      recencyScore
+    }
 }
 `

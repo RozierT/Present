@@ -142,7 +142,7 @@ const tagElements = visualTags.map((tag, index) => (
         })
 
         
-        console.log('newUserFlairs: ', newUserFlairs)
+        // console.log('newUserFlairs: ', newUserFlairs)
 
         try {
             const { data: userData } = await updateUserPrefs({

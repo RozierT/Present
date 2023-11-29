@@ -59,6 +59,22 @@ const resolvers = {
 
       return queriedPost
     },
+    getPostsById: async (parent, args, context) => {
+
+      console.log('args: ', args)
+      
+      if (!context.user) {
+        throw new Error('Authentication required');
+      }
+
+      const queriedPosts = await Post.find({
+        _id: { $in: args.ids }
+      })
+
+      console.log('queried Posts: ', queriedPosts)
+
+      return queriedPosts
+    },
     me: async (parent, args, context) => {
 
       if (!context.user) {
@@ -67,7 +83,7 @@ const resolvers = {
 
       console.log('user id: ', context.user._id)
 
-      const thisUser = await Profile.findById(context.user._id)
+      const thisUser = await Profile.findById(context.user._id).populate('posts')
 
       return thisUser
     },
@@ -83,6 +99,7 @@ const resolvers = {
       const othersProlie = await Profile.find({
         userId: args.userId
       })
+      .populate('posts')
 
       return othersProlie
     }

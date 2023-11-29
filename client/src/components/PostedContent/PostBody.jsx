@@ -23,10 +23,10 @@ type === 'post'?
 
         {/* this shows the image and is only show if the showcontent boolean it true */}
         
-        {type==="post" && <PostContent tags={data.tags} content={data.content}/>}
+        {type==="post" && <PostContent tags={data.flairs} content={data.content}/>}
 
         {/* this shows the interactions (like, dislike, share) and is only show if the showcontent boolean it true */}
-        {type==="post" && <InteractionBar userId={'test'} postId={data.postId} likes={data.likes} tags={data.tags}/>}
+        {type==="post" && <InteractionBar userId={'test'} postId={data.postId} likes={data.likes} tags={data.flairs}/>}
 
         {/* this shows the text data of the post and will appear on every post type */}
         <PostText textContent={data.textContent} type={type} comments={data.comments} postId={data.postId} profilePicture={data.profilePicture}/>

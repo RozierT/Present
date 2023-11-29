@@ -74,6 +74,7 @@ const typeDefs = `
 
     getWeightedPosts(flair: String, recencyScore: Int, dateRange: [String]): [Post]
     getPostById(_id: ID!): Post
+    getPostsById(ids: [ID!]!): [Post]
   }
 
   type Mutation {
