@@ -18,7 +18,7 @@ const buttons2 = [
 const Footer = () => {
   if (window.location.pathname === "/profile") {
     return (
-      <footer className="fixed sticky bottom-0 w-full bg-bkg-1 flex justify-around items-center p-2">
+      <footer className="fixed sticky bottom-0 w-full bg-bkg-1 flex justify-around items-center p-2"  style={{zIndex:'999'}}>
         {buttons2.map((button) => (
           <button
             key={button.id}

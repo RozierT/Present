@@ -6,7 +6,7 @@ import presentLogo from "../../assets/images/presentLogo.png";
 function Header() {
  if (window.location.pathname === "/feed") {
     return (
-      <header className="fixed sticky top-0 w-full bg-bkg-1 flex justify-around items-center p-2">
+      <header className="fixed sticky top-0 w-full bg-bkg-1 flex justify-around items-center p-2" style={{zIndex:"999"}}>
         <IconContext.Provider
           value={{
             color: "silver",

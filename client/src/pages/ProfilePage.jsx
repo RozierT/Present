@@ -7,10 +7,14 @@ import Feed from "../components/PostedContent/Feed";
 // import {GET_PROFILE} from "../utils/queries/";
 import BioSection from "../components/profile/BioSection";
 import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 // i will handle how to pass this in very soon
-const ProfilePage = ({userToGet}) => {
-  console.log(userToGet)
+const ProfilePage = () => {
+  const {proptopass} = useParams()
+  console.log(proptopass) 
+
+ 
   // let profile
   // useEffect(() => {
   //   console.log(userToGet)
@@ -23,7 +27,7 @@ const ProfilePage = ({userToGet}) => {
 
   return (
     <div className="bg-bkg-1 text-content">
-      <Header />
+      {/* <Header />
       <BioSection profile={profile} />
       {profile.posts.length > 0 ? (
          <Feed dataArray={profile.posts} type={"post"} feedToUse={"profile"} />
@@ -33,7 +37,7 @@ const ProfilePage = ({userToGet}) => {
         </h1>
       )}
      
-      <Footer />
+      <Footer /> */}
     </div>
   );
 };
