@@ -25,11 +25,19 @@ const authLink = setContext((_, { headers }) => {
   };
 });
 
+import auth from './utils/auth';
+
+
+
 const client = new ApolloClient({
   // Set up our client to execute the `authLink` middleware prior to making the request to our GraphQL API
   link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
+
+
+
+// console.log(auth)
 
 function App() {
 
@@ -43,6 +51,18 @@ function App() {
   //   }, []);
   window.user = "HI"
   window.profile = "HI again"
+
+  const path = window.location.pathname;
+  console.log(path);
+  
+
+  console.log(auth.loggedIn()) 
+  if (auth.loggedIn() === false &&  window.location.pathname !== "/login" && window.location.pathname !== "/signup" && window.location.pathname !== "/") {
+    window.location.replace("/login")
+
+  }
+
+
   return (
     <ApolloProvider client={client}>
 
