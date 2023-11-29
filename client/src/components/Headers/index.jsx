@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation } from "react";
 import { IconContext, House, Bell, MagnifyingGlass  } from "@phosphor-icons/react";
-
+import presentLogo from "../../assets/images/presentLogo.png";
 
 function Header() {
  if (window.location.pathname === "/feed") {
@@ -18,7 +18,7 @@ function Header() {
           <a href="/explore">
             <MagnifyingGlass />
           </a>
-          <h1 className="text-content font-bold items-center flex"> Present  </h1>
+          <h1 className="text-content font-bold items-center flex"> <img  className="h-10" src={presentLogo} alt="" />  </h1>
           <a href="/notifications">
             <Bell />
           </a>
@@ -40,7 +40,7 @@ function Header() {
         <a href="/feed">
           <House />
         </a>
-        <h3 className="text-content font-bold items-center flex"> Present  </h3>
+        <h3 className="text-content font-bold items-center flex"><img className="h-10" src={presentLogo} alt="" />  </h3>
         <a href="/notifications">
           <Bell />
         </a>

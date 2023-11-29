@@ -148,7 +148,9 @@ const getRandomIndexForPreference = (array) => {
 // this adjusts the score of the tag that was selected to be either reduced or increased by one point
 // the reason for this is to give a bit of randomness to the algorithm so the changes are more distributed
 function adjustTagScore(array, tagToAlter, interactionType) {
-    if (interactionType === "negative") {
+    
+  let newArray;
+  if (interactionType === "negative") {
         try {
             newArray = array.map(item => {
                 if (item.tag === tagToAlter) {
