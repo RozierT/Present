@@ -209,7 +209,8 @@ function alterUserArray(userArray, action, tagToAlter) {
    
     // Determine interaction points
     let {pointsToAlter, typeOfInteraction} = determineInteractionPoints(action);
-   
+   console.log("pointsToAlter: ", pointsToAlter);
+   console.log("tagToAlter: ", tagToAlter);
     // Check if tag score is at min or max
     const tagPreferenceMin = checkIfTagScoreMin(tempArray, tagToAlter);
     const tagPreferenceMaxed = checkIfTagScoreMaxed(tempArray, tagToAlter);

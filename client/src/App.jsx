@@ -6,7 +6,7 @@ import {
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { Outlet } from 'react-router-dom';
-
+import React, { useEffect } from 'react';
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -52,15 +52,18 @@ function App() {
   window.user = "HI"
   window.profile = "HI again"
 
-  const path = window.location.pathname;
-  console.log(path);
+  let path = window.location.pathname;
   
-
-  console.log(auth.loggedIn()) 
-  if (auth.loggedIn() === false &&  window.location.pathname !== "/login" && window.location.pathname !== "/signup" && window.location.pathname !== "/") {
-    window.location.replace("/login")
-
-  }
+  useEffect(() => {
+    if (
+      auth.loggedIn() === false &&
+      window.location.pathname !== "/login" &&
+      window.location.pathname !== "/signup" &&
+      window.location.pathname !== "/"
+    ) {
+      window.location.replace("/login");
+    }
+  }, []);
 
 
   return (
