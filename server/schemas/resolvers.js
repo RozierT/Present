@@ -115,7 +115,7 @@ const resolvers = {
     },
     getComments: async (parents, args, context) => {
 
-      console.log('comment args: ', args)
+      // console.log('comment args: ', args)
 
       if (!context.user) {
         throw new Error('Authentication required');
@@ -125,7 +125,7 @@ const resolvers = {
         _id: { $in: args.ids },
       })
 
-      console.log('queried comments: ', queriedComments)
+      // console.log('queried comments: ', queriedComments)
 
       return queriedComments
     }
@@ -205,13 +205,44 @@ const resolvers = {
       })
 
       if (createdPost) {
+        console.log('created post id: ', createdPost._id)
+
+        // updates users profile with new post id making it the first in posts array
         const updatedProfile = await Profile.findOneAndUpdate(
           { userId: context.user._id },
-          { $push: { posts: createdPost._id } },
+          { $push: { posts: {
+            $each: [createdPost._id],
+            $position: 0
+          }} },
           { new: true }
         );
 
-        return { createdPost, updatedProfile };
+        return updatedProfile;
+      }
+    },
+    createComment: async (parent, { textContent, username, profilePicture, userId, postId }, context) => {
+
+      if (!context.user) {
+        throw new Error("Authentication required");
+      }
+
+      const createdComment = await Comment.create({
+        textContent,
+        username,
+        profilePicture,
+        userId: context.user._id,
+      })
+
+      if (createdComment) {
+        console.log('created comment id: ', createdComment._id)
+
+        const updatedPost = await Post.findOneAndUpdate(
+          { _id: postId },
+          { $push: { comments: createdComment._id }},
+          { new: true }
+        )
+
+        return updatedPost
       }
     },
     // Following a user
