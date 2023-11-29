@@ -1,8 +1,11 @@
 const { User, Post, Comment, Profile } = require("../models");
 const { signToken, AuthenticationError } = require('../utils/auth')
 
+
 const resolvers = {
+
   Query: {
+    // Find (logged in) user by id (context) and return their Flair Score Array
     userPrefs: async ( parent, args, context) => {
 
       if (!context.user) {
@@ -11,26 +14,95 @@ const resolvers = {
 
       const userPrefs = await User.findById(context.user._id).select('flairScores')
 
+      // console.log('userPrefs: ', userPrefs)
+
       return userPrefs.flairScores
     },
-    getWeightedPosts: async ( parent, args, context ) => {
+    // Find posts in db that match passed in params and return the ids (array)
+    getWeightedPosts: async ( parent, { flair, recencyScore, dateRange }, context ) => {
 
       if (!context.user) {
         throw new Error('Authentication required');
       }
 
+      let startDate, endDate;
 
+      if (dateRange.length > 1) {
+        startDate = new Date(dateRange[1]);
+        endDate = new Date(dateRange[0]);
+      } else {
+        startDate = new Date(dateRange[0]);
+        startDate.setHours(0, 0, 0, 0); // set to the start of the day
+        endDate = new Date(dateRange[0]);
+      }
 
+      const weightedPosts = await Post.find({
+        flairs: { $in: [flair] }, 
+        recencyScore: recencyScore,
+        dateCreated: {
+          $gte: startDate, 
+          $lte: endDate 
+        }
+      })
+      .select('_id')
+
+      return weightedPosts
     },
-    profile: async (parent, { userId }) => {
-      return Profile.findOne({ userId: userId });
+    // find post by id that is passed in thru args
+    getPostById: async (parent, args, context) => {
+
+      // if (!context.user) {
+      //   throw new Error('Authentication required');
+      // }
+
+      const queriedPost = await Post.findById(args._id)
+
+      return queriedPost
     },
-    // links: async () => {
-    //   return Link.find();
-    // },
-    // link: async (parent, { linkId }) => {
-    //   return Link.findOne({ _id: linkId });
-    // },
+    getPostsById: async (parent, args, context) => {
+
+      console.log('args: ', args)
+      
+      if (!context.user) {
+        throw new Error('Authentication required');
+      }
+
+      const queriedPosts = await Post.find({
+        _id: { $in: args.ids }
+      })
+
+      console.log('queried Posts: ', queriedPosts)
+
+      return queriedPosts
+    },
+    me: async (parent, args, context) => {
+
+      if (!context.user) {
+        throw new Error('Authentication required');
+      }
+
+      console.log('user id: ', context.user._id)
+
+      const thisUser = await Profile.findById(context.user._id).populate('posts')
+
+      return thisUser
+    },
+    getOthersProfile: async (parent, args, context) => {
+
+      if (!context.user) {
+        throw new Error('Authentication required');
+      }
+
+      console.log('args: ', args)
+      console.log('userId: ', args.userId)
+
+      const othersProlie = await Profile.find({
+        userId: args.userId
+      })
+      .populate('posts')
+
+      return othersProlie
+    }
   },
   Mutation: {
     login: async (parent, { email, password }) => {
@@ -60,8 +132,6 @@ const resolvers = {
     },
     addProfile: async (parent, { username, bio, profilePicture }, context) => {
 
-      console.log('profilePic value: ', profilePicture)
-
       if (!context.user) {
         throw new Error('Authentication required');
       }
@@ -72,8 +142,6 @@ const resolvers = {
         profilePicture,
         userId: context.user._id
       });
-      
-      console.log('returned profile: ', profile)
 
       return profile;
     },
@@ -97,6 +165,29 @@ const resolvers = {
       }
 
       return updatedUser
+    },
+    // creates post based on passed in data then updates profile with new post id
+    createPost: async (parent, { content, textContent, flairs}, context) => {
+
+      if (!context.user) {
+        throw new Error('Authentication required');
+      }
+
+      const createdPost = await Post.create({
+        content,
+        textContent,
+        flairs
+      })
+
+      if (createdPost) {
+        const updatedProfile = await Profile.findOneAndUpdate(
+          { userId: context.user._id },
+          { $push: { posts: createdPost._id } },
+          { new: true },
+        )
+
+        return { createdPost, updatedProfile }
+      }
     },
   },
 };

@@ -12,20 +12,21 @@ const postSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'user',
     },
-    imageSrc: {
+    content: {
       type: String,
     },
     title: {
       type: String,
       maxlength: 280,
     },
-    description: {
+    textContent: {
       type: String,
       maxlength: 280,
     },
     likes: {
-      type: Number,
-      min: 0,
+      type: [Schema.Types.ObjectId],
+      ref: 'user',
+      default: []
     },
     flairs: {
       type: [
@@ -65,10 +66,15 @@ const postSchema = new Schema(
   }
 );
 
-// Virtual property: commentCount
-postSchema.virtual('commentCount').get(function () {
-  return this.comments.length;
-});
+// Virtual: commentCount
+// postSchema.virtual('commentCount').get(function () {
+//   return this.comments.length;
+// });
+
+// Virtual: Associated User's Profile pic
+// postSchema.virtual('profilePicture').get(function() {
+//   return this.userId.profilePicture;
+// });
 
 const Post = model('post', postSchema);
 

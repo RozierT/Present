@@ -1,105 +1,135 @@
 import { gql } from '@apollo/client';
 
-// this should only return posts id PLEASE EDIT
+// this should only return posts id
 export const GET_WEIGHTED_POSTS = gql`
-  query getPosts($flairs: [String], $recencyScore: Int, $dateRange: [String]) {
-    posts(flairs: $flairs, recencyScore: $recencyScore, dateRange: $dateRange) {
-      dateCreated
-      userId
-      imageSrc
-      title
-      description
-      likes
-      flairs
-      commentable
-      comments
-      shouldRendering
-      recencyScore
+  query getWeightedPosts($flair: String, $recencyScore: Int, $dateRange: [String]) {
+    getWeightedPosts(flair: $flair, recencyScore: $recencyScore, dateRange: $dateRange) {
+      _id
     }
   }
 `;
 
-export const GET_PROFILE = gql`
-  query getProfile($userId: ID!) {
-    profile(userId: $userId) {
+export const GET_PROFILE_BY_ID = gql`
+  query getOthersProfile($id: ID!) {
+    getOthersProfile(_id: $id) {
       _id
-      username
-      userId
-      profilePicture
       bio
+      profilePicture
+      userId
+      username
       links {
-        _id
+        imageSrc
         name
         url
-        imageSrc
       }
       latestPosts {
         _id
         userId
         dateCreated
-        imageSrc
+        content
         title
-        description
+        textContent
         likes
         flairs
         commentable
-        shouldRendering
         comments {
+          _id
           text
           userId
           dateCreated
           commentable
-          _id
         }
+        shouldRendering
+        recencyScore
       }
-    }
   }
+}
 `
 
 // get a user's flair scores. id passed in resolver thru context
 export const GET_FLAIR_SCORES = gql`
   query userPrefs {
-  userPrefs {
-    score
-    tag
-  }
+    userPrefs {
+      score
+      tag
+    }
 }
 `
 
-// get user by username
-export const GET_USER = gql`
-  query user($username: String!) {
-    user(username: $username) {
+export const GET_POST_BY_ID = gql`
+  query GetPostById($id: ID!) {
+    getPostById(_id: $id) {
+      _id
+      commentable
+      content
+      dateCreated
+      flairs
+      likes
+      recencyScore
+      shouldRendering
+      textContent
+      title
+      userId
+    }
+}
+`
+
+export const GET_MY_PROFILE = gql`
+  query Me {
+    me {
       _id
       username
       userId
       profilePicture
       bio
-      links {
-        _id
-        name
-        url
-        imageSrc
-      }
       latestPosts {
         _id
-        userId
-        dateCreated
-        imageSrc
-        title
-        description
-        likes
-        flairs
         commentable
+        content
+        dateCreated
+        flairs
+        likes
+        recencyScore
         shouldRendering
+        textContent
+        title
+        userId
         comments {
-          text
-          userId
-          dateCreated
-          commentable
           _id
+          commentable
+          dateCreated
+          reply {
+            reply {
+              text
+              userId
+              commentable
+              _id
+              dateCreated
+            }
+          }
         }
       }
     }
   }
+`
+
+export const GET_POSTS_BY_ID = gql`
+  query GetPostsById($ids: [ID!]!) {
+    getPostsById(ids: $ids) {
+      _id
+      userId
+      dateCreated
+      content
+      title
+      textContent
+      likes
+      flairs
+      commentable
+      comments {
+        _id
+      }
+      shouldRendering
+      recencyScore
+    }
+}
 `

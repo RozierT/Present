@@ -1,62 +1,72 @@
 import Header from "../components/Headers";
 import Footer from "../components/Footer";
-
-import { useQuery } from '@apollo/client'
-import { GET_FLAIR_SCORES, GET_WEIGHTED_POSTS } from "../utils/queries";
+import { useEffect, useState } from "react";
+import { useQuery, useLazyQuery } from '@apollo/client'
+import { GET_FLAIR_SCORES, GET_WEIGHTED_POSTS, GET_POSTS_BY_ID } from "../utils/queries";
 import { generateRequestParameters, getChosenPostId } from "../utils/algorithms/genRequestParams";
+import Feed from "../components/PostedContent/Feed";
 
 
 
 const FeedPage = () => {
-        // k so we need stuff...
-        // we need to bring in the user preferences from the database
-        const { loading, data: userFlairs , error } = useQuery(GET_FLAIR_SCORES)
-        // this will de the 'userPrefArray'
-        // then we need to use those preferences to make a query to the api
-        // this will be done by rolling these 'dice'
+        const { loading: flairsLoading, data: userFlairs, error: flairsError } = useQuery(GET_FLAIR_SCORES);
+        const [getWeightedPosts, { loading: weightedPostsLoading, data: weightedPostsData, error: weightedPostsError }] = useLazyQuery(GET_WEIGHTED_POSTS);
+        const [weightedPostParams, setWeightedPostParams] = useState(null);
+        const [randomPostIdArray, setRandomPostIdArray] = useState([]);
 
-        console.log('userFlairs: ', userFlairs)
-        if (!loading) {
+        // waits until first query is finished before running second query
+        useEffect(() => {
+                if (!flairsLoading && userFlairs) {
+                        const params = generateRequestParameters(userFlairs.userPrefs);
+                        setWeightedPostParams(params)
+                }
+        }, [flairsLoading, userFlairs]);
 
-                const weightedPostParams =  generateRequestParameters(userFlairs.userPrefs)
+        useEffect(() => {
+                if (weightedPostParams) {
+                        getWeightedPosts({ variables: {
+                                flair: weightedPostParams.tag,
+                                recencyScore: parseInt(weightedPostParams.recencyScore),
+                                dateRange: weightedPostParams.dateRange
+                        } });
+                }
+        }, [weightedPostParams, getWeightedPosts])
 
-                console.log('weightPostParams: ', weightedPostParams)
-        }
+// once array of weighted post ids comeback, format results to be passed into getChosenPostId and generate an array of random ids
+        useEffect(() => {
+                if (weightedPostsData) {
+                        const formattedPostIds = weightedPostsData.getWeightedPosts.map((postResult) => postResult._id)
+                        let randomPostIDSet = new Set();
         
-// then we need to make the api call
-// this will be done by using the 'requestParameters' to make the api call 
-// this is an array that contains the 'tag', 'dateRange', and 'recencyScore'
-// these will be our filters for the api call
-
-        // const makeApiCall = (requestParameters) => {
-        //   // this will be the api call 
-        //} 
-
-
-// then we need to choose the reults from the api call to display
-        // const getChosenPostId = (postIds) => {
-        //   let randomIndex = Math.floor(Math.random() * postIds.length);
-        //   let postId = postIds[randomIndex];
-        //   return postId
-        // }
+                        for (let i = 0; i < 7; i++) {
+                                let id = getChosenPostId(formattedPostIds);
+                                
+                                while (randomPostIDSet.has(id)) {
+                                        id = getChosenPostId(formattedPostIds);
+                                }
+                                randomPostIDSet.add(id);
+                        }
+                        
+                        setRandomPostIdArray(Array.from(randomPostIDSet));
+                }
+        }, [weightedPostsData]);
 
 
 // then we make a call to the api to get the post data
-        // const getPostData = (postId) => {
-        //   // this will be the api call 
-        // return postData
-        // }
+        const [getQueriedPosts, { loading: queriedPostsLoading, data: queriedPostsData, error: queriedPostsError }] = useLazyQuery(GET_POSTS_BY_ID);
+
+        useEffect(() => {
+                if (randomPostIdArray.length > 0) {
+
+                        getQueriedPosts({
+                                variables: { ids: randomPostIdArray }
+                        })
+                }
+        }, [randomPostIdArray])
 
 
-        // let PostdataArray = [];
-// then we need to stick the post data into an array
-        // const addPostDataToArray = (postData) => {
-        //   // this pushes the post data into an array 
-        // }
-
-
-// we need to run all of this on page load 7 times
-// this will be done by using a 'useEffect' hook
+        // THIS IS THE POST DATA TO BE PASSED INTO DISPLAYING COMPONENT
+        console.log('queried posts: ', queriedPostsData)
 
 //then we need to display the post data in a feedCompononent
         //this will be done by using the 'PostdataArray' to populate the feedComponent
@@ -70,11 +80,12 @@ const FeedPage = () => {
                 <>
                 <Header />
                 <div className="bg-bkg-1 text-content">
-                        {loading ? (
+                        {!queriedPostsData ? (
                         <div>Loading...</div>
                         ) : (
                         <div>
-                                { error ? (<p>Error! {error.message}</p>): (<h2>Some data should have been sent back!</h2>) }
+                                <Feed dataArray={queriedPostsData.getPostsById} type={"post"} feedToUse={"posts"} />
+                                { queriedPostsError ? (<p>Error! {queriedPostsError.message}</p>): (<h2>Some data should have been sent back!</h2>) }
                         </div>
                         )}
                 </div>

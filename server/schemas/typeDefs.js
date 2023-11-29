@@ -28,14 +28,15 @@ const typeDefs = `
     _id: ID
     userId: ID
     dateCreated: String
-    imageSrc: String
+    content: String
     title: String
-    description: String
-    likes: Int
+    textContent: String
+    likes: [ID]
     flairs: [String]
     commentable: Boolean
     comments: [Comment]
     shouldRendering: Boolean
+    recencyScore: Int
   }
 
   type Comment {
@@ -66,15 +67,14 @@ const typeDefs = `
 
 
   type Query {
-    user(_id: ID!): Profile
-
-    scrapbook(_id: ID!): [Post]
-    post(_id: ID!): Post
-
-
-    profile(userId: ID!): Profile
     userPrefs: [flairScore]
-    getWeightedPosts(flairs: [String], recencyScore: Int, dateRange: [String]): [Post]
+
+    me: Profile
+    getOthersProfile(userId: ID!): Profile
+
+    getWeightedPosts(flair: String, recencyScore: Int, dateRange: [String]): [Post]
+    getPostById(_id: ID!): Post
+    getPostsById(ids: [ID!]!): [Post]
   }
 
   type Mutation {
@@ -82,6 +82,8 @@ const typeDefs = `
     addUser(firstName: String!, lastName: String!, email: String! password: String!): Auth
     addProfile(username: String!, bio: String, profilePicture: String, userId: ID): Profile
     updateUserPrefs(input: [flairScoreInput]): User
+
+    createPost(content: String!, textContent: String!, flairs: [String!]!): Post
   }
 `;
 
