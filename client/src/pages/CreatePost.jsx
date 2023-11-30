@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Form, Link, useNavigate } from 'react-router-dom';
-import InputField from '../components/FormStuffs/InputField';
 import FormContainer from '../components/FormStuffs/FormContainer';
 import animals from '../assets/images/animals.png';
 import art from '../assets/images/art.png';
@@ -17,27 +16,20 @@ import science from '../assets/images/science.png';
 import sports from '../assets/images/sports.png';
 import technology from '../assets/images/tech.png';
 import travel from '../assets/images/travel.png';
-import { CREATE_PROFILE, UPDATE_USER_PREFS } from '../utils/mutations'
 import MyButton from '../components/profile/MyButton';
 import FormTitle from '../components/FormStuffs/FormTitle';
 import TextField from '../components/FormStuffs/TextField';
 import GridOfStuff from '../components/FormStuffs/GridOfStuff';
-
 import ImageIcon from '../components/profile/ImageIcon';
-import { SlackLogo } from '@phosphor-icons/react';
 import { useEffect } from 'react';
 import { useQuery, useMutation } from '@apollo/client'
-import { GET_FLAIR_SCORES } from "../utils/queries";
-import addPoints from "../utils/algorithms/createUserPref"
-import { newInvariantError } from '@apollo/client/utilities/globals';
 import ImageUpload from '../components/ImageComponents/ImageUpload';
-
+import {CREATE_POST} from '../utils/mutations'
 // creating a profile requirements:
 // - username (optional: as user types, check value against existing usernames)
 // - 1 to 5 flairs to prefer
 // - userid (from context)
 const CreatePost = () => {
-    const [username, setUsername] = useState('');
     const [description, setDescription] = useState('');
     const [selectedTags, setSelectedTags] = useState([]);
     const [image, setImage] = useState('https://cataas.com/cat')
@@ -102,8 +94,39 @@ const handleDescriptionChange = (event) => {
     setDescription(event.target.value);
 };
 
-    const handleSubmit = async (event) => {
 
+const [createPost, { error }] = useMutation(CREATE_POST, {
+    onCompleted: (data) => {
+        console.log(data);
+        // navigate('/profile');
+        //change to profile page
+        window.location.assign('/feed')
+    },
+    onError: (error) => {
+        console.log(error);
+    }
+    
+});
+
+
+const profileFromStorage  = localStorage.getItem('profile')
+console.log(profileFromStorage)
+const profile = JSON.parse(profileFromStorage)
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        if (!description || selectedTags.length === 0) {
+            return alert('Missing values!')
+        }
+        console.log(description, selectedTags, image)
+
+         try {
+         const { data: userData } = await createPost({
+             variables: { username: profile.username, textContent: description, profilePicture: profile.profilePicture, flairs: selectedTags, content: image },
+         });
+         } catch (error) {
+             console.error('creating post error: ', error)
+         }
     }
 
 
