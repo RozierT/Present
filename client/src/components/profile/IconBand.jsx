@@ -40,16 +40,7 @@ const IconBand = ({ dataArray, refsArray }) => {
     } else {
       return (
         <div key={index} className="flex-1 p-0">
-          <ImageIcon
-            size="fill"
-            bordered={true}
-            shape="square"
-            imageSrc={null}
-            alt=""
-            linked={false}
-            actionable={true}
-            action={() => handleClick(index)}
-          />
+          
         </div>
       );
     }

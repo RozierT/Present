@@ -8,7 +8,15 @@ import alterUserArray from "../../utils/algorithms/alterUserPref"
 
 const InteractionBar = ({ userId, postId, likes, tags }) => {
 
-
+  const copyContent = async () => {
+    const text = window.location.href;
+    try {
+      await navigator.clipboard.writeText(text);
+      console.log('Content copied to clipboard');
+    } catch (err) {
+      console.error('Failed to copy: ', err);
+    }
+  }
   
   const { loading, data: userFlairs , error } = useQuery(GET_FLAIR_SCORES)
   let action
@@ -128,7 +136,7 @@ const share = () => {
   console.log('share');
   action = "share"
   handleAction(action)
-
+  copyContent()
 
 };
   return (

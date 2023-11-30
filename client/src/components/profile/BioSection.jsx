@@ -110,8 +110,6 @@ let storedUserId = JSON.parse(localStorage.getItem('user'))
           <div className="flex justify-start p-1">
             <MyButton size={"small"} shape={"circle"} content={buttonName} action={buttonAction} type={"bordered"} />
             
-          <p className="ml-4">following: </p>
-          
           </div>
          
         </div>

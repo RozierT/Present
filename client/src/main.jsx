@@ -5,13 +5,12 @@ import App from './App.jsx';
 import ProfilePage from './pages/ProfilePage.jsx';
 import "./index.css";
 import Settings from './pages/SettingPage.jsx';
-import Login from './pages/TestLoginPage.jsx';
-import Signup from './pages/TestSignUp.jsx';
+import Login from './pages/LoginPage.jsx';
+import Signup from './pages/SignUp.jsx';
 import NotificationPage from './pages/NotificationPage.jsx';
-import MakeProfile from './pages/TestCreateProfile.jsx';
-import HomePage from './pages/TestHomePage.jsx';
+import MakeProfile from './pages/CreateProfile.jsx';
+import HomePage from './pages/HomePage.jsx';
 import FeedPage from './pages/FeedPage.jsx';
-import NewImagePage from './pages/ImageUpload.jsx';
 import CreatePost from './pages/CreatePost.jsx';
 
 

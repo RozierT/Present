@@ -4,48 +4,55 @@ import { PaperPlaneTilt, CaretUp, XCircle } from '@phosphor-icons/react';
 import ImageIcon from '../profile/ImageIcon';
 import CommentPage from './CommentPage';
 import { useQuery } from '@apollo/client';
-import { useParams } from "react-router-dom";
 import alterUserArray from "../../utils/algorithms/alterUserPref";
 import { GET_FLAIR_SCORES } from "../../utils/queries";
 import { UPDATE_USER_PREFS } from "../../utils/mutations";
 import { useMutation } from '@apollo/client'
+import { CREATE_COMMENT } from '../../utils/mutations';
 
 
 const PostText = ({ textContent, comments, type, postId, profilePicture, tags}) => {
- const [inputValue, setInputValue] = useState('');
+ const [commentValue, setCommentValue] = useState('');
  const [showComments, setShowComments] = useState(false);
 
- const handleInputChange = (event) => {
-   setInputValue(event.target.value);
+ const handleCommentValueChange = (event) => {
+  event.preventDefault();
+  setCommentValue(event.target.value);
  };
 
 
-   const buildCommentAndNotify = (commentText, postId ) => {
-    //   let comment = {
-    //     commentText: action,
-    //     postId: postId
-    //   }
-    //let notification = {
-      //     action: action,
-      //     userToNotifyId: userId
-      //   }
+   
+
+    const [createComment] = useMutation(CREATE_COMMENT, {
+      onCompleted: (data) => {
+          console.log(data);
+          // navigate('/profile');
+      },
   
-      // try {
-      //     const { data: userData } = await buildNotification({
-      //         variables: { notification },
-      //     });
-      // } catch (error) {
-      //     console.error('updating post stats error: ', error)
-      // }
-      // try {
-      //     const { data: userData } = await updatePostComments({
-      //         variables: { comment },
-      //     });
-      // } catch (error) {
-      //     console.error('updating post Comments error: ', error)
-      // }
+  });
+  
+  
+  const profileFromStorage = JSON.parse(localStorage.getItem('profile'));
+  
+      const handleSubmit = async (event) => {
+          event.preventDefault();
+          if (!commentValue ) {
+              return alert('Missing values!')
+          }
+  
+           try {
+           const { data: userData } = await createComment({
+               variables: { username: profileFromStorage.username, textContent: commentValue, profilePicture: profileFromStorage.profilePicture, postId: postId },
+           });
+           setCommentValue('')
+           } catch (error) {
+               console.error('creating post error: ', error)
+           }
+           
+      }
+  
+  
     
-    };
     
 
 
@@ -103,12 +110,7 @@ const PostText = ({ textContent, comments, type, postId, profilePicture, tags}) 
 
 
 
- const createComment = () => {
-   console.log(inputValue);
-    buildCommentAndNotify(inputValue, postId)
-   // this will be the mutation to create a comment
-  // this will use the postId to find the post and then add the comment to the database
- };
+
  const toggleComments = () => {
    setShowComments(!showComments);
    action = "comment"
@@ -125,11 +127,32 @@ const PostText = ({ textContent, comments, type, postId, profilePicture, tags}) 
   // this will use the postId to find the notification and then remove it from the database
 };
 
-const profileFromStorage = JSON.parse(localStorage.getItem('profile'));
 
 
- const CommentSection = () => (
-   <>
+
+
+
+ return (
+  <>
+    {type === 'comment' ? (
+      <div className="text-base flex justify-between pl-4 pt-2 pr-4 pb-4 bg-bkg-2 ">
+        {textContent}
+      </div>
+    ) : type === 'notification' ? (
+      <div className="text-base flex justify-between pl-4  pr-4 pb-2 bg-bkg-2 ">
+        <div>
+        {textContent}
+        </div>
+        <div className="flex justify-end">
+          <MyButton shape={"circle"} type={"empty"} content={<XCircle size={28}  />} action={dismissNotification}/>
+          </div>
+      </div>
+    ) : (
+      <div className="text-base flex justify-between pl-4 pt-2 pr-4 pb-4 bg-bkg-2 ">
+        {textContent}
+      </div>
+    )}
+    {type === 'post' &&    <>
      <div className='bg-bkg-2 w-full flex justify-center pt-4'>
        <div className='w-[100%] p-2 border-t border-accent-2 mb-2'>
          <div className='flex justify-start'>
@@ -156,44 +179,24 @@ const profileFromStorage = JSON.parse(localStorage.getItem('profile'));
                mr-2 w-60" 
                type="text" 
                placeholder=" Add a comment..." 
-               value={inputValue}
-               onChange={handleInputChange}
+               value={commentValue}
+               onChange={handleCommentValueChange}
              />
-             <PaperPlaneTilt onClick={createComment} size={36}  weight="light" />
+             <PaperPlaneTilt onClick={handleSubmit} size={36}  weight="light" />
            </div>
          </div>
        </div>
      </div>
      {showComments && (
-       <div className="mt-">
-         <MyButton type={"circle"} content={<CaretUp size={28}  weight="fill" />} action={toggleComments}/>
+      <>
+       <MyButton type={"circle"} content={<CaretUp size={28}  weight="fill" />} action={toggleComments}/>
+       <div className="bg-black border-r-4 border-l-4 pr-2 pl-2 pt-4 border-b-4 border-black">
+        
          <CommentPage postId={postId} tempPostDataArray={comments} />
        </div>
+       </>
      )}
-   </>
- );
-
- return (
-  <>
-    {type === 'comment' ? (
-      <div className="text-base flex justify-between pl-4 pt-2 pr-4 pb-4 bg-bkg-2 ">
-        {textContent}
-      </div>
-    ) : type === 'notification' ? (
-      <div className="text-base flex justify-between pl-4  pr-4 pb-2 bg-bkg-2 ">
-        <div>
-        {textContent}
-        </div>
-        <div className="flex justify-end">
-          <MyButton shape={"circle"} type={"empty"} content={<XCircle size={28}  />} action={dismissNotification}/>
-          </div>
-      </div>
-    ) : (
-      <div className="text-base flex justify-between pl-4 pt-2 pr-4 pb-4 bg-bkg-2 ">
-        {textContent}
-      </div>
-    )}
-    {type === 'post' && <CommentSection />}
+   </>}
   </>
 )
     };
