@@ -113,7 +113,7 @@ const FeedPage = () => {
 
 // we will need to store the results of the api call in state
 // we will need a solution for adding more posts to the feed when the user clicks the 'load more' button
-
+queriedPostsError ? addToAmountToShow() : null
 
         return (
                 <>
@@ -124,7 +124,7 @@ const FeedPage = () => {
                         ) : (
                         <div>
                                 <Feed dataArray={postsToShow} type={"post"} feedToUse={"posts"} />
-                                { queriedPostsError ? (<p>Error! {queriedPostsError.message}</p>): (<div className='h-60 bg-bkg-1'></div>) }
+                                { queriedPostsError ? (<p className="text-center">Loading...</p>): (<div className='h-60 bg-bkg-1'></div>) }
                         </div>
                         )}
                 </div>
