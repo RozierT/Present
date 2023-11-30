@@ -4,7 +4,7 @@ import { IconContext, House, Camera, Gear, User } from "@phosphor-icons/react";
 import { useLocation } from "react";
 
 const user = JSON.parse(localStorage.getItem('user'));
-console.log(user)
+// console.log(user)
 
 let buttons
 
