@@ -113,6 +113,8 @@ const tagElements = visualTags.map((tag, index) => (
     const handleBioChange = (event) => {
         setBio(event.target.value);
     };
+
+    
     const handleSubmit = async (event) => {
         event.preventDefault();
         if (!username || !bio || selectedTags.length === 0) {
@@ -177,7 +179,7 @@ const tagElements = visualTags.map((tag, index) => (
         <FormContainer>
           
                 <FormTitle title={"Create Profile"} />
-                
+
          <ImageUpload tags={selectedTags} onImageUpload={handleImageUpload} shape={"round"}/>
                
                 <div className='flex justify-center'>

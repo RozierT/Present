@@ -44,19 +44,23 @@ const ProfilePage = () => {
       {!profileData ? (
         <div>Loading...</div>
       ): (
-        <div>
+        <div >
           {console.log('porf data: ', profileData)}
           { profileError ? (<p>Error! {profileError.message}</p>): (<div></div>) }
           <BioSection profile={profileData.getOthersProfile} />
           {profileData.getOthersProfile.posts.length > 0 ? (
           <Feed dataArray={profileData.getOthersProfile.posts} type={"post"} feedToUse={"profile"} />
       ) : (
+        <div className=" bg-bkg-1 h-screen">
         <h1 className="text-2xl font-bold text-center">
           {profileData.getOthersProfile.username} has no posts yet
         </h1>
+        </div>
       )}
         </div>
       )}
+      <div className=" bg-bkg-1 h-200">
+      </div>
       <Footer />
     </div>
   );

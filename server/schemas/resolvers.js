@@ -3,6 +3,22 @@ const { signToken, AuthenticationError } = require("../utils/auth");
 
 const resolvers = {
   Query: {
+    getUsernames: async (parent, { username }, context) => {
+      if (!context.user) {
+        throw new Error("Authentication required");
+      }
+
+      // console.log('incoming username', username)
+
+      const listOfUsers = await Profile.find({
+        username: { $regex: username, $options: 'i' }
+      }).select('username userId profilePicture')
+      .limit(10)
+
+      // console.log('returned user list: ', listOfUsers)
+      
+      return listOfUsers
+    },
     // Find (logged in) user by id (context) and return their Flair Score Array
     userPrefs: async (parent, args, context) => {
       if (!context.user) {

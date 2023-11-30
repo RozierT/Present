@@ -33,7 +33,7 @@ const [getComments, { loading: commentLoading, data: commentData , error: commen
     return (
         <div className="" onClick={comment}>
           {!commentData ? (<div>Loading...</div>) : (
-            <Feed feedToUse="comment" type={"comment"} dataArray={commentData.getComments} extraStyles={" border-t-4 border-b-4 border-black"}/>
+            <Feed feedToUse="comment" type={"comment"} dataArray={commentData.getComments} extraStyles={""}/>
           )}
         </div>
     );

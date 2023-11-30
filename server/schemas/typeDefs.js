@@ -75,6 +75,7 @@ const typeDefs = `
 
     me: Profile
     getOthersProfile(userId: ID!): Profile
+    getUsernames(username: String): [Profile]
 
     getWeightedPosts(flair: String, recencyScore: Int, dateRange: [String]): [Post]
     getPostById(_id: ID!): Post

@@ -6,6 +6,8 @@ import InputField from "../components/FormStuffs/InputField";
 import { useState } from "react";
 import MyButton from "../components/profile/MyButton";
 import SearchResults from "../components/searchStuff/searchResults";
+import { GET_USERNAMES } from "../utils/queries";
+import { useLazyQuery } from "@apollo/client";
 
 let data = [
     {
@@ -33,6 +35,8 @@ const ExplorePage = () => {
     const [formState, setFormState] = useState({ search: ""});
     const [searchResults, setSearchResults] = useState("none");
 
+    const [searchUsers, { loading: searchedUsersLoading, data: searchedUsersData,  error: searchedUsersError }] = useLazyQuery(GET_USERNAMES);
+
    // update state based on form input changes
    const handleChange = (event) => {
     const { name, value } = event.target;
@@ -41,10 +45,13 @@ const ExplorePage = () => {
         [name]: value,
     });
     };
- const handleFormSubmit = () => {
-     console.log(formState)
-     setSearchResults("results")
-     // find all users where username includes formstate
+    const handleFormSubmit = () => {
+        console.log("form state: ", formState)
+        setSearchResults("results")
+        // find all users where username includes formstate
+            searchUsers({ variables: {
+                    username: formState.search
+                }})
     }
 
     return (
@@ -62,9 +69,9 @@ const ExplorePage = () => {
                  <MyButton content={"search"} type={"bordered"} shape={"circle"} size={"small"} action={handleFormSubmit}/></div>
 
                  <div className="h-screen  bg-bkg-2">
-                 {searchResults === "none" ? <p>no results</p> :   
-            <SearchResults resultsArray={data} /> 
-            }
+                 {!searchedUsersData ? (<p>no results</p>) : (  
+            <SearchResults resultsArray={searchedUsersData.getUsernames} /> 
+            )}
             </div>
             <Footer />
         </div>
