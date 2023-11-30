@@ -16,7 +16,7 @@ const SearchResults = ({ resultsArray }) => {
               item.type === 'notification' ? 'border-t-2' : 'border-b-2'
             }`}
           >
-                    <Link to={`/profile/:${item.id}`}>
+                    <Link to={`/profile/${item.userId}`}>
                      <div className="text-md font-bold flex">
             <ImageIcon
               size={"xSmall"}
