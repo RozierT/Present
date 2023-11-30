@@ -69,7 +69,7 @@ const ExplorePage = () => {
                  <MyButton content={"search"} type={"bordered"} shape={"circle"} size={"small"} action={handleFormSubmit}/></div>
 
                  <div className="h-screen  bg-bkg-2">
-                 {!searchedUsersData ? (<p>no results</p>) : (  
+                 {!searchedUsersData ? (<p className="text-center pt-4">search for a user...</p>) : (  
             <SearchResults resultsArray={searchedUsersData.getUsernames} /> 
             )}
             </div>
