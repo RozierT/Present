@@ -616,7 +616,7 @@ const getChosenPostId = (postIds) => {
 // ~~~~~~~~~~~~~~~~~~~~~~  TEST CODE BLOCK ~~~~~~~~~~~~~~~~~~~~~~~~
 //THIS IS WHERE THE TEST CODE WILL GO THAT WILL RUN THE TESTS ON THE USERS INTERACTIONS WITH THE POSTS      
 function runTests(userArray, action) {
-    const testsToRun = 10000;
+    const testsToRun = 1000;
     let iterations;
     console.log(`\n\n\n`);
     console.log(`the test will run ${testsToRun} times...`);

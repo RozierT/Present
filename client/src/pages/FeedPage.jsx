@@ -113,7 +113,6 @@ const FeedPage = () => {
 
 // we will need to store the results of the api call in state
 // we will need a solution for adding more posts to the feed when the user clicks the 'load more' button
-queriedPostsError ? addToAmountToShow() : null
 
         return (
                 <>
