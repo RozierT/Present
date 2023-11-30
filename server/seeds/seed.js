@@ -247,7 +247,7 @@ const generateRandomUser = () => {
 };
 
 
-for (i = 0; i < 100; i++ ){
+for (i = 0; i < 1000; i++ ){
 generateRandomUser();
 // console.log("one user done")
 }

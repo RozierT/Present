@@ -164,3 +164,13 @@ export const GET_POST_COMMENTS = gql`
   }
 }
 `
+
+export const GET_USERNAMES = gql`
+  query getUsernames($username: String) {
+  getUsernames(username: $username) {
+    username
+    userId
+    profilePicture
+  }
+}
+`
