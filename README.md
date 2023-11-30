@@ -51,14 +51,14 @@ Capture The ... Present. Present is a photo centric social media application opt
 [Present App Login/Sign-Up Page](https://present-social-app-4b519de33a7f.herokuapp.com/)
 
 ### Deployed Application Screenshots
-
-![Login/Sign-Up Page (Homepage)](<client/src/assets/images/present-social-app-4b519de33a7f.herokuapp.com_ (2).png>)
-![Login Menu](<client/src/assets/images/present-social-app-4b519de33a7f.herokuapp.com_signup (3).png>)
-![Sign-Up Menu](<client/src/assets/images/present-social-app-4b519de33a7f.herokuapp.com_signup (2).png>)
-![Create Profile Page](<client/src/assets/images/present-social-app-4b519de33a7f.herokuapp.com_signup (4).png>)
-![Public Feed Page](client/src/assets/images/present-social-app-4b519de33a7f.herokuapp.com_feed.png)
-![Notification Page](client/src/assets/images/present-social-app-4b519de33a7f.herokuapp.com_notifications.png)
-![User Profile and Feed ](<client/src/assets/images/present-social-app-4b519de33a7f.herokuapp.com_feed (4).png>)
+![Login/Sign-Up Page(Homepage)](client/src/assets/images/Screenshot_20231129-173521.png)
+![Login Menu](client/src/assets/images/Screenshot_20231129-173543.png)
+![Sign-Up Menu](client/src/assets/images/Screenshot_20231129-173532.png)
+![Create Profile Page](client/src/assets/images/Screenshot_20231129-173711.png)
+![Home/Public Feed](client/src/assets/images/Screenshot_20231129-173725.png)
+![User Profile Page and Feed](client/src/assets/images/Screenshot_20231129-173815.png)
+![Notification Page](client/src/assets/images/Screenshot_20231129-173748.png)
+![Settings Menu/Logout](client/src/assets/images/Screenshot_20231129-173740.png)
 
 ### Credits
 
